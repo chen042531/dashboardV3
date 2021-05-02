@@ -8,57 +8,100 @@
         <p class="  f" id="user">{{username}}</p>
         <p class="  f" id="logout">登出</p>
     </header>
-
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="position-sticky ">
-            
-            <h5  style="padding: 1rem; margin-bottom: 0; color: #727272;;">
-            活動名稱
-            </h5>
-            <ul class="list-unstyled">
-              <li class="nav-item" id="active_list">
-                <h6>正在進行的活動</h6>
-                <ul  class="sidebar-submenu list-unstyled ">
-                    <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <span class=""> {{event.eventName}}</span>
-                    </a>
-                    </li>
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky ">
+                
+                <h5  style="padding: 1rem; margin-bottom: 0; color: #727272;;">
+                活動名稱
+                </h5>
+                <ul class="list-unstyled">
+                  <li class="nav-item" id="active_list">
+                    <h6>正在進行的活動</h6>
+                    <ul  class="sidebar-submenu list-unstyled ">
+                        <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
+                        <a href="#" class="list-group-item list-group-item-action" v-on:click="activeGoTO(index)">
+                            <span class=""> {{event.eventName}}</span>
+                        </a>
+                        </li>
+                    </ul>
+                  </li> 
+                  <li class="nav-item" id="expired_list">
+                    <h6>已經結束的活動</h6>
+                    <ul  class="sidebar-submenu list-unstyled ">
+                        <li class="nav-item" v-for="(event,index) in expired_list" :key="index">  
+                        <a href="#" class="list-group-item list-group-item-action" v-on:click="expiredGoTO(index)">
+                            <span class=""> {{event.eventName}}</span>
+                        </a>
+                        </li>
+                    </ul>
+                  </li>
                 </ul>
-              </li> 
-              <li class="nav-item" id="expired_list">
-                <h6>已經結束的活動</h6>
-              </li>
-            </ul>
-          
-        </div>
-    </nav>
+
+            </div>
+        </nav>
+      
+        <app-before v-if="home_content_flag==1" :charityID="charityId" :eventID="event_Id" :eventType="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
+      </div>
+    </div>
   </div> 
 </template>
 
 <script>
+import Before from './HomeContent/Before';
 export default {
   props:['charityId','username'],
   data () {
     return {
+      home_content_flag: 0,
       active_list:  [],
       expired_list: [],
+      event_Id: "",
+      event_Type: "",
     }
   },
-  created: function () {
+  created : function () {
+    let t = this;
     $.post(
       "http://140.113.216.53:8000/getCharityActivities/",
       { charityID: this.charityId },
       function (getCharityActivities_data) {
         console.log(getCharityActivities_data);
-        this.active_list = getCharityActivities_data.active_list;
-        this.expired_list = getCharityActivities_data.expired_list;
+         t.active_list = getCharityActivities_data.active_list;
+         t.expired_list = getCharityActivities_data.expired_list;
       }
     );
        
   },
   methods: {
-    login(){}
+    activeGoTO: function (i){
+      let t = this;
+      t.event_Id = t.active_list[i].eventID
+      t.event_Type = t.active_list[i].eventType
+      console.log(t.event_Id,t.event_Type)
+      // $.post(
+      //   "http://140.113.216.53:8000/getEventDetail/",
+      //   // { eventType: String(event_Id), eventID: String(event_Type) },
+      //   { eventType: String(3), eventID: String(2) },
+      //   function (getEventDetail_data) {
+      //     console.log(event_Id,event_Type);
+      //     console.log(getEventDetail_data);
+      //     // t.active_list = getCharityActivities_data.active_list;
+      //     // t.expired_list = getCharityActivities_data.expired_list;
+      //   }
+      // );
+      t.home_content_flag = 1;
+    },
+    expiredGoTO: function (i){
+      let t = this;
+      console.log("eeeeeeee");
+      t.home_content_flag = 2;
+    },
+    
+  },
+  components:{
+    'app-before':Before,
   }
 }
 </script>
