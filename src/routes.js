@@ -4,10 +4,14 @@ import Home from './components/Home.vue';
 export const routes = [
   {
     path: '/Home',
-    component: Home
+    name:"Home",
+    component: Home,
+    props: true
   },
   {
     path: '/',
-    component: Login
+    name:"Home",
+    component: Login,
+    props: true
   }
 ];

@@ -28,10 +28,11 @@
     methods: {
       login(){
       
-        let phoneNumber = this.phoneNumber
-        let passWord = this.passWord
-        let status = ""
-        let userId = ""
+        let phoneNumber = this.phoneNumber;
+        let passWord = this.passWord;
+        let status = "";
+        let userId = "";
+        let rou = this;
         // 帳號密碼需驗證不能為空
         // if (phoneNumber !== '' && passWord !== '') {
         //   this.loginForm.token = token
@@ -52,12 +53,14 @@
               console.log(data);
                status = data.status
               userId = data.userID
+              console.log(userId);
+              if( status == 0 )
+                rou.$router.push({ name: 'Home', params: {userID: userId }});
+              else
+                alert('login failed');
             }
           );
-        if( status == 0 )
-          this.$router.push('Home');
-        else
-          alert('login failed');
+        
       }
     } 
   }
