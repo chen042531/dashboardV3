@@ -10,7 +10,7 @@ export const routes = [
   },
   {
     path: '/',
-    name:"Home",
+    name:"Login",
     component: Login,
     props: true
   }

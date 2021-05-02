@@ -1,8 +1,8 @@
 <template>
-  <div class="form-signin text-center" >
+  <div class="form-signin" >
     <img class="mb-4" src="../assets/logo.png" alt="" width="300px">
-    <form @submit.prevent="login">
-  
+    <form @submit.prevent="login" >
+      
       <!-- <label for="phoneNumber" class="visually-hidden">電話號碼</label> -->
       <input type="text" v-model="phoneNumber" id="inputPhoneNumber" class="form-control" required autofocus>
        <br>
@@ -12,8 +12,6 @@
       
       <button class="w-100 btn btn-lg btn-primary" type="submit">登入</button>
     </form>
-    
-   
   </div>
 </template>
 <script>
@@ -49,16 +47,23 @@
               password: "test",
               platform: "1",
             },
-            function (data) {
-              console.log(data);
-               status = data.status
-              userId = data.userID
-              console.log(userId);
-              if( status == 0 )
-                rou.$router.push({ name: 'Home', params: {userID: userId }});
-              else
-                alert('login failed');
-            }
+            function (login_return) {
+              console.log(login_return);
+                  status = login_return.status
+                  userId = login_return.userID
+                  console.log(userId);
+              $.post(
+              "http://140.113.216.53:8000/getUserInfo/",
+                {userID:  userId },
+                function (getUserInfo_return) {
+                  console.log("df",getUserInfo_return.cid);
+                  rou.$router.push({ name: 'Home', params: {charityId: getUserInfo_return.cid, username: getUserInfo_return.name }});
+                  // if( status == 0 )
+                  //   rou.$router.push({ name: 'Home', params: {userID: userId }});
+                  // else
+                  //   alert('login failed');
+              });
+            } 
           );
         
       }
@@ -66,7 +71,7 @@
   }
 </script>
 <style>
-    html,
+    /* html,
     body {
     height: 100%;
     }
@@ -77,7 +82,7 @@
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: #f5f5f5;
-    }
+    } */
 
     .form-signin {
     width: 100%;
