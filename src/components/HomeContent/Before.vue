@@ -107,7 +107,7 @@
 
 <script>
 export default {
-  props:['charityID','eventID','eventType'],
+  props:['charity_id','event_id','event_type'],
   data () {
     return {
       eventName:  "",
@@ -120,8 +120,7 @@ export default {
     var t = this;
     $.post(
         "http://140.113.216.53:8000/getEventDetail/",
-        // { eventType: String(event_Id), eventID: String(event_Type) },
-        { eventType: String(3), eventID: String(2) },
+        { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
           console.log(getEventDetail_data);
@@ -131,10 +130,29 @@ export default {
         }
       );
 
-       $.post(
+      //  $.post(
+      //   "http://140.113.216.53:8000/getApplierList/",
+      //   { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: "0" },
+      //   // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
+      //   function (getApplierList_data) {
+      //   //   console.log(t.eventID,t.eventType);
+      //   console.log("ddddddddd");
+      //     console.log("dddgg",getApplierList_data);
+      //     t.appliers = getApplierList_data.appliers;
+     
+      //   }
+      // );
+       
+  },
+  watch: { 
+    event_id: function(newVal, oldVal) { // watch it
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+      
+      var t = this;
+      $.post(
         "http://140.113.216.53:8000/getApplierList/",
-        // { eventType: String(event_Id), eventID: String(event_Type) },
-        { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
+        { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: "0" },
+        // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
         function (getApplierList_data) {
         //   console.log(t.eventID,t.eventType);
         console.log("ddddddddd");
@@ -143,7 +161,7 @@ export default {
      
         }
       );
-       
+    }
   },
   methods: {
     login(){}

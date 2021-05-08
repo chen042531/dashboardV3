@@ -43,8 +43,8 @@
             {
               // phoneNum: this.phoneNumber,
               // password: this.passWord,
-              phoneNum: "0911111111",
-              password: "test",
+              phoneNum: rou.phoneNumber,
+              password: rou.passWord,
               platform: "1",
             },
             function (login_return) {

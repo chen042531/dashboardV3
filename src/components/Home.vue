@@ -42,7 +42,9 @@
             </div>
         </nav>
       
-        <app-before v-if="home_content_flag==1" :charityID="charityId" :eventID="event_Id" :eventType="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
+        <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" :event_type="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
+
+        <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="event_Id" :event_type="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
       </div>
     </div>
   </div> 
@@ -50,6 +52,8 @@
 
 <script>
 import Before from './HomeContent/Before';
+import After from './HomeContent/After';
+
 export default {
   props:['charityId','username'],
   data () {
@@ -65,7 +69,7 @@ export default {
     let t = this;
     $.post(
       "http://140.113.216.53:8000/getCharityActivities/",
-      { charityID: this.charityId },
+      { charityID: t.charityId },
       function (getCharityActivities_data) {
         console.log(getCharityActivities_data);
          t.active_list = getCharityActivities_data.active_list;
@@ -80,28 +84,20 @@ export default {
       t.event_Id = t.active_list[i].eventID
       t.event_Type = t.active_list[i].eventType
       console.log(t.event_Id,t.event_Type)
-      // $.post(
-      //   "http://140.113.216.53:8000/getEventDetail/",
-      //   // { eventType: String(event_Id), eventID: String(event_Type) },
-      //   { eventType: String(3), eventID: String(2) },
-      //   function (getEventDetail_data) {
-      //     console.log(event_Id,event_Type);
-      //     console.log(getEventDetail_data);
-      //     // t.active_list = getCharityActivities_data.active_list;
-      //     // t.expired_list = getCharityActivities_data.expired_list;
-      //   }
-      // );
       t.home_content_flag = 1;
     },
     expiredGoTO: function (i){
       let t = this;
-      console.log("eeeeeeee");
+      t.event_Id = t.expired_list[i].eventID
+      t.event_Type = t.expired_list[i].eventType
+      console.log("asdsa",t.event_Id,t.event_Type,i)
       t.home_content_flag = 2;
     },
     
   },
   components:{
     'app-before':Before,
+    'app-after':After,
   }
 }
 </script>
@@ -143,5 +139,7 @@ export default {
 /*
  * Sidebar
  */
-
+#sidebar{
+  
+}
 </style>
