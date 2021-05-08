@@ -14,13 +14,18 @@ export default {
   data() {
     return {
       planetChartData: {
-        type: 'bar',
-        data: {
-            labels: ['一月', '二月', '三月'],
-            datasets: [{
-            label: '銷售業績(百萬)',
-            data: [60, 49, 72]
-            }]
+        type: 'pie',
+        data:{
+          labels: ["男", "女", "其他"],
+          datasets: [{
+            data: this.Gender,
+            backgroundColor: [
+              'rgba(54, 162, 235)',
+              'rgba(255, 99, 132)',
+              'rgba(255, 206, 86)',
+            ],
+            borderWidth: 1
+          }]
         },
         options: {},
         }

@@ -27,7 +27,7 @@
             <div class="card-body">
             <h5 class="card-title " id="t2" data-placement="top"  data-toggle="tooltip" 
                   title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者得知活動的管道</h5>
-              <!-- <Source></Source> -->
+              <Source :Source="source"></Source>
             </div>
           </div>
         </div>
@@ -69,13 +69,13 @@
 
 <script>
 import GenderRate from './chart/GenderRate'
-// import Source from './chart/Source'
+import Source from './chart/Source'
 
 export default {
   props:['charity_id','event_id','event_type'],
   components: {
     GenderRate,
-   
+    Source
   },
   data () {
     return {
