@@ -178,6 +178,19 @@ export default {
 
 
 
+
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
+            datasets: [{
+              label: '銷售業績(百萬)',
+              data: t.age
+            }]
+          }
+        });
+        
         var gender_rate = document.getElementById('gender_rate')
         var gender_rateChart = new Chart(gender_rate, {
           type: 'pie',
