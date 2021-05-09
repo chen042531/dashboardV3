@@ -40,7 +40,7 @@
               <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者平均評分</h5>
            
                 <!-- <div id="star_container"></div> -->
-                <Star :star_score="avg_score"></Star>
+                <Star :star="avg_score"></Star>
                 
               </div>
             </div>
@@ -154,7 +154,7 @@ export default {
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
       { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
       function (getStatisticAndApplicantsTime_data) {
-        console.log(getStatisticAndApplicantsTime_data);
+        console.log("zzz",getStatisticAndApplicantsTime_data);
         t.age = getStatisticAndApplicantsTime_data.age;
         t.gender = getStatisticAndApplicantsTime_data.gender;
         t.source = getStatisticAndApplicantsTime_data.source;
@@ -172,6 +172,22 @@ export default {
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
       
       var t = this;
+      $.post(
+      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      // { eventType: t.event_type, eventId:t.event_id, sid:0 },
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
+      function (getStatisticAndApplicantsTime_data) {
+        console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
+        t.age = getStatisticAndApplicantsTime_data.age;
+        t.gender = getStatisticAndApplicantsTime_data.gender;
+        t.source = getStatisticAndApplicantsTime_data.source;
+        t.avg_score = getStatisticAndApplicantsTime_data.avg_score;
+        t.registration_num = getStatisticAndApplicantsTime_data.registration_num;
+        t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
+        t.applicants = getStatisticAndApplicantsTime_data.applicants;
+        t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
+      }
+    );
       $.post(
         "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
         { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
