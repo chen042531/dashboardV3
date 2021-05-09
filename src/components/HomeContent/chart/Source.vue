@@ -48,13 +48,13 @@ export default {
   },
   mounted() {
     const ctx = document.getElementById('Source');
-    new Chart(ctx, this.planetChartData);
+    
     // console.log("dsf",this.Gender);
   },
   watch: { 
     Gender: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
-
+      new Chart(ctx, this.planetChartData);
      
     }
   },

@@ -118,7 +118,14 @@ export default {
   },
   created : function () {
     var t = this;
-    $.post(
+  },
+  watch: { 
+    event_id: function(newVal, oldVal) { // watch it
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+      
+      var t = this;
+
+       $.post(
         "http://140.113.216.53:8000/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
@@ -130,25 +137,6 @@ export default {
         }
       );
 
-      //  $.post(
-      //   "http://140.113.216.53:8000/getApplierList/",
-      //   { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: "0" },
-      //   // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
-      //   function (getApplierList_data) {
-      //   //   console.log(t.eventID,t.eventType);
-      //   console.log("ddddddddd");
-      //     console.log("dddgg",getApplierList_data);
-      //     t.appliers = getApplierList_data.appliers;
-     
-      //   }
-      // );
-       
-  },
-  watch: { 
-    event_id: function(newVal, oldVal) { // watch it
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-      
-      var t = this;
       $.post(
         "http://140.113.216.53:8000/getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: "0" },
@@ -156,7 +144,7 @@ export default {
         function (getApplierList_data) {
         //   console.log(t.eventID,t.eventType);
         console.log("ddddddddd");
-          console.log("dddgg",getApplierList_data);
+          console.log("dddgsdsg",getApplierList_data);
           t.appliers = getApplierList_data.appliers;
      
         }

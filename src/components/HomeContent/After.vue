@@ -39,7 +39,8 @@
               <div class="card-body">
               <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者平均評分</h5>
            
-                <div id="star_container"></div>
+                <!-- <div id="star_container"></div> -->
+                <Star :star_score="avg_score"></Star>
                 
               </div>
             </div>
@@ -70,17 +71,19 @@
 <script>
 import GenderRate from './chart/GenderRate'
 import Source from './chart/Source'
+import Star from './chart/Star'
 
 export default {
   props:['charity_id','event_id','event_type'],
   components: {
     GenderRate,
-    Source
+    Source,
+    Star
   },
   data () {
     return {
       age: [],
-      gender: [3,2,1],
+      gender: [],
       source: [],
       avg_score: 0,
       registration_num: 0,
@@ -90,7 +93,7 @@ export default {
     }
   },
   
-  created : function () {
+  mounted : function () {
     let t = this;
     $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
@@ -106,23 +109,6 @@ export default {
         t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
         t.applicants = getStatisticAndApplicantsTime_data.applicants;
         t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
-      
-        //star
-        var n_star = Math.floor(t.avg_score);
-        for (var star_n = 1; star_n <= n_star; star_n++) {
-          // $("#star" + star_n).addClass("checked");
-          console.log('start');
-          console.log("ssss",$("#star_container"));
-          $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
-        }
-        if (n_star != t.avg_score) {
-          $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
-        }
-        for (var j = 0; j <= (t.avg_score - n_star); j++) {
-          // $("#star" + star_n).addClass("checked");
-          $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
-        }
- 
       }
     );
        
