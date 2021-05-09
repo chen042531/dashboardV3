@@ -10,7 +10,7 @@ import Chart from 'chart.js'
 
 export default {
   name: 'GenderRate',
-  props:['Gender'],
+  props:['grate'],
   data() {
     return {
       planetChartData: {
@@ -18,7 +18,7 @@ export default {
         data:{
           labels: ["男", "女", "其他"],
           datasets: [{
-            data: this.Gender,
+            data: this.grate,
             backgroundColor: [
               'rgba(54, 162, 235)',
               'rgba(255, 99, 132)',
@@ -28,19 +28,22 @@ export default {
           }]
         },
         options: {},
-        }
+      },
+      canv:Object
+
     }
   },
   mounted() {
     const ctx = document.getElementById('gender_rate');
-    new Chart(ctx, this.planetChartData);
-    console.log("dsf",this.Gender);
+    this.canv = new Chart(ctx, this.planetChartData);
+    console.log("dsf",this.grate);
+    this.canv.update();
   },
   watch: { 
     Gender: function(newVal, oldVal) { // watch it
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+      console.log('gender Prop changed: ', newVal, ' | was: ', oldVal);
 
-     
+      this.canv.update();
     }
   },
 }

@@ -13,12 +13,23 @@
       </div>
       <div>無論是企業社會責任（CSR），或近幾年熱烈響應聯合國提出的全球永續發展目標（SDGs），追求永續發展已成企業經營的關鍵課題。本會努力追尋人與自然和諧共存的方式。若您也是有同樣理念的企業，歡迎透過捐款贊助、志工參與、環境講座、綠色消費等多種合作形式支持我們。</div>
       <div class="row ">
+        <div class="col-sm-12">
+        <div class="card top-buffer">
+            <div class="card-body">
+            <h5 class="card-title">年齡分佈</h5>
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="row ">
         <div class="col-sm-6">
         <div class="card top-buffer">
             <div class="card-body">
             <h5 class="card-title" id="t1" data-placement="top"  data-toggle="tooltip"
                  title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">性別比</h5>
-              <GenderRate :Gender="gender"></GenderRate>
+              <!-- <GenderRate :Gender="gender"></GenderRate> -->
+              <canvas id="gender_rate" width="400" height="200"></canvas>
             </div>
         </div>
         </div>
@@ -27,7 +38,8 @@
             <div class="card-body">
             <h5 class="card-title " id="t2" data-placement="top"  data-toggle="tooltip" 
                   title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者得知活動的管道</h5>
-              <Source :Source="source"></Source>
+              <!-- <Source :Source="source"></Source> -->
+              <canvas id="info_source" width="400" height="200"></canvas>
             </div>
           </div>
         </div>
@@ -163,6 +175,66 @@ export default {
         t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
         t.applicants = getStatisticAndApplicantsTime_data.applicants;
         t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
+
+
+
+        var gender_rate = document.getElementById('gender_rate')
+        var gender_rateChart = new Chart(gender_rate, {
+          type: 'pie',
+          data: {
+            labels: ["男", "女", "其他"],
+            datasets: [{
+              data:  t.gender,
+              backgroundColor: [
+                'rgba(54, 162, 235)',
+                'rgba(255, 99, 132)',
+                'rgba(255, 206, 86)',
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {}
+        });
+
+        var info_source = document.getElementById('info_source')
+// eslint-disable-next-line no-unused-vars
+        var info_sourceChart = new Chart(info_source, {
+          type: 'pie',
+          data: {
+            labels: ["公益趴趴GO App 首頁活動列表",
+              "公益趴趴GO App 官方粉絲團 (FB, IG)",
+              "合作公益單位官網", "合作公益單位廣告文宣",
+              "搜尋引擎 (Google, Yahoo, Bing, ...)",
+              "學校推廣", "親朋好友告知", "其他"],
+
+            datasets: [{
+              data: t.source,
+              backgroundColor: [
+                'rgba(255, 99, 132)',
+                'rgba(54, 162, 235)',
+                'rgba(255, 206, 86)',
+                'rgba(75, 192, 192)',
+                'rgba(54, 162, 235)',
+                'rgba(255, 206, 86)',
+                'rgba(75, 192, 192)',
+                'rgba(255, 159, 64)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          labels: {
+            boxWidth: 20,
+          },
+          options: {
+            legend: {
+              display: true,
+              // position: 'bottom',
+            },
+
+          }
+        });
+        
+
       }
     );
        
@@ -177,17 +249,17 @@ export default {
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
       { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
       function (getStatisticAndApplicantsTime_data) {
-        console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
-        t.age = getStatisticAndApplicantsTime_data.age;
-        t.gender = getStatisticAndApplicantsTime_data.gender;
-        t.source = getStatisticAndApplicantsTime_data.source;
-        t.avg_score = getStatisticAndApplicantsTime_data.avg_score;
-        t.registration_num = getStatisticAndApplicantsTime_data.registration_num;
-        t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
-        t.applicants = getStatisticAndApplicantsTime_data.applicants;
-        t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
-      }
-    );
+          console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
+          t.age = getStatisticAndApplicantsTime_data.age;
+          t.gender = getStatisticAndApplicantsTime_data.gender;
+          t.source = getStatisticAndApplicantsTime_data.source;
+          t.avg_score = getStatisticAndApplicantsTime_data.avg_score;
+          t.registration_num = getStatisticAndApplicantsTime_data.registration_num;
+          t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
+          t.applicants = getStatisticAndApplicantsTime_data.applicants;
+          t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
+        }
+      );
       $.post(
         "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
         { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
