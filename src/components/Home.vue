@@ -53,7 +53,9 @@
             </div>
         </nav>
         <actnew v-if="home_content_flag==0"></actnew>
-        <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" :event_type="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
+        <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
+          :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
+          class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
 
         <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="event_Id" :event_type="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
       </div>
@@ -75,6 +77,8 @@ export default {
       event_Id: "",
       event_Type: "",
       subevent_Id: "",
+      subevent_stime:"",
+      subevent_etime:"",
     }
   },
   created : function () {
@@ -105,10 +109,12 @@ export default {
       let t = this;
       console.log(subevent);
        console.log("ssss",subevent.sid);
-      // t.event_Id = t.active_list.time[i].eventID;
-      // t.event_Type = t.active_list.time[i].eventType;
-      // t.subevent_Id = t.active_list.time[i].subevent_Id;
-      // console.log(t.event_Id,t.event_Type,t.subevent_Id);
+      t.event_Id = subevent.eventID;
+      t.event_Type = subevent.eventType;
+      t.subevent_Id = subevent.sid;
+      t.subevent_stime = subevent.startTime;
+      t.subevent_etime = subevent.endTime;
+      console.log(t.event_Id,t.event_Type,t.subevent_Id);
       t.home_content_flag = 1;
     },
     expiredGoTO: function (i){

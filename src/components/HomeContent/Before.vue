@@ -107,7 +107,7 @@
 
 <script>
 export default {
-  props:['charity_id','event_id','event_type'],
+  props:['charity_id','event_id','event_type','subid'],
   data () {
     return {
       eventName:  "",
@@ -157,7 +157,7 @@ export default {
       );
   },
   watch: { 
-    event_id: function(newVal, oldVal) { // watch it
+    subid: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       
       var t = this;
@@ -176,7 +176,7 @@ export default {
 
       $.post(
         "http://140.113.216.53:8000/getApplierList/",
-        { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: "0" },
+        { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
         // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
         function (getApplierList_data) {
         //   console.log(t.eventID,t.eventType);
