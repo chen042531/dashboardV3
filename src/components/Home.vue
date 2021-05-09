@@ -21,9 +21,17 @@
                     <h6>正在進行的活動</h6>
                     <ul  class="sidebar-submenu list-unstyled ">
                         <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
-                        <a href="#" class="list-group-item list-group-item-action" v-on:click="activeGoTO(index)">
+                        <a href="#" class="list-group-item list-group-item-action" >
                             <span class=""> {{event.eventName}}</span>
                         </a>
+                        <ul :id="'submenu'+index" class="sidebar-submenu list-unstyled ">
+                      
+                          <li v-for="(subevent,index) in event.time" :key="index"  v-on:click="activeGoTO(index)">
+                            <a href="#" class="list-group-item list-group-item-action" style="">
+                              <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.weekday}}</p>
+                            </a>
+                          </li>
+                        </ul>
                         </li>
                     </ul>
                   </li> 
@@ -34,6 +42,9 @@
                         <a href="#" class="list-group-item list-group-item-action" v-on:click="expiredGoTO(index)">
                             <span class=""> {{event.eventName}}</span>
                         </a>
+                        <ul :id="'submenu'+index" class="sidebar-submenu list-unstyled ">
+                        
+                        </ul>
                         </li>
                     </ul>
                   </li>
@@ -63,17 +74,28 @@ export default {
       expired_list: [],
       event_Id: "",
       event_Type: "",
+      subevent_Id: "",
     }
   },
   created : function () {
     let t = this;
+    // $.post(
+    //   "http://140.113.216.53:8000/getCharityActivities/",
+    //   { charityID: t.charityId },
+    //   function (getCharityActivities_data) {
+    //     console.log(getCharityActivities_data);
+    //      t.active_list = getCharityActivities_data.active_list;
+    //      t.expired_list = getCharityActivities_data.expired_list;
+    //   }
+    // );
     $.post(
-      "http://140.113.216.53:8000/getCharityActivities/",
+      "http://140.113.216.53:8000/getWebCharityActivities/",
       { charityID: t.charityId },
       function (getCharityActivities_data) {
         console.log(getCharityActivities_data);
          t.active_list = getCharityActivities_data.active_list;
          t.expired_list = getCharityActivities_data.expired_list;
+         console.log("qqqqqqqqqq",t.active_list.weekday);
       }
     );
        
@@ -81,9 +103,10 @@ export default {
   methods: {
     activeGoTO: function (i){
       let t = this;
-      t.event_Id = t.active_list[i].eventID
-      t.event_Type = t.active_list[i].eventType
-      console.log(t.event_Id,t.event_Type)
+      t.event_Id = t.active_list[i].eventID;
+      t.event_Type = t.active_list[i].eventType;
+      t.subevent_Id = t.active_list[i].subevent_Id;
+      console.log(t.event_Id,t.event_Type,t.subevent_Id);
       t.home_content_flag = 1;
     },
     expiredGoTO: function (i){
