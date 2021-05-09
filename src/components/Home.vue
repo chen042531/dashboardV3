@@ -12,7 +12,7 @@
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky ">
-                
+                <h1 v-on:click="goAdd()">新增活動</h1>
                 <h5  style="padding: 1rem; margin-bottom: 0; color: #727272;;">
                 活動名稱
                 </h5>
@@ -41,7 +41,7 @@
 
             </div>
         </nav>
-      
+        <actnew v-if="home_content_flag==0"></actnew>
         <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" :event_type="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
 
         <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="event_Id" :event_type="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
@@ -53,7 +53,7 @@
 <script>
 import Before from './HomeContent/Before';
 import After from './HomeContent/After';
-
+import Actnew from './HomeContent/Actnew'
 export default {
   props:['charityId','username'],
   data () {
@@ -93,11 +93,17 @@ export default {
       console.log("asdsa",t.event_Id,t.event_Type,i)
       t.home_content_flag = 2;
     },
+    goAdd: function(){
+       let t = this;
+      t.home_content_flag = 0;
+      console.log( t.home_content_flag);
+    }
     
   },
   components:{
     'app-before':Before,
     'app-after':After,
+    'actnew':Actnew,
   }
 }
 </script>
