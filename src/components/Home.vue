@@ -17,17 +17,21 @@
                 活動名稱
                 </h5>
                 <ul class="list-unstyled">
-                  <li class="nav-item" id="active_list">
+                  <li id="active_list">
                     <h6>正在進行的活動</h6>
                     <ul  class="sidebar-submenu list-unstyled ">
                         <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
-                        <a href="#" class="list-group-item list-group-item-action" >
+                        <a href="#submenu1" class="" 
+                          data-toggle="collapse"
+                          role="button"
+                          aria-controls ="submenu1"
+                          aria-expanded="false">
                             <span class=""> {{event.eventName}}</span>
                         </a>
-                        <ul :id="'submenu'+index" class="sidebar-submenu list-unstyled ">
+                        <ul id="submenu1" class="sidebar-submenu list-unstyled ">
                       
-                          <li v-for="(subevent,index) in event.time" :key="subevent.sid"  v-on:click="activeGoTO(subevent)">
-                            <a href="#" class="list-group-item list-group-item-action" style="">
+                          <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="activeGoTO(subevent)">
+                            <a href="#" class="list-group-item list-group-item-action" >
                               <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.weekday}}</p>
                             </a>
                           </li>
@@ -35,7 +39,7 @@
                         </li>
                     </ul>
                   </li> 
-                  <li class="nav-item" id="expired_list">
+                  <li  id="expired_list">
                     <h6>已經結束的活動</h6>
                     <ul  class="sidebar-submenu list-unstyled ">
                         <li class="nav-item" v-for="(event,index) in expired_list" :key="index">  
