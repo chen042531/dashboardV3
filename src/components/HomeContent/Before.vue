@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <br/>
-                <!-- <div class="table-responsive" id="applicants_info">
+               = <div class="table-responsive" id="applicants_info">
                     <table class="table table-striped table-sm">
                     <thead>
                         <tr>
@@ -77,7 +77,7 @@
                         </tr>
                     </thead>
                     <tbody  >
-                        <tr v-for="(applier,i) in appliers" :key="i">
+                        <tr v-for="(applier,i) in canceled_appliers" :key="i">
                         <td>{{i+1}}</td>  
                         <td>{{ applier.userName }}</td> 
                         <td>{{ applier.userGender }}</td>  
@@ -95,7 +95,7 @@
                         
                     </tbody>
                     </table>
-                </div> -->
+                </div> 
            
                 </div>
             </div>
@@ -114,10 +114,47 @@ export default {
       startTime: "",
       endTime: "",
       appliers: [],
+      canceled_appliers: [],
     }
   },
-  created : function () {
+  mounted : function () {
     var t = this;
+     $.post(
+        "http://140.113.216.53:8000/getEventDetail/",
+        { eventType: String(t.event_type), eventID: String(t.event_id) },
+        function (getEventDetail_data) {
+          console.log(t.eventID,t.eventType);
+          console.log(getEventDetail_data);
+          t.eventName = getEventDetail_data.eventName;
+          t.startTime = getEventDetail_data.startTime;
+          t.endTime = getEventDetail_data.endTime;
+        }
+      );
+
+      $.post(
+        "http://140.113.216.53:8000/getApplierList/",
+        { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: "0" },
+        // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
+        function (getApplierList_data) {
+        //   console.log(t.eventID,t.eventType);
+          var applier_list_tmp = [];
+          var canceled_appliers_list_tmp = [];
+        
+          console.log("dddgsdsg",getApplierList_data);
+          t.appliers = getApplierList_data.appliers;
+          for (var i in getApplierList_data.appliers){
+            console.log("ddddd",getApplierList_data.appliers[i])
+            if (getApplierList_data.appliers[i].status == 0){
+              applier_list_tmp.push(getApplierList_data.appliers[i]);
+            }
+            else{
+              canceled_appliers_list_tmp.push(getApplierList_data.appliers[i])
+            }
+          }
+          this.appliers = applier_list_tmp;
+          this.canceled_appliers = canceled_appliers_list_tmp;
+        }
+      );
   },
   watch: { 
     event_id: function(newVal, oldVal) { // watch it
@@ -143,10 +180,22 @@ export default {
         // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
         function (getApplierList_data) {
         //   console.log(t.eventID,t.eventType);
-        console.log("ddddddddd");
+          var applier_list_tmp = [];
+          var canceled_appliers_list_tmp = [];
+        
           console.log("dddgsdsg",getApplierList_data);
           t.appliers = getApplierList_data.appliers;
-     
+          for (var i in getApplierList_data.appliers){
+            console.log("ddddd",getApplierList_data.appliers[i])
+            if (getApplierList_data.appliers[i].status == 0){
+              applier_list_tmp.push(getApplierList_data.appliers[i]);
+            }
+            else{
+              canceled_appliers_list_tmp.push(getApplierList_data.appliers[i])
+            }
+          }
+          this.appliers = applier_list_tmp;
+          this.canceled_appliers = canceled_appliers_list_tmp;
         }
       );
     }
