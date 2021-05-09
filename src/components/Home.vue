@@ -26,7 +26,7 @@
                         </a>
                         <ul :id="'submenu'+index" class="sidebar-submenu list-unstyled ">
                       
-                          <li v-for="(subevent,index) in event.time" :key="index"  v-on:click="activeGoTO(index)">
+                          <li v-for="(subevent,index) in event.time" :key="subevent.sid"  v-on:click="activeGoTO(subevent)">
                             <a href="#" class="list-group-item list-group-item-action" style="">
                               <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.weekday}}</p>
                             </a>
@@ -95,18 +95,20 @@ export default {
         console.log(getCharityActivities_data);
          t.active_list = getCharityActivities_data.active_list;
          t.expired_list = getCharityActivities_data.expired_list;
-         console.log("qqqqqqqqqq",t.active_list.weekday);
+         console.log("qqqqqqqqqq",t.active_list);
       }
     );
        
   },
   methods: {
-    activeGoTO: function (i){
+    activeGoTO: function (subevent){
       let t = this;
-      t.event_Id = t.active_list[i].eventID;
-      t.event_Type = t.active_list[i].eventType;
-      t.subevent_Id = t.active_list[i].subevent_Id;
-      console.log(t.event_Id,t.event_Type,t.subevent_Id);
+      console.log(subevent);
+       console.log("ssss",subevent.sid);
+      // t.event_Id = t.active_list.time[i].eventID;
+      // t.event_Type = t.active_list.time[i].eventType;
+      // t.subevent_Id = t.active_list.time[i].subevent_Id;
+      // console.log(t.event_Id,t.event_Type,t.subevent_Id);
       t.home_content_flag = 1;
     },
     expiredGoTO: function (i){
