@@ -12,27 +12,31 @@
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky ">
-                <h1 v-on:click="goAdd()">新增活動</h1>
-                <h5  style="padding: 1rem; margin-bottom: 0; color: #727272;;">
+                <button type="button" class="btn btn-info btn-lg btn-block" style="position:relative;margin-top:20px;" v-on:click="goAdd()">
+                  新增活動
+                </button>
+                <h5  style="padding-top: 1rem; padding-bottom: 0.5rem; margin-left: 0; color: #727272;;">
                 活動名稱
                 </h5>
                 <ul class="list-unstyled">
                   <li id="active_list">
                     <h6>正在進行的活動</h6>
-                    <ul  class="sidebar-submenu list-unstyled ">
+                    <ul  class="sidebar-submenu list-unstyled collapsed">
                         <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
-                        <a href="#submenu1" class="" 
+                        <a  class="" 
                           data-toggle="collapse"
+                          :href="'#submenu'+index" 
                           role="button"
-                          aria-controls ="submenu1"
-                          aria-expanded="false">
+                          aria-expanded="false"
+                          :aria-controls ="'submenu'+index"
+                        >
                             <span class=""> {{event.eventName}}</span>
                         </a>
-                        <ul id="submenu1" class="sidebar-submenu list-unstyled ">
+                        <ul :id="'submenu'+index" class="smenu sidebar-submenu list-unstyled ">
                       
                           <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="activeGoTO(subevent)">
-                            <a href="#" class="list-group-item list-group-item-action" >
-                              <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.weekday}}</p>
+                            <a href="#" class="" >
+                              <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
                             </a>
                           </li>
                         </ul>
@@ -41,7 +45,29 @@
                   </li> 
                   <li  id="expired_list">
                     <h6>已經結束的活動</h6>
+                    <!-- <ul  class="sidebar-submenu list-unstyled collapsed">
+                        <li class="nav-item" v-for="(event,index_e) in expired_list" :key="index_e">  
+                        <a  class="" 
+                          data-toggle="collapse"
+                          :href="'#submenu'+index_e" 
+                          role="button"
+                          aria-expanded="false"
+                          :aria-controls ="'submenu'+index_e"
+                        >
+                            <span class=""> {{event.eventName}}</span>
+                        </a>
+                        <ul :id="'submenu'+index_e" class="smenu sidebar-submenu list-unstyled ">
+                      
+                          <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="expiredGoTO(subevent)">
+                            <a href="#" class="" >
+                              <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
+                            </a>
+                          </li>
+                        </ul>
+                        </li>
+                    </ul> -->
                     <ul  class="sidebar-submenu list-unstyled ">
+
                         <li class="nav-item" v-for="(event,index) in expired_list" :key="index">  
                         <a href="#" class="list-group-item list-group-item-action" v-on:click="expiredGoTO(index)">
                             <span class=""> {{event.eventName}}</span>
@@ -83,9 +109,10 @@ export default {
       subevent_Id: "",
       subevent_stime:"",
       subevent_etime:"",
+  
     }
   },
-  created : function () {
+  mounted : function () {
     let t = this;
     // $.post(
     //   "http://140.113.216.53:8000/getCharityActivities/",
@@ -96,6 +123,7 @@ export default {
     //      t.expired_list = getCharityActivities_data.expired_list;
     //   }
     // );
+    $('.smenu').collapse('hide');
     $.post(
       "http://140.113.216.53:8000/getWebCharityActivities/",
       { charityID: t.charityId },
