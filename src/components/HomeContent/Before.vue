@@ -201,7 +201,65 @@ export default {
     }
   },
   methods: {
-    login(){}
+    confirm_stop: function () {
+
+      // 確認伺服器成功或失敗
+      if (stop_signing_flag == 0) {
+        $('#confirm_stop_signing').modal('hide');
+        $('#stop_sign').text('開放報名');
+        $('#open_for_signing').text('截止報名');
+        $('#confirm_stop_modal').html('確定要截止報名 “淨灘活動” 嗎？');
+        $('#confirm_stop_modal').html('開放報名');
+        $('#open_for_signing').css("color", "red");
+        stop_signing_flag = 1;
+      }
+      else if (stop_signing_flag == 1) {
+
+        $('#confirm_stop_signing').modal('hide');
+        $('#stop_sign').text('截止報名');
+        $('#open_for_signing').text('開放報名');
+
+        $('#open_for_signing').css("color", "white");
+        stop_signing_flag = 0;
+      }
+
+    },
+    cancel_stop: function (i) {
+      $('#confirm_stop_signing').modal('hide');
+    },
+
+    confirm_delete: function () {
+
+      // 確認伺服器成功或失敗
+
+      $('#confirm_delete_event').modal('hide');
+      delete_reason = $('#confirm_delete_event_reason').val();
+      console.log(delete_reason);
+      main_flag = 1;
+      // console.log(main_flag);
+      $("#info_delete_reason").text(delete_reason);
+    },
+    cancel_delete: function (i) {
+      $('#confirm_stop_signing').modal('hide');
+    },
+
+    setReject: function (i) {
+
+      // bus.$emit(,this.applicants,i);
+      // console.log(this.applicants[i]);
+      applicants_delete_index = i;
+
+      $('#confirm_delete_applicant').modal('show');
+      $('.modal-body').html("<span>確定要刪除" +
+        this.applicants[i].name + " " +
+        this.applicants[i].gender + " " +
+        this.applicants[i].birth + "\n " +
+        this.applicants[i].phone + " " +
+        this.applicants[i].email + " "
+        + "嗎？</span>");
+      // console.log(this.applicants);
+    }
+    
   }
 }
 </script>
