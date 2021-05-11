@@ -20,31 +20,39 @@
                 </h5>
                 <ul class="list-unstyled">
                   <li id="active_list">
+                    
                     <h6>正在進行的活動</h6>
-                    <ul  class="sidebar-submenu list-unstyled collapsed">
+                    
+                    
+                    <div class="collapse" id="collapseExample">
+                      <div class="card card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                      </div>
+                    </div>
+
+                    <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
                         <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
-                        <a  class="" 
-                          data-toggle="collapse"
-                          :href="'#submenu'+index" 
-                          role="button"
-                          aria-expanded="false"
-                          :aria-controls ="'submenu'+index"
-                        >
-                            <span class=""> {{event.eventName}}</span>
-                        </a>
-                        <ul :id="'submenu'+index" class="smenu sidebar-submenu list-unstyled ">
-                      
-                          <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="activeGoTO(subevent)">
-                            <a href="#" class="" >
-                              <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
-                            </a>
-                          </li>
-                        </ul>
+                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu'+index" 
+                              role="button" aria-expanded="false"  :aria-controls ="'submenu'+index">
+                            {{event.eventName}}
+                          </a>
+          
+                        
+                          <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu'+index">
+                        
+                            <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="activeGoTO(subevent)">
+                              <a href="#" class="" >
+                                <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
+                              </a>
+                            </li>
+                          </ul>
+                  
                         </li>
                     </ul>
                   </li> 
                   <li  id="expired_list">
                     <h6>已經結束的活動</h6>
+                    
                     <!-- <ul  class="sidebar-submenu list-unstyled collapsed">
                         <li class="nav-item" v-for="(event,index_e) in expired_list" :key="index_e">  
                         <a  class="" 
@@ -123,7 +131,7 @@ export default {
     //      t.expired_list = getCharityActivities_data.expired_list;
     //   }
     // );
-    $('.smenu').collapse('hide');
+    // $('.smenu').collapse('hide');
     $.post(
       "http://140.113.216.53:8000/getWebCharityActivities/",
       { charityID: t.charityId },
