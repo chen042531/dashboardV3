@@ -24,11 +24,7 @@
                     <h6>正在進行的活動</h6>
                     
                     
-                    <div class="collapse" id="collapseExample">
-                      <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                      </div>
-                    </div>
+      
 
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
                         <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
@@ -53,28 +49,26 @@
                   <li  id="expired_list">
                     <h6>已經結束的活動</h6>
                     
-                    <!-- <ul  class="sidebar-submenu list-unstyled collapsed">
-                        <li class="nav-item" v-for="(event,index_e) in expired_list" :key="index_e">  
-                        <a  class="" 
-                          data-toggle="collapse"
-                          :href="'#submenu'+index_e" 
-                          role="button"
-                          aria-expanded="false"
-                          :aria-controls ="'submenu'+index_e"
-                        >
-                            <span class=""> {{event.eventName}}</span>
-                        </a>
-                        <ul :id="'submenu'+index_e" class="smenu sidebar-submenu list-unstyled ">
-                      
-                          <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="expiredGoTO(subevent)">
-                            <a href="#" class="" >
-                              <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
-                            </a>
-                          </li>
-                        </ul>
+                    <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
+                        <li class="nav-item" v-for="(event,index) in expired_list" :key="index">  
+                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu_exp'+index" 
+                              role="button" aria-expanded="false"  :aria-controls ="'submenu_exp'+index">
+                            {{event.eventName}}
+                          </a>
+          
+                        
+                          <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu_exp'+index">
+                        
+                            <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="expiredGoTO(subevent)">
+                              <a href="#" class="" >
+                                <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
+                              </a>
+                            </li>
+                          </ul>
+                  
                         </li>
-                    </ul> -->
-                    <ul  class="sidebar-submenu list-unstyled ">
+                    </ul>
+                    <!-- <ul  class="sidebar-submenu list-unstyled ">
 
                         <li class="nav-item" v-for="(event,index) in expired_list" :key="index">  
                         <a href="#" class="list-group-item list-group-item-action" v-on:click="expiredGoTO(index)">
@@ -84,7 +78,7 @@
                         
                         </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                   </li>
                 </ul>
 
@@ -161,7 +155,10 @@ export default {
       let t = this;
       t.event_Id = t.expired_list[i].eventID
       t.event_Type = t.expired_list[i].eventType
-      console.log("asdsa",t.event_Id,t.event_Type,i)
+      t.subevent_Id = subevent.sid;
+      t.subevent_stime = subevent.startTime;
+      t.subevent_etime = subevent.endTime;
+      console.log(t.event_Id,t.event_Type,t.subevent_Id);
       t.home_content_flag = 2;
     },
     goAdd: function(){
