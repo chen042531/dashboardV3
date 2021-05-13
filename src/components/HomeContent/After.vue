@@ -4,12 +4,12 @@
         <!-- <h1 class="h2">{{eventName}}  <span style="color: #888888;
           font-size: large;">{{startTime}} {{endTime}}</span></h1> -->
         <!-- <span>{{event_description}}</span> -->
-        <div class="btn-toolbar mb-2 mb-md-0">
+        <!-- <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary" onclick="a()">刪除活動</button>
             <button type="button" class="btn btn-sm btn-outline-secondary" onclick="b()">截止報名</button>
           </div>
-        </div>
+        </div> -->
       </div>
       <div>無論是企業社會責任（CSR），或近幾年熱烈響應聯合國提出的全球永續發展目標（SDGs），追求永續發展已成企業經營的關鍵課題。本會努力追尋人與自然和諧共存的方式。若您也是有同樣理念的企業，歡迎透過捐款贊助、志工參與、環境講座、綠色消費等多種合作形式支持我們。</div>
       <div class="row ">
@@ -140,7 +140,7 @@ import Source from './chart/Source'
 import Star from './chart/Star'
 
 export default {
-  props:['charity_id','event_id','event_type'],
+  props:['charity_id','event_id','event_type','subid'],
   components: {
     GenderRate,
     Source,
@@ -253,9 +253,9 @@ export default {
        
   },
   watch: { 
-    event_id: function(newVal, oldVal) { // watch it
+    subid: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
-      
+      console.log('ddddddddddddd')
       var t = this;
       $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",

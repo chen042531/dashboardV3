@@ -6,8 +6,8 @@
         <!-- <span>{{event_description}}</span> -->
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="a()">刪除活動</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="b()">截止報名</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="delete_event()">刪除活動</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="stop_signing()">截止報名</button>
           </div>
         </div>
       </div>
@@ -22,8 +22,8 @@
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2" style="margin-left: 50%; transform: translateX(-50%);">
             
-                    <button type="button" style="background-color: dodgerblue;color:white"  class="btn btn-sm btn-outline-secondary" onclick="download_word_doc()">匯出參加者資訊.doc</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="download_applicants_info_time()">匯出參加者資訊.csv</button>
+                    <button type="button" style="background-color: dodgerblue;color:white"  class="btn btn-sm btn-outline-secondary" v-on:click="download_doc()">匯出參加者資訊.doc</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="download_csv()">匯出參加者資訊.csv</button>
             
                     </div>
                 </div>
@@ -102,6 +102,68 @@
         </div>
       </div>
   
+
+      <!-- Modal -->
+    <div class="modal fade" id="confirm_delete_applicant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">取消參加者的報名</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              <i class="bi bi-x"></i>
+            </button> -->
+          </div>
+          <div class="modal-body" >
+            <!-- {{applicants}} -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" v-on:click="confirm()">確認</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 刪除活動 -->
+    <div class="modal fade" id="confirm_delete_event" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              確定要刪除活動 “淨灘活動” 嗎？
+              
+            </h5>
+  
+          </div>
+          <div class="modal-body" >
+            <h5>刪除活動的理由是:</h5>
+            <textarea class="form-control" id="confirm_delete_event_reason" rows="5"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_delete()">取消</button>
+            <button type="button" class="btn btn-primary" v-on:click="confirm_delete()">確認</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 確認截止報名 -->
+    <div class="modal fade" id="confirm_stop_signing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header" style="text-align: center;">
+            <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;">
+              
+            </h5>
+  
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_stop()">取消</button>
+            <button type="button" class="btn btn-primary" v-on:click="confirm_stop()">確認</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div> 
 </template>
 
@@ -201,6 +263,10 @@ export default {
     }
   },
   methods: {
+    stop_signing: function () {
+    // $('#stop_sign').text('開放報名');
+      $('#confirm_stop_signing').modal('show');
+    },
     confirm_stop: function () {
 
       // 確認伺服器成功或失敗
@@ -227,11 +293,13 @@ export default {
     cancel_stop: function (i) {
       $('#confirm_stop_signing').modal('hide');
     },
-
+    delete_event: function (i) {
+      $('#confirm_delete_event').modal('show');
+    },
     confirm_delete: function () {
 
       // 確認伺服器成功或失敗
-
+      console.log("刪除活動")
       $('#confirm_delete_event').modal('hide');
       delete_reason = $('#confirm_delete_event_reason').val();
       console.log(delete_reason);
@@ -247,18 +315,148 @@ export default {
 
       // bus.$emit(,this.applicants,i);
       // console.log(this.applicants[i]);
-      applicants_delete_index = i;
+      appliers_delete_index = i;
 
       $('#confirm_delete_applicant').modal('show');
       $('.modal-body').html("<span>確定要刪除" +
-        this.applicants[i].name + " " +
-        this.applicants[i].gender + " " +
-        this.applicants[i].birth + "\n " +
-        this.applicants[i].phone + " " +
-        this.applicants[i].email + " "
+        this.appliers[i].name + " " +
+        this.appliers[i].gender + " " +
+        this.appliers[i].birth + "\n " +
+        this.appliers[i].phone + " " +
+        this.appliers[i].email + " "
         + "嗎？</span>");
       // console.log(this.applicants);
-    }
+    },
+    download_doc: function(){
+      console.log("download_doc");
+      console.log( this.appliers);
+      // this.g_test();
+      var table = [];
+      //add title of each column
+      var header_row = [];
+      header_row.push(new docx.TableCell({
+        children: [new docx.Paragraph({
+          text: "編號",
+          heading: docx.HeadingLevel.HEADING_6,
+          alignment: docx.AlignmentType.CENTER,
+        })],
+      }));
+      for (var prop in this.appliers[0]) {
+        header_row.push(new docx.TableCell({
+          children: [new docx.Paragraph({
+            text: prop,
+            heading: docx.HeadingLevel.HEADING_6,
+            alignment: docx.AlignmentType.CENTER,
+          })],
+        }));
+      }
+
+      header_row.push(new docx.TableCell({
+        children: [new docx.Paragraph({
+          text: "點名",
+          heading: docx.HeadingLevel.HEADING_6,
+          alignment: docx.AlignmentType.CENTER,
+        })],
+      }));
+      table.push(new docx.TableRow({ children: header_row }));
+      // console.log(table);
+      for (var row_n = 0; row_n < this.appliers.length; row_n++) {
+        // console.log("ff", applicants_data.applicants[row_n]);
+        var n_row = this.appliers[row_n];
+        var row = [];
+
+
+        row.push(new docx.TableCell({
+          children: [new docx.Paragraph({
+            text: (row_n + 1) + "",
+            alignment: docx.AlignmentType.CENTER,
+          })],
+        }));
+        for (var prop in n_row) {
+          // console.log(row[prop]);
+          // row[prop] = 'xxx';
+
+          row.push(new docx.TableCell({
+            children: [new docx.Paragraph({
+              text: n_row[prop],
+              alignment: docx.AlignmentType.CENTER,
+            })],
+          }));
+          console.log(n_row[prop]);
+        }
+        row.push(new docx.TableCell({
+          children: [new docx.Paragraph({
+            text: "        ",
+          })],
+        }));
+        table.push(new docx.TableRow({ children: row }));
+        // console.log(table);
+      }
+
+      // t_row = new docx.TableRow({ children: [t_cell] });
+      var t_table = new docx.Table({
+        rows: table,
+        alignment: docx.AlignmentType.CENTER,
+      });
+
+      // tables = t_table;
+      console.log(t_table);
+      this.generate("dd", "sdsd", t_table);
+      
+    },
+    download_csv: function(){
+      console.log("download_csv");
+    },
+    g_test: function(){
+       console.log("gt");
+    },
+    generate: function (title, description, tables) {
+          const doc = new docx.Document({
+
+              sections: [
+                  {
+
+                      children: [
+
+                          new docx.Paragraph({
+                              text: title,
+                              heading: docx.HeadingLevel.HEADING_1,
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+
+                          new docx.Paragraph({
+                              text: description,
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+                          tables,
+                      ],
+                      footers: {
+                          default: new docx.Footer({
+                              children: [
+                                  new docx.Paragraph({
+                                      alignment: docx.AlignmentType.CENTER,
+                                      children: [
+                                          new docx.TextRun({
+                                              children: ["Page ", docx.PageNumber.CURRENT],
+                                          }),
+                                          new docx.TextRun({
+                                              children: [" to ", docx.PageNumber.TOTAL_PAGES],
+                                          }),
+                                      ],
+                                  }),
+                              ],
+                          }),
+                      },
+                  }
+              ]
+          });
+
+          docx.Packer.toBlob(doc).then((blob) => {
+              console.log(blob);
+              saveAs(blob, "example.docx");
+              console.log("Document created successfully");
+          });
+      }
     
   }
 }

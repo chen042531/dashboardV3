@@ -59,9 +59,9 @@
                         
                           <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu_exp'+index">
                         
-                            <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="expiredGoTO(subevent)">
+                            <li v-for="exp_subevent in event.time" :key="exp_subevent.sid"  v-on:click="expiredGoTO(exp_subevent)">
                               <a href="#" class="" >
-                                <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
+                                <p class="" style="margin: 0; padding-left: 2em;" > {{exp_subevent.startTime}}</p>
                               </a>
                             </li>
                           </ul>
@@ -89,8 +89,9 @@
           :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
           class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
 
-        <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="event_Id" 
-          :event_type="event_Type" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
+        <app-after v-if="home_content_flag==2" :charity_id="exp_charityId" :event_id="exp_event_Id" 
+          :event_type="exp_event_Type" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
+          class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
       </div>
     </div>
   </div> 
@@ -105,13 +106,21 @@ export default {
   data () {
     return {
       home_content_flag: 0,
+
       active_list:  [],
       expired_list: [],
+
       event_Id: "",
       event_Type: "",
       subevent_Id: "",
       subevent_stime:"",
       subevent_etime:"",
+
+      exp_event_Id: "",
+      exp_event_Type: "",
+      exp_subevent_Id: "",
+      exp_subevent_stime:"",
+      exp_subevent_etime:"",
   
     }
   },
@@ -152,16 +161,16 @@ export default {
       console.log(t.event_Id,t.event_Type,t.subevent_Id);
       t.home_content_flag = 1;
     },
-    expiredGoTO: function (subevent){
+    expiredGoTO: function (ex_subevent){
       let t = this;
-      console.log("ssss",subevent);
-      console.log("ssss",subevent.eventID);
-      t.event_Id = subevent.eventID
-      t.event_Type = subevent.eventType
-      t.subevent_Id = subevent.sid;
-      t.subevent_stime = subevent.startTime;
-      t.subevent_etime = subevent.endTime;
-      console.log(t.event_Id,t.event_Type,t.subevent_Id);
+      console.log("ssss",ex_subevent);
+      console.log("ssss",ex_subevent.eventID);
+      t.exp_event_Id = ex_subevent.eventID
+      t.exp_event_Type = ex_subevent.eventType
+      t.exp_subevent_Id = ex_subevent.sid;
+      t.exp_subevent_stime = ex_subevent.startTime;
+      t.exp_subevent_etime = ex_subevent.endTime;
+      console.log("uuuu",t.exp_event_Id,t.exp_event_Type,t.exp_subevent_Id);
       t.home_content_flag = 2;
     },
     goAdd: function(){
