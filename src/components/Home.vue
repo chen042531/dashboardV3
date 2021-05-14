@@ -89,8 +89,8 @@
           :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
           class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
 
-        <app-after v-if="home_content_flag==2" :charity_id="exp_charityId" :event_id="exp_event_Id" 
-          :event_type="exp_event_Type" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
+        <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 
+          :event_type="exp_event_Type" :subid="exp_subevent_Id" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
           class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
       </div>
     </div>

@@ -164,7 +164,7 @@ export default {
     $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
-      { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(t.subid) },
       function (getStatisticAndApplicantsTime_data) {
         console.log("zzz",getStatisticAndApplicantsTime_data);
         t.age = getStatisticAndApplicantsTime_data.age;
