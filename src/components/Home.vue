@@ -22,23 +22,26 @@
                   <li id="active_list">
                     
                     <h6>正在進行的活動</h6>
-                    
-                    
-      
-
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
-                        <li class="nav-item" v-for="(event,index) in active_list" :key="index">  
-                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu'+index" 
-                              role="button" aria-expanded="false"  :aria-controls ="'submenu'+index">
-                            {{event.eventName}}
+                        <li class="nav-item" v-for="act_event_once in active_list_once" :key="act_event_once.eventID" 
+                         v-on:click="activeGoTO(act_event_once)">  
+                          <a class="btn btn-primary"  role="button" >
+                            {{act_event_once.eventName}}
+                          </a>
+                        </li>
+                        <li class="nav-item" v-for="act_event in active_list" :key="act_event.eventID">  
+                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu'+act_event.eventID" 
+                              role="button" aria-expanded="false"  :aria-controls ="'submenu'+act_event.eventID">
+                            {{act_event.eventName}}
                           </a>
           
                         
-                          <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu'+index">
+                          <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu'+act_event.eventID">
                         
-                            <li v-for="subevent in event.time" :key="subevent.sid"  v-on:click="activeGoTO(subevent)">
+                            <li v-for="act_subevent in act_event.time" :key="act_subevent.sid" 
+                             v-on:click="activeGoTO(act_subevent)">
                               <a href="#" class="" >
-                                <p class="" style="margin: 0; padding-left: 2em;" > {{subevent.startTime}}</p>
+                                <p class="" style="margin: 0; padding-left: 2em;" > {{act_subevent.startTime}}</p>
                               </a>
                             </li>
                           </ul>
@@ -50,16 +53,22 @@
                     <h6>已經結束的活動</h6>
                     
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
-                        <li class="nav-item" v-for="(event,index) in expired_list" :key="index">  
-                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu_exp'+index" 
-                              role="button" aria-expanded="false"  :aria-controls ="'submenu_exp'+index">
-                            {{event.eventName}}
+                        <li class="nav-item" v-for="exp_event_once in expired_list_once" :key="exp_event_once.eventID"
+                          v-on:click="expiredGoTO(exp_event_once)">  
+                          <a class="btn btn-primary"  role="button" >
+                            {{exp_event_once.eventName}}
+                          </a>
+                        </li>
+                        <li class="nav-item" v-for="exp_event in expired_list" :key="exp_event.eventID">  
+                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu_exp'+exp_event.eventID" 
+                              role="button" aria-expanded="false"  :aria-controls ="'submenu_exp'+exp_event.eventID">
+                            {{exp_event.eventName}}
                           </a>
           
                         
-                          <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu_exp'+index">
+                          <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu_exp'+exp_event.eventID">
                         
-                            <li v-for="exp_subevent in event.time" :key="exp_subevent.sid"  v-on:click="expiredGoTO(exp_subevent)">
+                            <li v-for="exp_subevent in exp_event.time" :key="exp_subevent.sid"  v-on:click="expiredGoTO(exp_subevent)">
                               <a href="#" class="" >
                                 <p class="" style="margin: 0; padding-left: 2em;" > {{exp_subevent.startTime}}</p>
                               </a>
@@ -68,17 +77,6 @@
                   
                         </li>
                     </ul>
-                    <!-- <ul  class="sidebar-submenu list-unstyled ">
-
-                        <li class="nav-item" v-for="(event,index) in expired_list" :key="index">  
-                        <a href="#" class="list-group-item list-group-item-action" v-on:click="expiredGoTO(index)">
-                            <span class=""> {{event.eventName}}</span>
-                        </a>
-                        <ul :id="'submenu'+index" class="sidebar-submenu list-unstyled ">
-                        
-                        </ul>
-                        </li>
-                    </ul> -->
                   </li>
                 </ul>
 
@@ -108,7 +106,10 @@ export default {
       home_content_flag: 0,
 
       active_list:  [],
+      active_list_once:  [],
+
       expired_list: [],
+      expired_list_once: [],
 
       event_Id: "",
       event_Type: "",
@@ -141,9 +142,26 @@ export default {
       { charityID: t.charityId },
       function (getCharityActivities_data) {
         console.log(getCharityActivities_data);
-         t.active_list = getCharityActivities_data.active_list;
-         t.expired_list = getCharityActivities_data.expired_list;
+        for(var i in getCharityActivities_data.active_list){
+          if(getCharityActivities_data.active_list[i].eventType == 3){
+            t.active_list.push(getCharityActivities_data.active_list[i])
+          }else{
+            t.active_list_once.push(getCharityActivities_data.active_list[i])
+          }
+        }
+        
+        for(var i in getCharityActivities_data.expired_list){
+          if(getCharityActivities_data.expired_list[i].eventType == 3){
+            t.expired_list.push(getCharityActivities_data.expired_list[i])
+          }else{
+            t.expired_list_once.push(getCharityActivities_data.expired_list[i])
+          }
+        };
          console.log("qqqqqqqqqq",t.active_list);
+          console.log("qqqqqqqqqq",t.active_list_once);
+           console.log("qqqqqqqqqq",t.expired_list);
+           console.log("qqqqqqqqqq",t.expired_list);
+           
       }
     );
        
