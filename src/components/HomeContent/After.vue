@@ -156,6 +156,7 @@ export default {
       registration_rate: 0,
       applicants: [],
       sendTimeStatus: 0,
+      time: null,
     }
   },
   
@@ -258,7 +259,7 @@ export default {
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
       console.log('ddddddddddddd')
       var t = this;
-      console.log(t.event_type, t.event_id,t.subid )
+      console.log(t.event_type, t.event_id,t.subid );
       $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
@@ -275,7 +276,7 @@ export default {
         }
       );
     
-      
+      t.setTime();
      
     }
   },
@@ -291,6 +292,20 @@ export default {
         this.applicants[i].time = parseFloat(parseFloat(this.applicants[i].time) - 1).toFixed(1);
       }
       console.log(this.applicants[i].time);
+    },
+    timer() {
+      let my = this
+      this.time = setInterval(() => {
+        console.log(this.charity_id);
+      }, 1000)
+    },
+    setTime() {
+      this.timer()
+    },
+    stopTime() {
+      if (this.time) {
+        clearInterval(this.time)
+      }
     }
   }
 }
