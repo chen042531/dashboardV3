@@ -53,9 +53,10 @@
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio1"
-                    value="option1"
+                    value="once"
+                    v-model="picked"
                 />
-                <label class="form-check-label" for="inlineRadio1">1</label>
+                <label class="form-check-label" for="inlineRadio1">單次活動</label>
                 </div>
                 <div class="form-check form-check-inline">
                 <input
@@ -63,18 +64,122 @@
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio2"
-                    value="option2"
+                    value="period"
+                    v-model="picked"
                 />
-                <label class="form-check-label" for="inlineRadio2">2</label>
+                <label class="form-check-label" for="inlineRadio2">週期活動</label>
+                </div>
+                <span>Picked: {{ picked }}</span>
+            </div>
+            <div v-if="picked=='once'">
+                 <div class="form-inline row">
+                     <label for="exampleInputEmail1">日期</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                </div>
+                <div class="form-inline row">
+                    <label for="exampleInputEmail1">開始時間</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                    <label for="exampleInputEmail1">結束時間</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                </div>
+                <div class="form-inline row">
+                     <label for="exampleInputEmail1">時數</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
                 </div>
             </div>
-            <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">是否提供服務證明？</label>
-                <select class="custom-select">
-                    <option selected value="yes">是</option>
-                    <option value="no">否</option>
-                </select>
+            <div v-if="picked=='period'">
+                <div class="form-inline row">
+                     <label for="exampleInputEmail1">開始日期</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                     <label for="exampleInputEmail1">結束日期</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                </div>
+                <div class="form-inline row">
+                    <label for="exampleInputEmail1">星期</label>
+                    <select class="custom-select">
+                        <option selected value="mon">星期一</option>
+                        <option value="tue">星期二</option>
+                        <option value="wed">星期三</option>
+                        <option value="thu">星期四</option>
+                        <option value="fri">星期五</option>
+                        <option value="sat">星期六</option>
+                        <option value="sun">星期日</option>
+                    </select>
+                    <label for="exampleInputEmail1">開始時間</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                    <label for="exampleInputEmail1">結束時間</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                </div>
+                <div class="form-inline row">
+                     <label for="exampleInputEmail1">時數</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                </div>
+                <div class="form-inline row">
+                     <label for="exampleInputEmail1">格多少週</label>
+                    <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="2021/12/21"
+                    />
+                </div>
             </div>
+
             <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">活動時間</label>
                 <input
@@ -146,7 +251,27 @@
                 ></textarea>
             </div>
             <button type="submit" class="btn btn-primary" 
-      style="margin-top:3rem;margin-left: 50%;transform: translateX(-50%); padding-left: 3rem;padding-right: 3rem;">提交活動</button>
+      style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
+       padding-left: 3rem;padding-right: 3rem;" v-on:click="sendform()">提交活動</button>
         </form>
     </div>
 </template>
+<script>
+export default {
+
+  data () {
+    return {
+      picked: "once",
+      charityID:"",
+      eventName:"",
+      eventType:"",
+      
+    }
+  },
+  methods: {
+    sendform: function () {
+        console.log("sendform");
+    }
+  }
+}
+</script>>

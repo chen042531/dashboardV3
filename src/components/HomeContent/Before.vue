@@ -316,15 +316,15 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
 
       // bus.$emit(,this.applicants,i);
       // console.log(this.applicants[i]);
-      appliers_delete_index = i;
-
+      var appliers_delete_index = i;
+      console.log("this.appliers[i]   ", this.appliers[i]);
       $('#confirm_delete_applicant').modal('show');
       $('.modal-body').html("<span>確定要刪除" +
-        this.appliers[i].name + " " +
-        this.appliers[i].gender + " " +
-        this.appliers[i].birth + "\n " +
-        this.appliers[i].phone + " " +
-        this.appliers[i].email + " "
+        this.appliers[i].userName + " " +
+        this.appliers[i].userGender + " " +
+        this.appliers[i].userBirthday + "\n " +
+        this.appliers[i].userPhone + " " +
+        this.appliers[i].userEmail + " "
         + "嗎？</span>");
       // console.log(this.applicants);
     },
