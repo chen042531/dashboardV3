@@ -69,6 +69,13 @@
                 </div>
             </div>
             <div class="form-group" style="margin-top:1rem;">
+                <label for="exampleInputEmail1">是否提供服務證明？</label>
+                <select class="custom-select">
+                    <option selected value="yes">是</option>
+                    <option value="no">否</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">活動時間</label>
                 <input
                 type="email"
@@ -107,6 +114,7 @@
                 >We'll never share your email with anyone else.</small
                 >
             </div>
+            
             <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">服務時數(小時)</label>
                 <input

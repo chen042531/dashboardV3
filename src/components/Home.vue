@@ -255,7 +255,7 @@ export default {
 /*
  * Sidebar
  */
-#sidebar{
+/* #sidebar{
   
-}
+} */
 </style>

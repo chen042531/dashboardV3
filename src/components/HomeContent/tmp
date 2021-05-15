@@ -1,7 +1,6 @@
-<template>
-   <form>
+<form>
       <div class="form-group" style="margin-top:2rem;">
-        <label for="exampleInputEmail1">活動名稱</label>
+        <label for="exampleInputEmail1">活稱</label>
         <input
           type="email"
           class="form-control"
@@ -150,63 +149,3 @@
       </div>
       <button type="submit" class="btn btn-primary" style="margin-top:3rem;margin-left: 50%;transform: translateX(-50%); padding-left: 3rem;padding-right: 3rem;">提交活動</button>
     </form>
-</template>
-<script>
-  
-  export default {
-    data () {
-      return {
-        phoneNumber: '',
-        passWord: '',
-      }
-    },
-    methods: {
-      login(){
-      
-        let phoneNumber = this.phoneNumber;
-        let passWord = this.passWord;
-        let status = "";
-        let userId = "";
-        let rou = this;
-        // 帳號密碼需驗證不能為空
-        // if (phoneNumber !== '' && passWord !== '') {
-        //   this.loginForm.token = token
-        // } else {
-        //   alert('帳號密碼不能為空')
-        // }
-        console.log("data");
-         $.post(
-            "http://140.113.216.53:8000/login/",
-            {
-              // phoneNum: this.phoneNumber,
-              // password: this.passWord,
-              phoneNum: "0911111111",
-              password: "test",
-              platform: "1",
-            },
-            function (login_return) {
-              console.log(login_return);
-                  status = login_return.status
-                  userId = login_return.userID
-                  console.log(userId);
-              $.post(
-              "http://140.113.216.53:8000/getUserInfo/",
-                {userID:  userId },
-                function (getUserInfo_return) {
-                  console.log("df",getUserInfo_return.cid);
-                  rou.$router.push({ name: 'Home', params: {charityId: getUserInfo_return.cid, username: getUserInfo_return.name }});
-                  // if( status == 0 )
-                  //   rou.$router.push({ name: 'Home', params: {userID: userId }});
-                  // else
-                  //   alert('login failed');
-              });
-            } 
-          );
-        
-      }
-    } 
-  }
-</script>
-<style>
- 
-</style>
