@@ -164,9 +164,10 @@ export default {
     $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
-      { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(t.subid) },
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
       function (getStatisticAndApplicantsTime_data) {
         console.log("zzz",getStatisticAndApplicantsTime_data);
+        console.log(t.subid)
         t.age = getStatisticAndApplicantsTime_data.age;
         t.gender = getStatisticAndApplicantsTime_data.gender;
         t.source = getStatisticAndApplicantsTime_data.source;
@@ -259,8 +260,7 @@ export default {
       var t = this;
       $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
-      // { eventType: t.event_type, eventId:t.event_id, sid:0 },
-      { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(0) },
       function (getStatisticAndApplicantsTime_data) {
           console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
           t.age = getStatisticAndApplicantsTime_data.age;
@@ -273,16 +273,7 @@ export default {
           t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
         }
       );
-      $.post(
-        "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
-        { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(0) },
-        function (getStatisticAndApplicantsTime_data) {
-          console.log(getStatisticAndApplicantsTime_data);
-          t.data = getStatisticAndApplicantsTime_data
-          
-         
-        }
-      );
+    
       
      
     }
