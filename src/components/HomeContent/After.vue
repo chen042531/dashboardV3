@@ -258,9 +258,10 @@ export default {
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
       console.log('ddddddddddddd')
       var t = this;
+      console.log(t.event_type, t.event_id,t.subid )
       $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
-      { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(0) },
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
       function (getStatisticAndApplicantsTime_data) {
           console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
           t.age = getStatisticAndApplicantsTime_data.age;

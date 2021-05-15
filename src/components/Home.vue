@@ -174,7 +174,11 @@ export default {
       t.event_Id = subevent.eventID;
       t.event_Type = subevent.eventType;
       t.subevent_Id = subevent.sid;
-      // t.subevent_Id = (t.subevent_Id === undefined) ? 0 : t.subevent_Id;
+      if (subevent.sid === undefined){
+        t.subevent_Id = 0;
+      }else{
+        t.subevent_Id = subevent.sid;
+      }
       t.subevent_stime = subevent.startTime;
       t.subevent_etime = subevent.endTime;
       console.log(t.event_Id,t.event_Type,t.subevent_Id);
@@ -196,7 +200,7 @@ export default {
       // t.exp_subevent_Id = ex_subevent.sid;
       t.exp_subevent_stime = ex_subevent.startTime;
       t.exp_subevent_etime = ex_subevent.endTime;
-      console.log("uuuu",t.exp_event_Id,t.exp_event_Type,t.exp_subevent_Id);
+      console.log("uuuu",t.exp_event_Type,t.exp_event_Id,t.exp_subevent_Id);
       t.home_content_flag = 2;
     },
     goAdd: function(){

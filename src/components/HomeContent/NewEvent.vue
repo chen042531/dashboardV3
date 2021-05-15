@@ -68,14 +68,18 @@
         </div>
       </div>
       <div class="form-group" style="margin-top:1rem;">
-        <label for="exampleInputEmail1">活動時間</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="2021/12/21"
-        />
+        <label for="exampleInputEmail1">活動時間類型</label>
+        <select class="custom-select">
+          <option selected value="yes">一次性</option>
+          <option value="no" >週期性</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-top:1rem;">
+        <label for="exampleInputEmail1">活動時間類型</label>
+        <select class="custom-select">
+          <option selected value="yes">一次性</option>
+          <option value="no" >週期性</option>
+        </select>
         <small id="emailHelp" class="form-text text-muted"
           >We'll never share your email with anyone else.</small
         >
@@ -123,12 +127,19 @@
         <label for="exampleInputEmail1">是否提供服務證明？</label>
         <select class="custom-select">
           <option selected value="yes">是</option>
-          <option value="no" >否</option>
+          <option value="no" >否</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-top:1rem;">
+        <label for="exampleInputd">是否提供服務證明？</label>
+        <select class="custom-select">
+          <option selected value="d">是</option>
+          <option value="dd" >否</option>
         </select>
       </div>
 
       <div class="form-group" style="margin-top:1rem;">
-        <label class="col-sm-2" for="exampleInputEmail1"
+        <label class="col-sm-6" for="exampleInputEmail1"
           >詳細活動資訊</label
         >
         <textarea

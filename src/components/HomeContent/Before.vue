@@ -186,7 +186,7 @@ export default {
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
-          console.log(getEventDetail_data);
+          console.log("iiiiiiiiiii",getEventDetail_data);
           t.eventName = getEventDetail_data.eventName;
           t.startTime = getEventDetail_data.startTime;
           t.endTime = getEventDetail_data.endTime;
@@ -202,7 +202,7 @@ export default {
           var applier_list_tmp = [];
           var canceled_appliers_list_tmp = [];
         
-          console.log("dddgsdsg",getApplierList_data);
+          console.log("111",getApplierList_data);
           t.appliers = getApplierList_data.appliers;
           for (var i in getApplierList_data.appliers){
             console.log("ddddd",getApplierList_data.appliers[i])
@@ -236,6 +236,7 @@ export default {
         }
       );
 
+console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
       $.post(
         "http://140.113.216.53:8000/getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
@@ -245,7 +246,7 @@ export default {
           var applier_list_tmp = [];
           var canceled_appliers_list_tmp = [];
         
-          console.log("dddgsdsg",getApplierList_data);
+          console.log("dddgsdsg",getApplierList_data,t.charity_id,t.event_type,t.event_id, t.subid);
           t.appliers = getApplierList_data.appliers;
           for (var i in getApplierList_data.appliers){
             console.log("ddddd",getApplierList_data.appliers[i])
