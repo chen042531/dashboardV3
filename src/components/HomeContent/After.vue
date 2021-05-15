@@ -106,7 +106,7 @@
                       <td>{{ applicant.email }}</td> 
             
                       <td>
-                        <div class="input-group">
+                        <div class="input-group" v-if="sendTimeStatus==0">
                           <span class="input-group-btn">
                               <button type="button" class="btn btn-danger btn-number"  v-on:click="setMinus(i)" data-type="minus" data-field="quant[2]">
                                 <span class="glyphicon glyphicon-minus">-</span>
@@ -126,7 +126,7 @@
                 
               </div>
               <!-- <p>可編輯的剩餘時間 {{left_time_can_change}}</p> -->
-              <button type="button" class="btn btn-primary ">送出參加者服務時數</button>
+              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==0">送出參加者服務時數</button>
             </div>
         </div>
         </div>
@@ -140,7 +140,7 @@ import Source from './chart/Source'
 import Star from './chart/Star'
 
 export default {
-  props:['charity_id','event_id','event_type','subid'],
+  props:['charity_id','event_id','event_type','subid','end_timestamp'],
   components: {
     GenderRate,
     Source,
@@ -257,9 +257,106 @@ export default {
   watch: { 
     subid: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
-      console.log('ddddddddddddd')
+      
       var t = this;
+      console.log('ddddddddddddd',t.end_timestamp);
+      var d = new Date(t.end_timestamp);
+    console.log(d.getUTCHours()); // Hours
+    console.log(d.getUTCMinutes());
+    console.log(d.getUTCSeconds());
       console.log(t.event_type, t.event_id,t.subid );
+      $.post(
+      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      // { eventType: t.event_type, eventId:t.event_id, sid:0 },
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
+        function (getStatisticAndApplicantsTime_data) {
+          console.log("zzz",getStatisticAndApplicantsTime_data);
+          console.log(t.subid)
+          t.age = getStatisticAndApplicantsTime_data.age;
+          t.gender = getStatisticAndApplicantsTime_data.gender;
+          t.source = getStatisticAndApplicantsTime_data.source;
+          t.avg_score = getStatisticAndApplicantsTime_data.avg_score;
+          t.registration_num = getStatisticAndApplicantsTime_data.registration_num;
+          t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
+          t.applicants = getStatisticAndApplicantsTime_data.applicants;
+          t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
+
+
+
+
+          var ctx = document.getElementById('myChart');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
+              datasets: [{
+                label: '銷售業績(百萬)',
+                data: t.age
+              }]
+            }
+          });
+          
+          var gender_rate = document.getElementById('gender_rate')
+          var gender_rateChart = new Chart(gender_rate, {
+            type: 'pie',
+            data: {
+              labels: ["男", "女", "其他"],
+              datasets: [{
+                data:  t.gender,
+                backgroundColor: [
+                  'rgba(54, 162, 235)',
+                  'rgba(255, 99, 132)',
+                  'rgba(255, 206, 86)',
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {}
+          });
+
+          var info_source = document.getElementById('info_source')
+  // eslint-disable-next-line no-unused-vars
+          var info_sourceChart = new Chart(info_source, {
+            type: 'pie',
+            data: {
+              labels: ["公益趴趴GO App 首頁活動列表",
+                "公益趴趴GO App 官方粉絲團 (FB, IG)",
+                "合作公益單位官網", "合作公益單位廣告文宣",
+                "搜尋引擎 (Google, Yahoo, Bing, ...)",
+                "學校推廣", "親朋好友告知", "其他"],
+
+              datasets: [{
+                data: t.source,
+                backgroundColor: [
+                  'rgba(255, 99, 132)',
+                  'rgba(54, 162, 235)',
+                  'rgba(255, 206, 86)',
+                  'rgba(75, 192, 192)',
+                  'rgba(54, 162, 235)',
+                  'rgba(255, 206, 86)',
+                  'rgba(75, 192, 192)',
+                  'rgba(255, 159, 64)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            labels: {
+              boxWidth: 20,
+            },
+            options: {
+              legend: {
+                display: true,
+                // position: 'bottom',
+              },
+
+            }
+          });
+          
+
+        }
+      );
+
+
       $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
@@ -276,7 +373,7 @@ export default {
         }
       );
     
-      t.setTime();
+      // t.setTime();
      
     }
   },

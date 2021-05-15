@@ -89,7 +89,7 @@
 
         <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 
           :event_type="exp_event_Type" :subid="exp_subevent_Id" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
-          class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
+          :end_timestamp="exp_endTimestamp" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
       </div>
     </div>
   </div> 
@@ -122,6 +122,7 @@ export default {
       exp_subevent_Id: "",
       exp_subevent_stime:"",
       exp_subevent_etime:"",
+      exp_endTimestamp:""
   
     }
   },
@@ -200,7 +201,8 @@ export default {
       // t.exp_subevent_Id = ex_subevent.sid;
       t.exp_subevent_stime = ex_subevent.startTime;
       t.exp_subevent_etime = ex_subevent.endTime;
-      console.log("uuuu",t.exp_event_Type,t.exp_event_Id,t.exp_subevent_Id);
+      t.exp_endTimestamp = ex_subevent.endTimestamp;
+      console.log("uuuu",t.exp_event_Type,t.exp_event_Id,t.exp_subevent_Id,t.exp_endTimestamp);
       t.home_content_flag = 2;
     },
     goAdd: function(){

@@ -177,6 +177,7 @@ export default {
       endTime: "",
       appliers: [],
       canceled_appliers: [],
+      appliers_delete_index:"",
     }
   },
   mounted : function () {
@@ -311,7 +312,19 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
     cancel_delete: function (i) {
       $('#confirm_stop_signing').modal('hide');
     },
+     confirm: function () {
+      this.$delete(this.appliers, appliers_delete_index);
+      // $('#button' + applicants_delete_index).remove();
+      // $('#state' + applicants_delete_index).html('<h6>已取消報名</h6>');
+      canceled_appliers.push(this.appliers[appliers_delete_index])
+      console.log(delete_applicant);
+      // 確認伺服器成功或失敗
 
+      $('#confirm_delete_applicant').modal('hide');
+    },
+    cancel: function (i) {
+      $('#confirm_delete_applicant').modal('hide');
+    },
     setReject: function (i) {
 
       // bus.$emit(,this.applicants,i);
