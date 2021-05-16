@@ -11,10 +11,6 @@
                 placeholder="淨灘活動"
                 />
             </div>
-            <div class="col-md-6">
-                <UploadImages   @change="handleImages" uploadMsg="請上傳活動圖片" :max="1"/>
-            </div>
-            <!-- <p>{{uploadImg}}</p> -->
             <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">活動類別</label>
                 <div class="form-check form-check-inline">
@@ -261,41 +257,20 @@
     </div>
 </template>
 <script>
-import UploadImages from "./uploadImage/uploadImage"
-
 export default {
-  components: {
-      UploadImages,
-  },
+
   data () {
     return {
       picked: "once",
       charityID:"",
       eventName:"",
       eventType:"",
-
-      uploadImg:"",
+      
     }
   },
-  
   methods: {
-    handleImages(files){
-        console.log(files)
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            // use a regex to remove data url part
-            const base64String = reader.result
-                .replace("data:", "")
-                .replace(/^.+,/, "");
-
-
-            // log to console
-            // logs wL2dvYWwgbW9yZ...
-            this.uploadImg = base64String;
-            console.log(base64String);
-        };
-        reader.readAsDataURL(files[0]);
-        
+    sendform: function () {
+        console.log("sendform");
     }
   }
 }

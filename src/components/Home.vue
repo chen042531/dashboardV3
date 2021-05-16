@@ -104,6 +104,7 @@ export default {
   data () {
     return {
       home_content_flag: 0,
+      // event_name:"",
 
       active_list:  [],
       active_list_once:  [],

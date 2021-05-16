@@ -152,7 +152,7 @@
         <div class="modal-content">
           <div class="modal-header" style="text-align: center;">
             <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;">
-              
+              確定要截止報名 {{eventName}} 嗎?
             </h5>
   
           </div>
@@ -178,6 +178,7 @@ export default {
       appliers: [],
       canceled_appliers: [],
       appliers_delete_index:"",
+      stop_signing_flag:0,
     }
   },
   mounted : function () {
@@ -272,23 +273,23 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
     confirm_stop: function () {
 
       // 確認伺服器成功或失敗
-      if (stop_signing_flag == 0) {
+      if (this.stop_signing_flag == 0) {
         $('#confirm_stop_signing').modal('hide');
         $('#stop_sign').text('開放報名');
         $('#open_for_signing').text('截止報名');
-        $('#confirm_stop_modal').html('確定要截止報名 “淨灘活動” 嗎？');
+        $('#confirm_stop_modal').html('確定要截止報名'+this.eventName+'嗎？');
         $('#confirm_stop_modal').html('開放報名');
         $('#open_for_signing').css("color", "red");
-        stop_signing_flag = 1;
+        this.stop_signing_flag = 1;
       }
-      else if (stop_signing_flag == 1) {
+      else if (this.stop_signing_flag == 1) {
 
         $('#confirm_stop_signing').modal('hide');
         $('#stop_sign').text('截止報名');
         $('#open_for_signing').text('開放報名');
 
         $('#open_for_signing').css("color", "white");
-        stop_signing_flag = 0;
+        this.stop_signing_flag = 0;
       }
 
     },
