@@ -117,7 +117,7 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="2021-12-21"
                                 v-model="startDate"
                             />
                         </div>
@@ -128,7 +128,7 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="2021-12-21"
                                 v-model="endDate"
                             />
                         </div>
@@ -141,7 +141,7 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="8:00"
                                 v-model="startTime"
                             />
                         </div>
@@ -152,7 +152,7 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="13:00"
                                 v-model="endTime"
                             />
                         </div>
@@ -164,7 +164,7 @@
                             class="form-control "
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
-                            placeholder="2021/12/21"
+                            placeholder="20"
                             v-model="serviceHours"
                             />
                     </div>
@@ -178,7 +178,7 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="2021-12-21"
                                 v-model="startDate"
                             />
                         </div>
@@ -189,24 +189,61 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="2021-12-21"
                                 v-model="endDate"
                             />
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="exampleInputEmail1">星期</label>
-                        <select class="custom-select" v-model="weekday">
-                            <option selected value="Mon">星期一</option>
-                            <option value="Tue">星期二</option>
-                            <option value="Wed">星期三</option>
-                            <option value="Thu">星期四</option>
-                            <option value="Fri">星期五</option>
-                            <option value="Sat">星期六</option>
-                            <option value="Sun">星期日</option>
-                        </select>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Mon" value="Mon" 
+                                v-model="weekday">
+                            <label class="form-check-label" for="Mon">星期一</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Tue" value="Tue" 
+                                v-model="weekday">
+                            <label class="form-check-label" for="Tue">星期二</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Wed" value="Wed" 
+                                v-model="weekday">
+                            <label class="form-check-label" for="Wed">星期三</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Thu" value="Thu" 
+                                v-model="weekday">
+                            <label class="form-check-label" for="Thu">星期四</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Fri" value="Fri" 
+                                v-model="weekday">
+                            <label class="form-check-label" for="Fri">星期五</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Sat" value="Sat" 
+                                v-model="weekday">
+                            <label class="form-check-label" for="Sat">星期六</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Sun" value="Sun" 
+                                v-model="weekday">
+                            <label class="form-check-label" for="Sun">星期日</label>
+                        </div>
                     </div>
                 
+                    <div class="form-group" style="margin-top:1rem;">
+                        <label for="exampleInputEmail1">活動頻率(次/每週)</label>
+                        <input
+                        type="email"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        aria-describedby="emailHelp"
+                        placeholder="1"
+                        v-model="freqency"
+                        />
+                    </div>
                     <div class="form-inline ">
                         <div class="form-group mb-2">
                             <label for="exampleInputEmail1" >開始時間</label>
@@ -215,7 +252,7 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="9:00"
                                 v-model="startTime"
                             />
                         </div>
@@ -226,7 +263,7 @@
                                 class="form-control ml-xl-2"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="2021/12/21"
+                                placeholder="12:00"
                                 v-model="endTime"
                             />
                         </div>
@@ -238,7 +275,7 @@
                             class="form-control "
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
-                            placeholder="2021/12/21"
+                            placeholder="20"
                             v-model="serviceHours"
                             />
                     </div>
@@ -256,9 +293,6 @@
                 placeholder="鮭魚泡飯"
                 v-model="contactPerson"
                 />
-                <small id="emailHelp" class="form-text text-muted"
-                >We'll never share your email with anyone else.</small
-                >
             </div>
             <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">聯絡電話</label>
@@ -318,10 +352,10 @@ export default {
       endDate:"",
       startTime:"",
       endTime:"",
-      weekday:"",
+      weekday:[],
 
       serviceHours:"",
-      time:[],
+      time:"",
       eventLabel:[],
       contactPerson:"",
       contactNumber:"",
@@ -340,8 +374,8 @@ export default {
         if(t.eventType==="1"){
             var sendStartTime = t.startDate+" "+t.startTime;
             var sendEndTime = t.endDate+" "+t.endTime;
-            var sendLabel = t.eventLabel.join();
-            t.time = [];
+            var sendLabel = t.eventLabel.join()+",";
+            t.time = "[]";
             t.freqency = "0";
             
             console.log(t.charity_id,t.eventName,t.eventType,
@@ -362,23 +396,30 @@ export default {
             );
         }
         if(t.eventType==="3"){
-            var time_Obj = {};
-            time_Obj["weekday"] = t.weekday;
-            time_Obj["startTime"] = t.startTime;
-            time_Obj["endTime"] = t.endTime;
-            time_Obj["serviceHours"] = t.serviceHours;
-            t.time[0] =time_Obj ;
-            var sendLabel = t.eventLabel.join();
-            
+            var sendStartTime = t.startDate+" "+t.startTime;
+            var sendEndTime = t.endDate+" "+t.endTime;
+            var tmp_time = [];
+            t.weekday.forEach(wday=>{
+                    var time_Obj = {};
+                    time_Obj["weekday"] = wday;
+                    time_Obj["startTime"] = t.startTime;
+                    time_Obj["endTime"] = t.endTime;
+                    time_Obj["serviceHours"] = t.serviceHours;
+                    tmp_time.push(time_Obj) ;
+                }
+            );
+            t.time = JSON.stringify(tmp_time);
+            var sendLabel = t.eventLabel.join()+",";
+
             console.log(t.charity_id,t.eventName,t.eventType,
-                    t.startTime, t.endTime, t.serviceHours, t.time, t.eventLabel,
+                    sendStartTime, sendEndTime, t.serviceHours, t.time, sendLabel,
                     t.contactPerson,t.contactNumber, t.location, t.details, t.image, t.certification, t.freqency);
 
             $.post(
                 "http://140.113.216.53:8000/addEvent/",
                 { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
-                    startTime: String(t.startTime), endTime: String(t.endTime) , serviceHours: String(t.serviceHours),
-                    time: String(time_Obj), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
+                    startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
+                    time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
                     contactNumber: String(t.contactNumber), location: String(t.location), details: String(t.details) ,
                      image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
                 function (addEvent_data) {
@@ -415,17 +456,17 @@ export default {
 </script>
 <style>
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color: #eeeeee;
-            opacity: 0.8; /* Firefox */
+            color: #aaaaaa;
+            opacity: 0.9; /* Firefox */
 }
 
 .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
-            color: #eeeeee;
-            opacity: 0.2; /* Firefox */
+            color: #aaaaaa;
+            opacity: 0.9; /* Firefox */
 }
 
 .form-control::-ms-input-placeholder { /* Microsoft Edge */
-            color: #eeeeee;
-            opacity: 0.2; /* Firefox */
+            color: #aaaaaa;
+            opacity: 0.9; /* Firefox */
  }
 </style>
