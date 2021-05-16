@@ -31,55 +31,54 @@
                 v-model="location"
                 />
             </div>
-
             <div class="form-group" style="margin-top:1rem;">
                 <div>
                     <label for="exampleInputEmail1">活動類型 </label>
                 </div>
                 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox1">婦幼關懷</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2" v-model="eventLabel" >
                     <label class="form-check-label" for="inlineCheckbox2">身心障礙</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox3">老人服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="4">
-                    <label class="form-check-label" for="inlineCheckbox1">社會服務</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="4" v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox4">社會服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="5">
-                    <label class="form-check-label" for="inlineCheckbox2">動物保護</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="5" v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox5">動物保護</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="6">
-                    <label class="form-check-label" for="inlineCheckbox3">國際救援</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="6" v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox6">國際救援</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="7">
-                    <label class="form-check-label" for="inlineCheckbox1">環境保護</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="7" v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox7">環境保護</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="8">
-                    <label class="form-check-label" for="inlineCheckbox2">文教藝術</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="8" v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox8">文教藝術</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="9">
-                    <label class="form-check-label" for="inlineCheckbox3">醫療服務</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="9" v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox9">醫療服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="10">
-                    <label class="form-check-label" for="inlineCheckbox1">宗教信仰</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="10"  v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox10">宗教信仰</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="11">
-                    <label class="form-check-label" for="inlineCheckbox2">其他</label>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="11" v-model="eventLabel">
+                    <label class="form-check-label" for="inlineCheckbox11">其他</label>
                 </div>
             </div>
 
@@ -112,7 +111,7 @@
                 
                     <div class="form-inline ">
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" >開始時間</label>
+                            <label for="exampleInputEmail1" >開始日期</label>
                             <input 
                                 type="email"
                                 class="form-control ml-xl-2"
@@ -123,6 +122,30 @@
                             />
                         </div>
                         <div class="form-group mb-2">
+                            <label for="exampleInputEmail1" class="ml-xl-2" >結束日期</label>
+                            <input 
+                                type="email"
+                                class="form-control ml-xl-2"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                placeholder="2021/12/21"
+                                v-model="endDate"
+                            />
+                        </div>
+                    </div>
+                      <div class="form-inline ">
+                        <div class="form-group mb-2">
+                            <label for="exampleInputEmail1" >開始時間</label>
+                            <input 
+                                type="email"
+                                class="form-control ml-xl-2"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                placeholder="2021/12/21"
+                                v-model="startTime"
+                            />
+                        </div>
+                        <div class="form-group mb-2">
                             <label for="exampleInputEmail1" class="ml-xl-2" >結束時間</label>
                             <input 
                                 type="email"
@@ -130,7 +153,7 @@
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="2021/12/21"
-                                v-model="endtDate"
+                                v-model="endTime"
                             />
                         </div>
                     </div>
@@ -284,13 +307,12 @@ export default {
   components: {
       UploadImages,
   },
+  props:['charity_id'],
   data () {
     return {
-      eventType: "1",
 
-      charityID:"",
       eventName:"",
-      eventType:"",
+      eventType:"1",
 
       startDate:"",
       endDate:"",
@@ -300,34 +322,75 @@ export default {
 
       serviceHours:"",
       time:[],
-      eventLabel:"",
+      eventLabel:[],
       contactPerson:"",
+      contactNumber:"",
       location:"", 
       details: "",        
       image:"",
-      certification:true,
-      freqency: 0,
+      certification:"True",
+      freqency: "0",
     }
   },
   
   methods: {
     sendform(){
         var t = this;
-        $.post(
-            "http://140.113.216.53:8000/addEvent/",
-            { charityID: String(t.charityID), eventName: String(t.eventName) , eventType: String(t.eventType),
-                startTime: String(t.startTime), endTime: String(t.endTime) , serviceHours: String(t.serviceHours),
-                time: String(t.time), eventLabel: String(t.eventLabel) , contactPerson: String(t.contactPerson),
-                location: String(t.location), details: String(t.details) , image: String(t.image),
-                certification: String(t.certification), freqency: String(t.freqency) },
-            function (addEvent_data) {
-            //   console.log(t.eventID,t.eventType);
-            console.log("iiiiiiiiiii",addEvent_data);
-            //   t.eventName = getEventDetail_data.eventName;
-            //   t.startTime = getEventDetail_data.startTime;
-            //   t.endTime = getEventDetail_data.endTime;
-            }
-        );
+        console.log("send send send send send send");
+        if(t.eventType==="1"){
+            var sendStartTime = t.startDate+" "+t.startTime;
+            var sendEndTime = t.endDate+" "+t.endTime;
+            var sendLabel = t.eventLabel.join();
+            t.time = [];
+            t.freqency = "0";
+            
+            console.log(t.charity_id,t.eventName,t.eventType,
+                    sendStartTime, sendEndTime, t.serviceHours, t.time, sendLabel,
+                    t.contactPerson,t.contactNumber, t.location, t.details, t.certification);
+            $.post(
+                "http://140.113.216.53:8000/addEvent/",
+                { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
+                    startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
+                    time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
+                    contactNumber: String(t.contactNumber), location: String(t.location), details: String(t.details) ,
+                     image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
+                function (addEvent_data) {
+                //   console.log(t.eventID,t.eventType);
+                console.log("iiiiiiiiiii",addEvent_data);
+             
+                }
+            );
+        }
+        if(t.eventType==="3"){
+            var time_Obj = {};
+            time_Obj["weekday"] = t.weekday;
+            time_Obj["startTime"] = t.startTime;
+            time_Obj["endTime"] = t.endTime;
+            time_Obj["serviceHours"] = t.serviceHours;
+            t.time[0] =time_Obj ;
+            var sendLabel = t.eventLabel.join();
+            
+            console.log(t.charity_id,t.eventName,t.eventType,
+                    t.startTime, t.endTime, t.serviceHours, t.time, t.eventLabel,
+                    t.contactPerson,t.contactNumber, t.location, t.details, t.image, t.certification, t.freqency);
+
+            $.post(
+                "http://140.113.216.53:8000/addEvent/",
+                { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
+                    startTime: String(t.startTime), endTime: String(t.endTime) , serviceHours: String(t.serviceHours),
+                    time: String(time_Obj), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
+                    contactNumber: String(t.contactNumber), location: String(t.location), details: String(t.details) ,
+                     image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
+                function (addEvent_data) {
+                //   console.log(t.eventID,t.eventType);
+                console.log("iiiiiiiiiii",addEvent_data);
+             
+                }
+            );
+        }
+        console.log("send send send send send send");
+        
+        
     },
     handleImages(files){
         console.log(files)

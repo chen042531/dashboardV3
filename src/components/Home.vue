@@ -86,7 +86,7 @@
 
             </div>
         </nav>
-        <actnew v-if="home_content_flag==0"  class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></actnew>
+        <actnew v-if="home_content_flag==0"  :charity_id="charityId" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></actnew>
         <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
           :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
           class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
