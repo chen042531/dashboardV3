@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <br/>
-               = <div class="table-responsive" id="applicants_info">
+               <div class="table-responsive" id="applicants_info">
                     <table class="table table-striped table-sm">
                     <thead>
                         <tr>

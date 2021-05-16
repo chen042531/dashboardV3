@@ -6,7 +6,11 @@
         </button>
         <p class="navbar-brand ">公益趴趴 Go</p>
         <p class="  f" id="user">{{username}}</p>
-        <p class="  f" id="logout">登出</p>
+        
+        <a href="/">
+          <p class="  f" id="logout"> 登出 </p>
+        </a>
+       
     </header>
     <div class="container-fluid">
       <div class="row">

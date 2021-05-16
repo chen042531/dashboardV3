@@ -10,6 +10,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="淨灘活動"
+                v-model="eventName"
                 />
             </div>
             <div class="form-group" style="margin-top:2rem;">
@@ -20,27 +21,6 @@
             </div>
             
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">活動類別</label>
-                <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="inlineCheckbox1"
-                    value="option1"
-                />
-                <label class="form-check-label" for="inlineCheckbox1">1</label>
-                </div>
-                <div class="form-check form-check-inline">
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="inlineCheckbox2"
-                    value="option2"
-                />
-                <label class="form-check-label" for="inlineCheckbox2">2</label>
-                </div>
-            </div>
-            <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">活動地點</label>
                 <input
                 type="email"
@@ -48,11 +28,61 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="台北"
+                v-model="location"
                 />
-                <small id="emailHelp" class="form-text text-muted"
-                >We'll never share your email with anyone else.</small
-                >
             </div>
+
+            <div class="form-group" style="margin-top:1rem;">
+                <div>
+                    <label for="exampleInputEmail1">活動類型 </label>
+                </div>
+                
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+                    <label class="form-check-label" for="inlineCheckbox1">婦幼關懷</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2">
+                    <label class="form-check-label" for="inlineCheckbox2">身心障礙</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3">
+                    <label class="form-check-label" for="inlineCheckbox3">老人服務</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="4">
+                    <label class="form-check-label" for="inlineCheckbox1">社會服務</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="5">
+                    <label class="form-check-label" for="inlineCheckbox2">動物保護</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="6">
+                    <label class="form-check-label" for="inlineCheckbox3">國際救援</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="7">
+                    <label class="form-check-label" for="inlineCheckbox1">環境保護</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="8">
+                    <label class="form-check-label" for="inlineCheckbox2">文教藝術</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="9">
+                    <label class="form-check-label" for="inlineCheckbox3">醫療服務</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="10">
+                    <label class="form-check-label" for="inlineCheckbox1">宗教信仰</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="11">
+                    <label class="form-check-label" for="inlineCheckbox2">其他</label>
+                </div>
+            </div>
+
             <div class="form-group" style="margin-top:1rem; ">
                 <label for="exampleInputEmail1">活動型態</label>
                 <div class="form-check form-check-inline">
@@ -61,8 +91,8 @@
                         type="radio"
                         name="inlineRadioOptions"
                         id="inlineRadio1"
-                        value="once"
-                        v-model="picked"
+                        value="1"
+                        v-model="eventType"
                     />
                     <label class="form-check-label" for="inlineRadio1">單次活動</label>
                 </div>
@@ -72,23 +102,13 @@
                         type="radio"
                         name="inlineRadioOptions"
                         id="inlineRadio2"
-                        value="period"
-                        v-model="picked"
+                        value="3"
+                        v-model="eventType"
                     />
                     <label class="form-check-label" for="inlineRadio2">週期活動</label>
                 </div>
-                <!-- <span>Picked: {{ picked }}</span> -->
-                <div v-if="picked=='once'"  >
-                    <div class="form-group ">
-                        <label for="exampleInputEmail1">日期</label>
-                        <input
-                        type="email"
-                        class="form-control"
-                        id="exampleInputEmail1"
-                        aria-describedby="emailHelp"
-                        placeholder="2021/12/21"
-                        />
-                    </div>
+               
+                <div v-if="eventType=='1'"  >
                 
                     <div class="form-inline ">
                         <div class="form-group mb-2">
@@ -99,6 +119,7 @@
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="2021/12/21"
+                                v-model="startDate"
                             />
                         </div>
                         <div class="form-group mb-2">
@@ -109,21 +130,23 @@
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="2021/12/21"
+                                v-model="endtDate"
                             />
                         </div>
                     </div>
                     <div class="form-group ">
-                            <label for="exampleInputEmail1">時數</label>
+                            <label for="exampleInputEmail1">服務時數(小時)</label>
                             <input
                             type="email"
                             class="form-control "
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="2021/12/21"
+                            v-model="serviceHours"
                             />
                     </div>
                 </div>
-                <div v-if="picked=='period'"  >
+                <div v-if="eventType=='3'"  >
                     <div class="form-inline ">
                         <div class="form-group mb-2">
                             <label for="exampleInputEmail1" >開始日期</label>
@@ -133,6 +156,7 @@
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="2021/12/21"
+                                v-model="startDate"
                             />
                         </div>
                         <div class="form-group mb-2">
@@ -143,19 +167,20 @@
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="2021/12/21"
+                                v-model="endDate"
                             />
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="exampleInputEmail1">星期</label>
-                        <select class="custom-select">
-                            <option selected value="mon">星期一</option>
-                            <option value="tue">星期二</option>
-                            <option value="wed">星期三</option>
-                            <option value="thu">星期四</option>
-                            <option value="fri">星期五</option>
-                            <option value="sat">星期六</option>
-                            <option value="sun">星期日</option>
+                        <select class="custom-select" v-model="weekday">
+                            <option selected value="Mon">星期一</option>
+                            <option value="Tue">星期二</option>
+                            <option value="Wed">星期三</option>
+                            <option value="Thu">星期四</option>
+                            <option value="Fri">星期五</option>
+                            <option value="Sat">星期六</option>
+                            <option value="Sun">星期日</option>
                         </select>
                     </div>
                 
@@ -168,6 +193,7 @@
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="2021/12/21"
+                                v-model="startTime"
                             />
                         </div>
                         <div class="form-group mb-2">
@@ -178,40 +204,34 @@
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="2021/12/21"
+                                v-model="endTime"
                             />
                         </div>
                     </div>
-                    <div class="form-group ">
-                            <label for="exampleInputEmail1">時數</label>
+                    <div class="form-group  ">
+                            <label for="exampleInputEmail1">服務時數(小時)</label>
                             <input
                             type="email"
                             class="form-control "
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="2021/12/21"
+                            v-model="serviceHours"
                             />
                     </div>
-                    <div class="form-group ">
-                            <label for="exampleInputEmail1">隔多少週</label>
-                            <input
-                            type="email"
-                            class="form-control "
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="2021/12/21"
-                            />
-                    </div>
+                 
                 </div>
             </div>
     
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">承辦人員</label>
+                <label for="exampleInputEmail1">聯絡人</label>
                 <input
                 type="email"
                 class="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="鮭魚泡飯"
+                v-model="contactPerson"
                 />
                 <small id="emailHelp" class="form-text text-muted"
                 >We'll never share your email with anyone else.</small
@@ -225,6 +245,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="0912123123"
+                v-model="contactNumber"
                 />
                 <small id="emailHelp" class="form-text text-muted"
                 >We'll never share your email with anyone else.</small
@@ -232,23 +253,10 @@
             </div>
             
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">服務時數(小時)</label>
-                <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="10"
-                />
-                <small id="emailHelp" class="form-text text-muted"
-                >We'll never share your email with anyone else.</small
-                >
-            </div>
-            <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">是否提供服務證明？</label>
-                <select class="custom-select">
-                    <option selected value="yes">是</option>
-                    <option value="no">否</option>
+                <select class="custom-select" v-model="certification">
+                    <option selected value="True">是</option>
+                    <option value="False">否</option>
                 </select>
             </div>
             <div class="form-group" style="margin-top:1rem;">
@@ -259,6 +267,7 @@
                 class="form-control"
                 id="exampleFormControlTextarea1"
                 rows="6"
+                v-model="details"
                 ></textarea>
             </div>
             <button type="submit" class="btn btn-primary" 
@@ -277,16 +286,49 @@ export default {
   },
   data () {
     return {
-      picked: "once",
+      eventType: "1",
+
       charityID:"",
       eventName:"",
       eventType:"",
 
-      uploadImg:"",
+      startDate:"",
+      endDate:"",
+      startTime:"",
+      endTime:"",
+      weekday:"",
+
+      serviceHours:"",
+      time:[],
+      eventLabel:"",
+      contactPerson:"",
+      location:"", 
+      details: "",        
+      image:"",
+      certification:true,
+      freqency: 0,
     }
   },
   
   methods: {
+    sendform(){
+        var t = this;
+        $.post(
+            "http://140.113.216.53:8000/addEvent/",
+            { charityID: String(t.charityID), eventName: String(t.eventName) , eventType: String(t.eventType),
+                startTime: String(t.startTime), endTime: String(t.endTime) , serviceHours: String(t.serviceHours),
+                time: String(t.time), eventLabel: String(t.eventLabel) , contactPerson: String(t.contactPerson),
+                location: String(t.location), details: String(t.details) , image: String(t.image),
+                certification: String(t.certification), freqency: String(t.freqency) },
+            function (addEvent_data) {
+            //   console.log(t.eventID,t.eventType);
+            console.log("iiiiiiiiiii",addEvent_data);
+            //   t.eventName = getEventDetail_data.eventName;
+            //   t.startTime = getEventDetail_data.startTime;
+            //   t.endTime = getEventDetail_data.endTime;
+            }
+        );
+    },
     handleImages(files){
         console.log(files)
         const reader = new FileReader();
@@ -299,7 +341,7 @@ export default {
 
             // log to console
             // logs wL2dvYWwgbW9yZ...
-            this.uploadImg = base64String;
+            this.image = base64String;
             console.log(base64String);
         };
         reader.readAsDataURL(files[0]);
@@ -307,4 +349,20 @@ export default {
     }
   }
 }
-</script>>
+</script>
+<style>
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #eeeeee;
+            opacity: 0.8; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #eeeeee;
+            opacity: 0.2; /* Firefox */
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+            color: #eeeeee;
+            opacity: 0.2; /* Firefox */
+ }
+</style>
