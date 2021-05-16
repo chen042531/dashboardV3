@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div >
+       
         <form action="">
             <div class="form-group" style="margin-top:2rem;">
                 <label for="exampleInputEmail1">活動名稱</label>
@@ -11,7 +12,7 @@
                 placeholder="淨灘活動"
                 />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <UploadImages   @change="handleImages" uploadMsg="請上傳活動圖片" :max="1"/>
             </div>
             <!-- <p>{{uploadImg}}</p> -->
@@ -49,7 +50,7 @@
                 >We'll never share your email with anyone else.</small
                 >
             </div>
-             <div class="form-group" style="margin-top:1rem;">
+            <div class="form-group" style="margin-top:1rem;">
                 <label for="exampleInputEmail1">活動型態</label>
                 <div class="form-check form-check-inline">
                 <input
@@ -76,8 +77,8 @@
                 <span>Picked: {{ picked }}</span>
             </div>
             <div v-if="picked=='once'">
-                 <div class="form-inline row">
-                     <label for="exampleInputEmail1">日期</label>
+                <div class="form-inline row">
+                    <label for="exampleInputEmail1">日期</label>
                     <input
                     type="email"
                     class="form-control"
@@ -105,7 +106,7 @@
                     />
                 </div>
                 <div class="form-inline row">
-                     <label for="exampleInputEmail1">時數</label>
+                    <label for="exampleInputEmail1">時數</label>
                     <input
                     type="email"
                     class="form-control"
@@ -117,7 +118,7 @@
             </div>
             <div v-if="picked=='period'">
                 <div class="form-inline row">
-                     <label for="exampleInputEmail1">開始日期</label>
+                    <label for="exampleInputEmail1">開始日期</label>
                     <input
                     type="email"
                     class="form-control"
@@ -125,7 +126,7 @@
                     aria-describedby="emailHelp"
                     placeholder="2021/12/21"
                     />
-                     <label for="exampleInputEmail1">結束日期</label>
+                    <label for="exampleInputEmail1">結束日期</label>
                     <input
                     type="email"
                     class="form-control"
@@ -163,7 +164,7 @@
                     />
                 </div>
                 <div class="form-inline row">
-                     <label for="exampleInputEmail1">時數</label>
+                    <label for="exampleInputEmail1">時數</label>
                     <input
                     type="email"
                     class="form-control"
@@ -173,7 +174,7 @@
                     />
                 </div>
                 <div class="form-inline row">
-                     <label for="exampleInputEmail1">格多少週</label>
+                    <label for="exampleInputEmail1">格多少週</label>
                     <input
                     type="email"
                     class="form-control"
@@ -255,9 +256,10 @@
                 ></textarea>
             </div>
             <button type="submit" class="btn btn-primary" 
-      style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
-       padding-left: 3rem;padding-right: 3rem;" v-on:click="sendform()">提交活動</button>
+    style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
+    padding-left: 3rem;padding-right: 3rem;" v-on:click="sendform()">提交活動</button>
         </form>
+        
     </div>
 </template>
 <script>

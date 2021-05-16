@@ -229,9 +229,9 @@ export default {
       </p>
     </div>
     <div class="imgsPreview" v-show="Imgs.length > 0">
-      <button class="clearButton" @click="reset">
+      <!-- <button class="clearButton" @click="reset">
         {{ clearAll ? clearAll : "clear All" }}
-      </button>
+      </button> -->
       <div class="imageHolder" v-for="(img, i) in Imgs" :key="i">
         <img :src="img" />
         <span class="delete" style="color: white" @click="deleteImg(--i)">
@@ -250,7 +250,7 @@ export default {
             />
           </svg>
         </span>
-        <div class="plus" @click="append" v-if="++i == Imgs.length">+</div>
+        <!-- <div class="plus" @click="append" v-if="++i == Imgs.length">+</div> -->
       </div>
     </div>
   </div>
@@ -310,6 +310,8 @@ export default {
   border-radius: 10px;
   margin: 5px 5px;
   display: inline-block;
+  left:50%;
+  transform: translateX(-50%);
 }
 .imgsPreview .imageHolder img {
   object-fit: cover;
