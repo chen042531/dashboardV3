@@ -6,8 +6,10 @@
         <!-- <span>{{event_description}}</span> -->
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="delete_event()">刪除活動</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="stop_signing()">截止報名</button>
+            <button v-if="event_canceled_state==0" type="button" class="btn btn-sm btn-outline-secondary" 
+                v-on:click="delete_event()">刪除活動</button>
+            <button v-if="event_canceled_state==0" type="button" class="btn btn-sm btn-outline-secondary" 
+                v-on:click="stop_signing()">截止報名</button>
           </div>
         </div>
       </div>
@@ -15,7 +17,7 @@
       
       <div class="row ">
         <div class="col-sm-12">
-            <div class="card top-buffer">
+            <div v-if="event_canceled_state == 0" class="card top-buffer">
                 <div class="card-body text-center">
                 <h5 class="card-title">參加者資訊</h5>
                 <br/>
@@ -99,6 +101,10 @@
            
                 </div>
             </div>
+
+            <div v-if="event_canceled_state == 1" class="card top-buffer">
+              <p>{{why}}</p>
+            </div>
         </div>
       </div>
   
@@ -130,14 +136,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              確定要刪除活動 “淨灘活動” 嗎？
+              確定要刪除活動 {{eventName}} 嗎？
               
             </h5>
   
           </div>
           <div class="modal-body" >
             <h5>刪除活動的理由是:</h5>
-            <textarea class="form-control" id="confirm_delete_event_reason" rows="5"></textarea>
+            <textarea class="form-control" id="confirm_delete_event_reason" rows="5" v-model="why"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_delete()">取消</button>
@@ -179,6 +185,9 @@ export default {
       canceled_appliers: [],
       appliers_delete_index:"",
       stop_signing_flag:0,
+
+      event_canceled_state: 0,
+      why:"",
     }
   },
   mounted : function () {
@@ -304,11 +313,11 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
       // 確認伺服器成功或失敗
       console.log("刪除活動")
       $('#confirm_delete_event').modal('hide');
-      delete_reason = $('#confirm_delete_event_reason').val();
+      var delete_reason = this.why;
       console.log(delete_reason);
-      main_flag = 1;
+      this.event_canceled_state = 1;
       // console.log(main_flag);
-      $("#info_delete_reason").text(delete_reason);
+      // $("#info_delete_reason").text(delete_reason);
     },
     cancel_delete: function (i) {
       $('#confirm_stop_signing').modal('hide');
