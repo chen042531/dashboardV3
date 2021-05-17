@@ -1,15 +1,20 @@
 <template>
   <div>
       <div id="event_info" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{eventName}}  <span style="color: #888888;
-          font-size: large;">{{startTime}} {{endTime}}</span></h1>
-        <!-- <span>{{event_description}}</span> -->
+        <h1 class="h2">{{eventName}}  </h1>
+        <h1 v-if="stop_signing_flag == 1" style="color:red;">截止報名</h1>
+        <span style="color: #888888;
+          font-size: large;">{{startTime}} {{endTime}}</span>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <button v-if="event_canceled_state==0" type="button" class="btn btn-sm btn-outline-secondary" 
                 v-on:click="delete_event()">刪除活動</button>
             <button v-if="event_canceled_state==0" type="button" class="btn btn-sm btn-outline-secondary" 
-                v-on:click="stop_signing()">截止報名</button>
+                v-on:click="stop_signing()">
+                <div v-if="stop_signing_flag == 0">截止報名</div>
+                <div v-if="stop_signing_flag == 1">開放報名</div>
+            </button>
+            
           </div>
         </div>
       </div>
@@ -284,20 +289,20 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
       // 確認伺服器成功或失敗
       if (this.stop_signing_flag == 0) {
         $('#confirm_stop_signing').modal('hide');
-        $('#stop_sign').text('開放報名');
-        $('#open_for_signing').text('截止報名');
-        $('#confirm_stop_modal').html('確定要截止報名'+this.eventName+'嗎？');
-        $('#confirm_stop_modal').html('開放報名');
-        $('#open_for_signing').css("color", "red");
+        // $('#stop_sign').text('開放報名');
+        // $('#open_for_signing').text('截止報名');
+        // $('#confirm_stop_modal').html('確定要截止報名'+this.eventName+'嗎？');
+        // $('#confirm_stop_modal').html('開放報名');
+        // $('#open_for_signing').css("color", "red");
         this.stop_signing_flag = 1;
       }
       else if (this.stop_signing_flag == 1) {
 
         $('#confirm_stop_signing').modal('hide');
-        $('#stop_sign').text('截止報名');
-        $('#open_for_signing').text('開放報名');
+        // $('#stop_sign').text('截止報名');
+        // $('#open_for_signing').text('開放報名');
 
-        $('#open_for_signing').css("color", "white");
+        // $('#open_for_signing').css("color", "white");
         this.stop_signing_flag = 0;
       }
 
