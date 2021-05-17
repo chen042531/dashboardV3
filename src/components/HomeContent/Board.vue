@@ -17,7 +17,7 @@
                 <div>
                     {{eventId}}
                 </div>
-                <div >
+                <div  >
                     <label for="selectEventDate">請選擇子活動日期</label>
                     <select class="custom-select" v-model="subEventId">
                         <option  v-for="sub in event_item.time" :value="sub.sid" :key="sub.sid">{{sub.endTime}}</option>
@@ -48,6 +48,30 @@
         <button class="btn btn-primary" 
     style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
     padding-left: 3rem;padding-right: 3rem;" v-on:click="sendNews()">送出公告</button>
+
+
+    <!-- 已成功發布公告 -->
+    <div class="modal fade" id="addNews_success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 v-if="wait_server==0" class="modal-title" id="exampleModalLabel">
+              已成功發布 {{event_item.eventName}} 的公告
+            </h5>
+            <h5 v-if="wait_server==1" class="modal-title" id="exampleModalLabel">
+              發布中...
+            </h5>
+            <h5 v-if="wait_server==2" class="modal-title" id="exampleModalLabel">
+              發布失敗
+            </h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_delete()">取消</button>
+            <button type="button" class="btn btn-primary" v-on:click="confirm_delete()">確認</button>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 </template>
 <script>
@@ -60,12 +84,32 @@ export default {
             event_item:{},
             see:"",
             detail:"",
-            
+            wait_serve: 0,
         }
     },
     methods: {
         sendNews(){
-            console.log(this.mainEvent, this.mainEvent.eventType);
+            let t = this;
+            // console.log(this.mainEvent, this.mainEvent.eventType);
+            console.log(t.charity_id, t.event_item.eventType, t.event_item.eventID, 
+                    t.subEventId,t.see, t.detail);
+            t.wait_server = 1; //wait
+             $('#addNews_success').modal('show');
+             $.post(
+                "http://140.113.216.53:8000/addNews/",
+                { charityID: t.charity_id, eventType:t.event_item.eventType, 
+                  eventID:t.event_item.eventID, sid:t.subEventId,visibility:t.see, content:t.detail},
+                function (addNews_data) {
+                    console.log(addNews_data);
+                    if(addNews_data.status == 0){
+                        t.wait_server = 0; //success
+                    }else{
+                        t.wait_server = 2; //fail
+                    }
+                    
+                    
+                }
+            );
         },
         onChange(event) {
             console.log(event.target.value);
