@@ -327,11 +327,11 @@
                 v-model="details"
                 ></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" 
+           
+        </form>
+         <button type="submit" class="btn btn-primary" 
     style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
     padding-left: 3rem;padding-right: 3rem;" v-on:click="sendform()">提交活動</button>
-        </form>
-        
     </div>
 </template>
 <script>

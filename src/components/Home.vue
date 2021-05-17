@@ -16,9 +16,13 @@
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky ">
+                <button type="button" class="btn btn-warning btn-lg btn-block" style="position:relative;margin-top:20px;" v-on:click="goBoard()">
+                  新增公告
+                </button>
                 <button type="button" class="btn btn-info btn-lg btn-block" style="position:relative;margin-top:20px;" v-on:click="goAdd()">
                   新增活動
                 </button>
+                
                 <h5  style="padding-top: 1rem; padding-bottom: 0.5rem; margin-left: 0; color: #727272;;">
                 活動名稱
                 </h5>
@@ -94,6 +98,10 @@
         <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 
           :event_type="exp_event_Type" :subid="exp_subevent_Id" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
           :end_timestamp="exp_endTimestamp" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
+
+        <app-board v-if="home_content_flag==3" :charity_id="charityId" :a_list="active_list" :a_list_once="active_list_once"
+          :e_list="expired_list" :e_list_once="expired_list_once" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        </app-board>
       </div>
     </div>
   </div> 
@@ -102,8 +110,15 @@
 <script>
 import Before from './HomeContent/Before';
 import After from './HomeContent/After';
-import Actnew from './HomeContent/Actnew'
+import Actnew from './HomeContent/Actnew';
+import Board from './HomeContent/Board'
 export default {
+  components:{
+    'app-before':Before,
+    'app-after':After,
+    'actnew':Actnew,
+    'app-board':Board,
+  },
   props:['charityId','username'],
   data () {
     return {
@@ -214,14 +229,15 @@ export default {
        let t = this;
       t.home_content_flag = 0;
       console.log( t.home_content_flag);
+    },
+    goBoard: function(){
+      let t = this;
+      t.home_content_flag = 3;
+      console.log( t.home_content_flag);
     }
     
   },
-  components:{
-    'app-before':Before,
-    'app-after':After,
-    'actnew':Actnew,
-  }
+  
 }
 </script>
 
