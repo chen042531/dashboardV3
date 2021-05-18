@@ -1,8 +1,8 @@
 <template>
   <div>
       <div id="event_info" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{eventName}}  </h1>
-        <h1 v-if="stop_signing_flag == 1" style="color:red;">截止報名</h1>
+        <h2>{{eventName}}  </h2>
+        <h2 v-if="stop_signing_flag == 1" style="color:red;">截止報名</h2>
         <span style="color: #888888;
           font-size: large;">{{startTime}} {{endTime}}</span>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -22,7 +22,8 @@
       
       <div class="row ">
         <div class="col-sm-12">
-            <div v-if="event_canceled_state == 0" class="card top-buffer">
+            <!-- <div v-if="event_canceled_state == 0" class="card top-buffer"> -->
+            <div  class="card top-buffer">
                 <div class="card-body text-center">
                 <h5 class="card-title">參加者資訊</h5>
                 <br/>
@@ -107,9 +108,9 @@
                 </div>
             </div>
 
-            <div v-if="event_canceled_state == 1" class="card top-buffer">
+            <!-- <div v-if="event_canceled_state == 1" class="card top-buffer">
               <p>{{why}}</p>
-            </div>
+            </div> -->
         </div>
       </div>
   
@@ -140,18 +141,23 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 v-if="event_canceled_state==0" class="modal-title" id="exampleModalLabel">
               確定要刪除活動 {{eventName}} 嗎？
-              
             </h5>
-  
+            <h5 v-if="event_canceled_state==11">
+              刪除活動 {{eventName}} 失敗，請再試一次
+            </h5>
           </div>
-          <div class="modal-body" >
+          <div  v-if="event_canceled_state==0" class="modal-body" >
+            <h5>刪除活動公告內容:</h5>
+            <textarea class="form-control" id="confirm_delete_event_reason" rows="5" v-model="bulletinboard"></textarea>
+          
             <h5>刪除活動的理由是:</h5>
             <textarea class="form-control" id="confirm_delete_event_reason" rows="5" v-model="why"></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_delete()">取消</button>
+            <button v-if="event_canceled_state==0" type="button" class="btn btn-secondary" 
+              data-dismiss="modal" v-on:click="cancel_delete()">取消</button>
             <button type="button" class="btn btn-primary" v-on:click="confirm_delete()">確認</button>
           </div>
         </div>
@@ -162,10 +168,22 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header" style="text-align: center;">
-            <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;">
-              確定要截止報名 {{eventName}} 嗎?
+            <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;"
+            v-if="stop_signing_flag == 0">
+              確定要截止 {{eventName}} 報名嗎?
             </h5>
-  
+            <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;"
+            v-if="stop_signing_flag == 1">
+              確定要開放 {{eventName}} 報名嗎?
+            </h5>
+            <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;"
+            v-if="stop_signing_flag == 10">
+              截止 {{eventName}} 報名失敗，請再試一次
+            </h5>
+            <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;"
+            v-if="stop_signing_flag == 11">
+              開放 {{eventName}} 報名失敗，請再試一次
+            </h5>
           </div>
   
           <div class="modal-footer">
@@ -180,7 +198,7 @@
 
 <script>
 export default {
-  props:['charity_id','event_id','event_type','subid'],
+  props:['charity_id','event_id','event_type','subid', 'Subevent'],
   data () {
     return {
       eventName:  "",
@@ -192,11 +210,16 @@ export default {
       stop_signing_flag:0,
 
       event_canceled_state: 0,
+      bulletinboard:"",
       why:"",
+
+
+
     }
   },
   mounted : function () {
     var t = this;
+    
      $.post(
         "http://140.113.216.53:8000/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
@@ -286,24 +309,43 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
     },
     confirm_stop: function () {
 
+      var t = this;
       // 確認伺服器成功或失敗
-      if (this.stop_signing_flag == 0) {
-        $('#confirm_stop_signing').modal('hide');
-        // $('#stop_sign').text('開放報名');
-        // $('#open_for_signing').text('截止報名');
-        // $('#confirm_stop_modal').html('確定要截止報名'+this.eventName+'嗎？');
-        // $('#confirm_stop_modal').html('開放報名');
-        // $('#open_for_signing').css("color", "red");
-        this.stop_signing_flag = 1;
+      if (t.stop_signing_flag == 0) {
+        $.post(
+        "http://140.113.216.53:8000/closeRegistration/",
+        { eventType: String(t.event_type), eventID: String(t.event_id), charityID: String(t.charity_id)},
+          function (closeRegistration_data) {
+            
+            console.log(closeRegistration_data);
+            if (closeRegistration_data.status == 0){
+              $('#confirm_stop_signing').modal('hide');
+              t.stop_signing_flag = 1;
+            }
+            else{
+              t.stop_signing_flag = 10;
+            }
+          }
+        );
+        
       }
-      else if (this.stop_signing_flag == 1) {
-
-        $('#confirm_stop_signing').modal('hide');
-        // $('#stop_sign').text('截止報名');
-        // $('#open_for_signing').text('開放報名');
-
-        // $('#open_for_signing').css("color", "white");
-        this.stop_signing_flag = 0;
+      else if (t.stop_signing_flag == 1) {
+        $.post(
+        "http://140.113.216.53:8000/openRegistration/",
+        { eventType: String(t.event_type), eventID: String(t.event_id), charityID: String(t.charity_id)},
+          function (openRegistration_data) {
+            
+            console.log(openRegistration_data);
+            if (openRegistration_data.status == 0){
+              $('#confirm_stop_signing').modal('hide');
+              t.stop_signing_flag = 0;
+            }
+            else{
+              t.stop_signing_flag = 11;
+            }
+          }
+        );
+       
       }
 
     },
@@ -315,14 +357,34 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
     },
     confirm_delete: function () {
 
-      // 確認伺服器成功或失敗
-      console.log("刪除活動")
-      $('#confirm_delete_event').modal('hide');
       var delete_reason = this.why;
       console.log(delete_reason);
-      this.event_canceled_state = 1;
-      // console.log(main_flag);
-      // $("#info_delete_reason").text(delete_reason);
+      // 確認伺服器成功或失敗
+      console.log("刪除活動")
+      var t = this;
+      // t.event_canceled_state = 11;
+      if(t.event_canceled_state!=11){
+          $.post(
+        "http://140.113.216.53:8000/deleteEvent/",
+        { charityID: String(t.charity_id),eventType: String(t.event_type), eventID: String(t.event_id), 
+          content: t.bulletinboard, eventNote: t.why},
+          function (deleteEvent_data) {
+            
+            console.log(deleteEvent_data);
+            if (deleteEvent_data.status == 0){
+              $('#confirm_delete_event').modal('hide');
+              t.event_canceled_state = 1;
+            }
+            else{
+              t.event_canceled_state = 11;
+            }
+          }
+        );
+
+      }else{
+        $('#confirm_delete_event').modal('hide');
+      }
+    
     },
     cancel_delete: function (i) {
       $('#confirm_stop_signing').modal('hide');

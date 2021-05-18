@@ -62,7 +62,7 @@
                     
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
                         <li class="nav-item" v-for="exp_event_once in expired_list_once" :key="exp_event_once.eventID"
-                          v-on:click="expiredGoTO(exp_event_once)">  
+                          :bus="bus" v-on:click="expiredGoTO(exp_event_once)">  
                           <a class="btn btn-primary"  role="button" >
                             {{exp_event_once.eventName}}
                           </a>
@@ -91,16 +91,17 @@
             </div>
         </nav>
         <actnew v-if="home_content_flag==0"  :charity_id="charityId" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></actnew>
-        <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
+        <app-before  v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
           :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
           class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
 
-        <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 
+        <app-after :bus="bus" v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 
           :event_type="exp_event_Type" :subid="exp_subevent_Id" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
-          :end_timestamp="exp_endTimestamp" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
+          :end_timestamp="exp_endTimestamp" :Subevent="subevent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
 
         <app-board v-if="home_content_flag==3" :charity_id="charityId" :a_list="active_list" :a_list_once="active_list_once"
-          :e_list="expired_list" :e_list_once="expired_list_once" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          :e_list="expired_list" :e_list_once="expired_list_once"
+          :ex_Subevent="ex_subevent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         </app-board>
       </div>
     </div>
@@ -142,7 +143,9 @@ export default {
       exp_subevent_Id: "",
       exp_subevent_stime:"",
       exp_subevent_etime:"",
-      exp_endTimestamp:""
+      exp_endTimestamp:"",
+
+      bus: new Vue(),
   
     }
   },
