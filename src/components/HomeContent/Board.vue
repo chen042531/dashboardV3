@@ -64,10 +64,13 @@
             <h5 v-if="wait_server==2" class="modal-title" id="exampleModalLabel">
               發布失敗
             </h5>
+            <h5 v-if="wait_server==3" class="modal-title" id="exampleModalLabel">
+              請選擇一個活動
+            </h5>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_delete()">取消</button>
-            <button type="button" class="btn btn-primary" v-on:click="confirm_delete()">確認</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_delete()">取消</button> -->
+            <button type="button" class="btn btn-primary text-center" v-on:click="confirm_delete()">確認</button>
           </div>
         </div>
       </div>
@@ -93,6 +96,9 @@ export default {
             // console.log(this.mainEvent, this.mainEvent.eventType);
             console.log(t.charity_id, t.event_item.eventType, t.event_item.eventID, 
                     t.subEventId,t.see, t.detail);
+            if(t.event_item.eventType==null){
+               t.wait_server =  3;
+            }
             t.wait_server = 1; //wait
              $('#addNews_success').modal('show');
              $.post(
@@ -113,6 +119,12 @@ export default {
         },
         onChange(event) {
             console.log(event.target.value);
+        },
+        cancel_delete(){
+            $('#addNews_success').modal('hide');
+        },
+        confirm_delete(){
+            $('#addNews_success').modal('hide');
         }
     }
 }

@@ -18,8 +18,15 @@
           </div>
         </div>
       </div>
-      <div>無論是企業社會責任（CSR），或近幾年熱烈響應聯合國提出的全球永續發展目標（SDGs），追求永續發展已成企業經營的關鍵課題。本會努力追尋人與自然和諧共存的方式。若您也是有同樣理念的企業，歡迎透過捐款贊助、志工參與、環境講座、綠色消費等多種合作形式支持我們。</div>
-      
+      <div>{{charityName}}</div>
+      <div>{{contactNumber}}</div>
+      <div>{{contactPerson}}</div>
+      <div>{{location}}</div>
+      <div>{{details}}</div>
+      <div v-for="fre in eventFreq" :key="fre.weekday">{{fre.weekday}}</div>
+      <div v-if="eventType=='1'">一次性</div>
+      <div v-if="eventType=='3'">週期性</div>
+      <div v-if="note != 'none'">note</div>
       <div class="row ">
         <div class="col-sm-12">
             <!-- <div v-if="event_canceled_state == 0" class="card top-buffer"> -->
@@ -201,6 +208,16 @@ export default {
   props:['charity_id','event_id','event_type','subid', 'Subevent'],
   data () {
     return {
+      charityName:"",
+      contactNumber:"",
+      contactPerson:"",
+      details:"",
+      eventFreq:[],
+      eventType:"",
+      location:"",
+      note:"",
+      status:0,
+
       eventName:  "",
       startTime: "",
       endTime: "",
@@ -226,12 +243,23 @@ export default {
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
           console.log("iiiiiiiiiii",getEventDetail_data);
+          t.bef_event = getEventDetail_data;
           t.eventName = getEventDetail_data.eventName;
           t.startTime = getEventDetail_data.startTime;
           t.endTime = getEventDetail_data.endTime;
+
+          t.charityName = getEventDetail_data.charityName;
+          t.contactNumber = getEventDetail_data.contactNumber;
+          t.contactPerson = getEventDetail_data.contactPerson;
+          t.details = getEventDetail_data.details;
+          t.eventFreq = getEventDetail_data.eventFreq;
+          t.eventType = getEventDetail_data.eventType;
+          t.location = getEventDetail_data.location;
+          t.note = getEventDetail_data.note;
+          t.status = getEventDetail_data.status;
         }
       );
-
+      console.log("irrrrr",t.contactPerson);
       $.post(
         "http://140.113.216.53:8000/getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid) },
@@ -262,7 +290,7 @@ export default {
       console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       
       var t = this;
-
+      console.log("ffffff", t.Subevent);
        $.post(
         "http://140.113.216.53:8000/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
@@ -272,10 +300,22 @@ export default {
           t.eventName = getEventDetail_data.eventName;
           t.startTime = getEventDetail_data.startTime;
           t.endTime = getEventDetail_data.endTime;
+
+          t.charityName = getEventDetail_data.charityName;
+          t.contactNumber = getEventDetail_data.contactNumber;
+          t.contactPerson = getEventDetail_data.contactPerson;
+          t.details = getEventDetail_data.details;
+          t.eventFreq = getEventDetail_data.eventFreq;
+          t.eventType = getEventDetail_data.eventType;
+          t.location = getEventDetail_data.location;
+          t.note = getEventDetail_data.note;
+          t.status = getEventDetail_data.status;
+
+          // console.log(t.details,t.charityName);
         }
       );
 
-console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
+console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       $.post(
         "http://140.113.216.53:8000/getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
@@ -285,7 +325,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid);
           var applier_list_tmp = [];
           var canceled_appliers_list_tmp = [];
         
-          console.log("dddgsdsg",getApplierList_data,t.charity_id,t.event_type,t.event_id, t.subid);
+          console.log("wwwwww",getApplierList_data,t.charity_id,t.event_type,t.event_id, t.subid);
           t.appliers = getApplierList_data.appliers;
           for (var i in getApplierList_data.appliers){
             console.log("ddddd",getApplierList_data.appliers[i])

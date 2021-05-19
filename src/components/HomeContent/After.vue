@@ -1,17 +1,20 @@
 <template>
   <div>
     <div id="event_info" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <!-- <h1 class="h2">{{eventName}}  <span style="color: #888888;
-          font-size: large;">{{startTime}} {{endTime}}</span></h1> -->
-        <!-- <span>{{event_description}}</span> -->
-        <!-- <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="a()">刪除活動</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="b()">截止報名</button>
-          </div>
-        </div> -->
+        <h1 class="h2">{{eventName}}  <span style="color: #888888;
+          font-size: large;">{{startTime}} {{endTime}}</span></h1>
+        
       </div>
-      <div>無論是企業社會責任（CSR），或近幾年熱烈響應聯合國提出的全球永續發展目標（SDGs），追求永續發展已成企業經營的關鍵課題。本會努力追尋人與自然和諧共存的方式。若您也是有同樣理念的企業，歡迎透過捐款贊助、志工參與、環境講座、綠色消費等多種合作形式支持我們。</div>
+      <div>{{charityName}}</div>
+      <div>{{contactNumber}}</div>
+      <div>{{contactPerson}}</div>
+      <div>{{location}}</div>
+      <div>{{details}}</div>
+      <div v-for="fre in eventFreq" :key="fre.weekday">{{fre.weekday}}</div>
+      <div v-if="eventType=='1'">一次性</div>
+      <div v-if="eventType=='3'">週期性</div>
+      <div v-if="note != 'none'">{{note}}</div>
+
       <div class="row ">
         <div class="col-sm-12">
         <div class="card top-buffer">
@@ -80,8 +83,17 @@
         <div class="col-sm-12">
         <div class="card top-buffer " id="applicants_info_time">
             <div class="card-body text-center" >
+              
             <h5 class="card-title">參加者資訊及其各別服務時數</h5>
-            <!-- <p>可編輯的剩餘時間 {{left_time_can_change}}</p> -->
+            <div class="btn-toolbar mb-2 mb-md-0" style="padding-top:10px;">
+                    <div class="btn-group me-2" style="margin-left: 50%; transform: translateX(-50%);">
+            
+                    <button type="button" style="background-color: dodgerblue;color:white"  class="btn btn-sm btn-outline-secondary" v-on:click="download_doc()">匯出參加者資訊.doc</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="download_csv()">匯出參加者資訊.csv</button>
+            
+                    </div>
+                </div>
+            <!-- <p>編輯截止時間 {{endTime}}</p> -->
             <br/> 
               <div class="table-responsive">
                 <table class="table table-striped table-sm">
@@ -148,6 +160,19 @@ export default {
   },
   data () {
     return {
+      charityName:"",
+      contactNumber:"",
+      contactPerson:"",
+      details:"",
+      eventFreq:[],
+      eventType:"",
+      location:"",
+      note:"",
+      status:0,
+
+      eventName:  "",
+      startTime: "",
+      endTime: "",
       age: [],
       gender: [],
       source: [],
@@ -265,6 +290,28 @@ export default {
     console.log(d.getUTCMinutes());
     console.log(d.getUTCSeconds());
       console.log(t.event_type, t.event_id,t.subid );
+      $.post(
+        "http://140.113.216.53:8000/getEventDetail/",
+        { eventType: String(t.event_type), eventID: String(t.event_id) },
+        function (getEventDetail_data) {
+          console.log(t.eventID,t.eventType);
+          console.log("iiiiiiiiiii",getEventDetail_data);
+          t.bef_event = getEventDetail_data;
+          t.eventName = getEventDetail_data.eventName;
+          t.startTime = getEventDetail_data.startTime;
+          t.endTime = getEventDetail_data.endTime;
+
+          t.charityName = getEventDetail_data.charityName;
+          t.contactNumber = getEventDetail_data.contactNumber;
+          t.contactPerson = getEventDetail_data.contactPerson;
+          t.details = getEventDetail_data.details;
+          t.eventFreq = getEventDetail_data.eventFreq;
+          t.eventType = getEventDetail_data.eventType;
+          t.location = getEventDetail_data.location;
+          t.note = getEventDetail_data.note;
+          t.status = getEventDetail_data.status;
+        }
+      );
       $.post(
       "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
