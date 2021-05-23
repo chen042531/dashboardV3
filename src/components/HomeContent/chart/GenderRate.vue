@@ -2,7 +2,7 @@
 <script>
 // import Chart from 'chart.js'
 import VueCharts from 'vue-chartjs'
-import { Bar, Line, Pie } from 'vue-chartjs'
+import { Pie } from 'vue-chartjs'
 
 export default {
   extends: Pie,

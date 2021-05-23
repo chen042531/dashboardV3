@@ -41,8 +41,8 @@
             <div class="card-body">
             <h5 class="card-title " id="t2" data-placement="top"  data-toggle="tooltip" 
                   title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者得知活動的管道</h5>
-              <!-- <Source :Source="source"></Source> -->
-              <canvas id="info_source" width="400" height="200"></canvas>
+              <Source :source_s="source"></Source>
+              <!-- <canvas id="info_source" width="400" height="200"></canvas> -->
             </div>
           </div>
         </div>
@@ -147,9 +147,11 @@
 </template>
 
 <script>
+import Age from './chart/Age'
 import GenderRate from './chart/GenderRate'
 import Source from './chart/Source'
 import Star from './chart/Star'
+
 import { Bar, Pie } from 'vue-chartjs'
 
 export default {
