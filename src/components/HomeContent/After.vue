@@ -20,7 +20,8 @@
         <div class="card top-buffer">
             <div class="card-body">
             <h5 class="card-title">年齡分佈</h5>
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+            <Age :age_d="age"></Age>
             </div>
         </div>
         </div>
@@ -54,8 +55,8 @@
               <div class="card-body">
               <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者平均評分</h5>
            
-                <div id="star_container"></div>
-                <!-- <Star :star="avg_score"></Star> -->
+                <!-- <div id="star_container"></div> -->
+                <Star :star="avg_score"></Star>
                 
               </div>
             </div>
@@ -158,6 +159,7 @@ export default {
   extends: Pie,
   props:['charity_id','event_id','event_type','subid','end_timestamp'],
   components: {
+    Age,
     GenderRate,
     Source,
     Star

@@ -2,23 +2,19 @@
 <script>
 // import Chart from 'chart.js'
 import VueCharts from 'vue-chartjs'
-import { Pie } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs'
 
 export default {
-  extends: Pie,
-  props:['source_s'],
+  extends: Bar,
+  props:['age_d'],
   watch:{
-    source_s:{
+    age_d:{
         handler: function (newVal, oldVal) {
            console.log('source Prop changed: ', newVal, ' | was: ', oldVal);
           this.renderChart({
-            labels: ["公益趴趴GO App 首頁活動列表",
-              "公益趴趴GO App 官方粉絲團 (FB, IG)",
-              "合作公益單位官網", "合作公益單位廣告文宣",
-              "搜尋引擎 (Google, Yahoo, Bing, ...)",
-              "學校推廣", "親朋好友告知", "其他"],
+            labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
             datasets: [{
-              data: this.source_s,
+              data: this.age_d,
               backgroundColor: [
                 'rgba(255, 99, 132)',
                 'rgba(54, 162, 235)',
@@ -43,7 +39,7 @@ export default {
       options: {
          /* my specific data */
          legend: {
-              display: true,
+              display: false,
               // position: 'bottom',
             },
       }
@@ -51,15 +47,10 @@ export default {
   },
   mounted () {
     // Overwriting base render method with actual data.
-    console.log("ddddddddddddddddddddddddddddd",this.source_s);
+    console.log("ddddddddddddddddddddddddddddd",this.age_d);
     this.renderChart({
-            labels: ["公益趴趴GO App 首頁活動列表",
-              "公益趴趴GO App 官方粉絲團 (FB, IG)",
-              "合作公益單位官網", "合作公益單位廣告文宣",
-              "搜尋引擎 (Google, Yahoo, Bing, ...)",
-              "學校推廣", "親朋好友告知", "其他"],
+            labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
             datasets: [{
-              data: this.source_s,
               backgroundColor: [
                 'rgba(255, 99, 132)',
                 'rgba(54, 162, 235)',
