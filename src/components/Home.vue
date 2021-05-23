@@ -20,8 +20,8 @@
     </header>
     <div class="container-fluid">
       <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky">
+        <nav id="sidebarMenu" class=" col-lg-2 d-md-block bg-light sidebar " >
+            <div class="sidebar-sticky">
                 <button type="button" class="btn btn-warning btn-lg btn-block" style="position:relative;margin-top:20px;" v-on:click="goBoard()">
                   新增公告
                 </button>
@@ -96,19 +96,21 @@
 
             </div>
         </nav>
-        <actnew v-if="home_content_flag==0"  :charity_id="charityId" class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></actnew>
-        <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
-          :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
-          class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <actnew v-if="home_content_flag==0"  :charity_id="charityId" ></actnew>
+          <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
+            :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
+            class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-before>
 
-        <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 
-          :event_type="exp_event_Type" :subid="exp_subevent_Id" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
-          :end_timestamp="exp_endTimestamp"  class="col-md-9 ms-sm-auto col-lg-10 px-md-4"></app-after>
+          <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 
+            :event_type="exp_event_Type" :subid="exp_subevent_Id" :substime="exp_subevent_stime" :subetime="exp_subevent_etime"
+            :end_timestamp="exp_endTimestamp"  ></app-after>
 
-        <app-board v-if="home_content_flag==3" :charity_id="charityId" :a_list="active_list" :a_list_once="active_list_once"
-          :e_list="expired_list" :e_list_once="expired_list_once"
-          :ex_Subevent="ex_subevent" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        </app-board>
+          <app-board v-if="home_content_flag==3" :charity_id="charityId" :a_list="active_list" :a_list_once="active_list_once"
+            :e_list="expired_list" :e_list_once="expired_list_once"
+            :ex_Subevent="ex_subevent" >
+          </app-board>
+        </main>
       </div>
     </div>
   </div> 
@@ -290,19 +292,28 @@ export default {
 /*
  * Sidebar
  */
-@media (max-width: 767.98px) {
+/* @media (max-width: 767.98px) {
   .sidebar {
     top: 0rem;
   }
 
   
+} */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding-top: 2rem;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
-
 .sidebar-sticky {
   position: relative;
   top: 0;
   height: calc(100vh - 48px);
-  padding-top: 0.5rem;
+  padding: 0.5rem;
+  padding-right: 1.5rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
