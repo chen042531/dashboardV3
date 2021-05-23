@@ -122,7 +122,7 @@
                       <td>{{ applicant.email }}</td> 
             
                       <td>
-                        <div class="input-group" v-if="sendTimeStatus==0">
+                        <div class="input-group" v-if="sendTimeStatus==1">
                           <span class="input-group-btn">
                               <button type="button" class="btn btn-danger btn-number"  v-on:click="setMinus(i)" data-type="minus" data-field="quant[2]">
                                 <span class="glyphicon glyphicon-minus">-</span>
@@ -142,7 +142,7 @@
                 
               </div>
               <!-- <p>可編輯的剩餘時間 {{left_time_can_change}}</p> -->
-              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==0">送出參加者服務時數</button>
+              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==1">送出參加者服務時數</button>
             </div>
         </div>
         </div>
@@ -212,93 +212,6 @@ export default {
         t.applicants = getStatisticAndApplicantsTime_data.applicants;
         t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
 
-
-        //  console.log("pppppppppppppppppppp",t.avg_score);
-        //   var n_star = Math.floor(t.avg_score);
-        //   for (var star_n = 1; star_n <= n_star; star_n++) {
-        //   // $("#star" + star_n).addClass("checked");
-        //   console.log('start');
-        //   // console.log("ssss",$("#star_container"));
-        //     $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
-        //   }
-        //   if (n_star != t.avg_score) {
-        //     $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
-        //   }
-        //   for (var j = 0; j <= (t.avg_score - n_star); j++) {
-        //   // $("#star" + star_n).addClass("checked");
-        //    $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
-        //   }
-
-
-        // var ctx = document.getElementById('myChart');
-        // var myChart = new Chart(ctx, {
-        //   type: 'bar',
-        //   data: {
-        //     labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
-        //     datasets: [{
-        //       label: '銷售業績(百萬)',
-        //       data: t.age
-        //     }]
-        //   }
-        // });
-        
-        
-        
-        // var gender_rate = document.getElementById('gender_rate')
-        // var gender_rateChart = new Chart(gender_rate, {
-        //   type: 'pie',
-        //   data: {
-        //     labels: ["男", "女", "其他"],
-        //     datasets: [{
-        //       data:  t.gender,
-        //       backgroundColor: [
-        //         'rgba(54, 162, 235)',
-        //         'rgba(255, 99, 132)',
-        //         'rgba(255, 206, 86)',
-        //       ],
-        //       borderWidth: 1
-        //     }]
-        //   },
-        //   options: {}
-        // });
-        // t.renderChart()
-        // var info_source = document.getElementById('info_source')
-// eslint-disable-next-line no-unused-vars
-        // var info_sourceChart = new Chart(info_source, {
-        //   type: 'pie',
-        //   data: {
-        //     labels: ["公益趴趴GO App 首頁活動列表",
-        //       "公益趴趴GO App 官方粉絲團 (FB, IG)",
-        //       "合作公益單位官網", "合作公益單位廣告文宣",
-        //       "搜尋引擎 (Google, Yahoo, Bing, ...)",
-        //       "學校推廣", "親朋好友告知", "其他"],
-
-        //     datasets: [{
-        //       data: t.source,
-        //       backgroundColor: [
-        //         'rgba(255, 99, 132)',
-        //         'rgba(54, 162, 235)',
-        //         'rgba(255, 206, 86)',
-        //         'rgba(75, 192, 192)',
-        //         'rgba(54, 162, 235)',
-        //         'rgba(255, 206, 86)',
-        //         'rgba(75, 192, 192)',
-        //         'rgba(255, 159, 64)'
-        //       ],
-        //       borderWidth: 1
-        //     }]
-        //   },
-        //   labels: {
-        //     boxWidth: 20,
-        //   },
-        //   options: {
-        //     legend: {
-        //       display: true,
-        //       // position: 'bottom',
-        //     },
-
-        //   }
-        // });
         
 
       }
@@ -312,12 +225,12 @@ export default {
       // this._data._chart.destroy();
       // this.renderChart(this.chartData, this.options);
       var t = this;
-      console.log('ddddddddddddd',t.end_timestamp);
+      // console.log('ddddddddddddd',t.end_timestamp);
       var d = new Date(t.end_timestamp);
-    console.log(d.getUTCHours()); // Hours
-    console.log(d.getUTCMinutes());
-    console.log(d.getUTCSeconds());
-      console.log(t.event_type, t.event_id,t.subid );
+    // console.log(d.getUTCHours()); // Hours
+    // console.log(d.getUTCMinutes());
+    // console.log(d.getUTCSeconds());
+      // console.log(t.event_type, t.event_id,t.subid );
       $.post(
         "http://140.113.216.53:8000/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
@@ -359,89 +272,6 @@ export default {
 
 
         
-          console.log("pppppppppppppppppppp",t.avg_score);
-          var n_star = Math.floor(t.avg_score);
-          for (var star_n = 1; star_n <= n_star; star_n++) {
-          // $("#star" + star_n).addClass("checked");
-          console.log('start');
-          // console.log("ssss",$("#star_container"));
-            $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
-          }
-          if (n_star != t.avg_score) {
-            $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
-          }
-          for (var j = 0; j <= (t.avg_score - n_star); j++) {
-          // $("#star" + star_n).addClass("checked");
-           $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
-          }
-
-          var ctx = document.getElementById('myChart');
-          var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
-              datasets: [{
-                label: '銷售業績(百萬)',
-                data: t.age
-              }]
-            }
-          });
-          
-          var gender_rate = document.getElementById('gender_rate')
-          var gender_rateChart = new Chart(gender_rate, {
-            type: 'pie',
-            data: {
-              labels: ["男", "女", "其他"],
-              datasets: [{
-                data:  t.gender,
-                backgroundColor: [
-                  'rgba(54, 162, 235)',
-                  'rgba(255, 99, 132)',
-                  'rgba(255, 206, 86)',
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {}
-          });
-
-          var info_source = document.getElementById('info_source')
-  // eslint-disable-next-line no-unused-vars
-          var info_sourceChart = new Chart(info_source, {
-            type: 'pie',
-            data: {
-              labels: ["公益趴趴GO App 首頁活動列表",
-                "公益趴趴GO App 官方粉絲團 (FB, IG)",
-                "合作公益單位官網", "合作公益單位廣告文宣",
-                "搜尋引擎 (Google, Yahoo, Bing, ...)",
-                "學校推廣", "親朋好友告知", "其他"],
-
-              datasets: [{
-                data: t.source,
-                backgroundColor: [
-                  'rgba(255, 99, 132)',
-                  'rgba(54, 162, 235)',
-                  'rgba(255, 206, 86)',
-                  'rgba(75, 192, 192)',
-                  'rgba(54, 162, 235)',
-                  'rgba(255, 206, 86)',
-                  'rgba(75, 192, 192)',
-                  'rgba(255, 159, 64)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            labels: {
-              boxWidth: 20,
-            },
-            options: {
-              legend: {
-                display: true,
-                // position: 'bottom',
-              },
-
-            }
-          });
           
           t.$forceUpdate()
         }
@@ -482,7 +312,11 @@ export default {
     },
     setMinus: function (i) {
       if (this.applicants[i].time > 0) {
-        this.applicants[i].time = parseFloat(parseFloat(this.applicants[i].time) - 1).toFixed(1);
+      this.applicants[i].time = parseFloat(parseFloat(this.applicants[i].time) - 1).toFixed(1);
+      }
+      if(parseFloat(this.applicants[i].time) < 0) {
+        console.log("small then 0")
+        this.applicants[i].time = "0.0";
       }
       console.log(this.applicants[i].time);
     },
@@ -491,6 +325,226 @@ export default {
       this.time = setInterval(() => {
         console.log(this.charity_id);
       }, 1000)
+    },
+    download_csv: function(){
+      console.log("download_csv");
+      console.log("hit");
+      var headers = {
+        name: '姓名'.replace(/,/g, ''), // remove commas to avoid errors
+        gender: "性別",
+        birth: "生日",
+        phones: "電話",
+        email: "信箱",
+        time: "時數"
+      };
+      var itemsNotFormatted = this.applicants;
+
+      var itemsFormatted = [];
+
+      // format the data
+      itemsNotFormatted.forEach((applicants) => {
+        itemsFormatted.push({
+          name: applicants.name.replace(/,/g, ''), // remove commas to avoid errors,
+          gender: applicants.gender,
+          birth: applicants.birth,
+          phone: applicants.phone,
+          email: applicants.email,
+          time: applicants.time,
+        });
+      });
+
+      var fileTitle = '參加者資訊及其各別服務時數'; // or 'my-unique-title'
+      console.log(itemsFormatted)
+      this.exportCSVFile(headers, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
+    },
+    exportCSVFile(headers, items, fileTitle) {
+        if (headers) {
+          items.unshift(headers);
+        }
+
+        // Convert Object to JSON
+        var jsonObject = JSON.stringify(items);
+
+        var csv = this.convertToCSV(jsonObject);
+
+        var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
+
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        if (navigator.msSaveBlob) { // IE 10+
+          navigator.msSaveBlob(blob, exportedFilenmae);
+        } else {
+          var link = document.createElement("a");
+          if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", exportedFilenmae);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        }
+    },
+    convertToCSV: function(objArray) {
+      var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+      var str = '';
+
+      for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+          if (line != '') line += ','
+
+          line += array[i][index];
+        }
+
+        str += line + '\r\n';
+      }
+
+      return str;
+    },
+    download_doc: function(){
+      console.log("download_doc");
+      console.log( this.applicants);
+      // this.g_test();
+      var table = [];
+      //add title of each column
+      var header_row = [];
+      header_row.push(new docx.TableCell({
+        children: [new docx.Paragraph({
+          text: "編號",
+          heading: docx.HeadingLevel.HEADING_6,
+          alignment: docx.AlignmentType.CENTER,
+        })],
+      }));
+      for (var prop in this.applicants[0]) {
+        console.log("cc",prop);
+        if(prop=="uid"){
+          continue
+        }
+        header_row.push(new docx.TableCell({
+          children: [new docx.Paragraph({
+            text: prop,
+            heading: docx.HeadingLevel.HEADING_6,
+            alignment: docx.AlignmentType.CENTER,
+          })],
+        }));
+      }
+
+      // header_row.push(new docx.TableCell({
+      //   children: [new docx.Paragraph({
+      //     text: "點名",
+      //     heading: docx.HeadingLevel.HEADING_6,
+      //     alignment: docx.AlignmentType.CENTER,
+      //   })],
+      // }));
+      table.push(new docx.TableRow({ children: header_row }));
+      // console.log(table);
+      for (var row_n = 0; row_n < this.applicants.length; row_n++) {
+        // console.log("ff", applicants_data.applicants[row_n]);
+        var n_row = this.applicants[row_n];
+        var row = [];
+
+        //編號
+        row.push(new docx.TableCell({
+          children: [new docx.Paragraph({
+            text: (row_n + 1) + "",
+            alignment: docx.AlignmentType.CENTER,
+          })],
+        }));
+        
+        for (var prop in n_row) {
+          // console.log("cc",row[prop]);
+          // row[prop] = 'xxx';
+
+          if(prop=="uid"){
+            continue
+          }
+          //要特別處理變成string才寫得進去   這library的text 只吃string
+          if(prop=="time"){
+            console.log("time time",n_row[prop]);
+            row.push(new docx.TableCell({
+              children: [new docx.Paragraph({
+                text: (n_row[prop]+""),
+                alignment: docx.AlignmentType.CENTER,
+              })],
+            }));
+            continue
+          }
+          row.push(new docx.TableCell({
+            children: [new docx.Paragraph({
+              text: n_row[prop],
+              alignment: docx.AlignmentType.CENTER,
+            })],
+          }));
+          console.log(n_row[prop]);
+        }
+        // row.push(new docx.TableCell({
+        //   children: [new docx.Paragraph({
+        //     text: "        ",
+        //   })],
+        // }));
+        table.push(new docx.TableRow({ children: row }));
+        // console.log(table);
+      }
+
+      // t_row = new docx.TableRow({ children: [t_cell] });
+      var t_table = new docx.Table({
+        rows: table,
+        alignment: docx.AlignmentType.CENTER,
+      });
+
+      // tables = t_table;
+      console.log(t_table);
+      this.generate("dd", "sdsd", t_table);
+      
+    },
+    generate: function (title, description, tables) {
+          const doc = new docx.Document({
+
+              sections: [
+                  {
+
+                      children: [
+
+                          new docx.Paragraph({
+                              text: title,
+                              heading: docx.HeadingLevel.HEADING_1,
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+
+                          new docx.Paragraph({
+                              text: description,
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+                          tables,
+                      ],
+                      footers: {
+                          default: new docx.Footer({
+                              children: [
+                                  new docx.Paragraph({
+                                      alignment: docx.AlignmentType.CENTER,
+                                      children: [
+                                          new docx.TextRun({
+                                              children: ["Page ", docx.PageNumber.CURRENT],
+                                          }),
+                                          new docx.TextRun({
+                                              children: [" to ", docx.PageNumber.TOTAL_PAGES],
+                                          }),
+                                      ],
+                                  }),
+                              ],
+                          }),
+                      },
+                  }
+              ]
+          });
+
+          docx.Packer.toBlob(doc).then((blob) => {
+              console.log(blob);
+              saveAs(blob, "example.docx");
+              console.log("Document created successfully");
+          });
     },
     setTime() {
       this.timer()

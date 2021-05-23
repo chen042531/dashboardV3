@@ -20,7 +20,7 @@
     </header>
     <div class="container-fluid">
       <div class="row">
-        <nav id="sidebarMenu" class=" col-lg-2 d-md-block bg-light sidebar " >
+        <nav id="sidebarMenu" class=" col-lg-2 d-md-block bg-light sidebar " data-toggle="collapse" >
             <div class="sidebar-sticky">
                 <button type="button" class="btn btn-warning btn-lg btn-block" style="position:relative;margin-top:20px;" v-on:click="goBoard()">
                   新增公告
