@@ -213,92 +213,92 @@ export default {
         t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
 
 
-         console.log("pppppppppppppppppppp",t.avg_score);
-          var n_star = Math.floor(t.avg_score);
-          for (var star_n = 1; star_n <= n_star; star_n++) {
-          // $("#star" + star_n).addClass("checked");
-          console.log('start');
-          // console.log("ssss",$("#star_container"));
-            $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
-          }
-          if (n_star != t.avg_score) {
-            $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
-          }
-          for (var j = 0; j <= (t.avg_score - n_star); j++) {
-          // $("#star" + star_n).addClass("checked");
-           $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
-          }
+        //  console.log("pppppppppppppppppppp",t.avg_score);
+        //   var n_star = Math.floor(t.avg_score);
+        //   for (var star_n = 1; star_n <= n_star; star_n++) {
+        //   // $("#star" + star_n).addClass("checked");
+        //   console.log('start');
+        //   // console.log("ssss",$("#star_container"));
+        //     $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
+        //   }
+        //   if (n_star != t.avg_score) {
+        //     $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
+        //   }
+        //   for (var j = 0; j <= (t.avg_score - n_star); j++) {
+        //   // $("#star" + star_n).addClass("checked");
+        //    $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
+        //   }
 
 
-        var ctx = document.getElementById('myChart');
-        var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
-            datasets: [{
-              label: '銷售業績(百萬)',
-              data: t.age
-            }]
-          }
-        });
+        // var ctx = document.getElementById('myChart');
+        // var myChart = new Chart(ctx, {
+        //   type: 'bar',
+        //   data: {
+        //     labels: ['0-17','18-24','25-34','35-44','45-54','55-64','65-'],
+        //     datasets: [{
+        //       label: '銷售業績(百萬)',
+        //       data: t.age
+        //     }]
+        //   }
+        // });
         
         
         
-        var gender_rate = document.getElementById('gender_rate')
-        var gender_rateChart = new Chart(gender_rate, {
-          type: 'pie',
-          data: {
-            labels: ["男", "女", "其他"],
-            datasets: [{
-              data:  t.gender,
-              backgroundColor: [
-                'rgba(54, 162, 235)',
-                'rgba(255, 99, 132)',
-                'rgba(255, 206, 86)',
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {}
-        });
-        t.renderChart()
-        var info_source = document.getElementById('info_source')
+        // var gender_rate = document.getElementById('gender_rate')
+        // var gender_rateChart = new Chart(gender_rate, {
+        //   type: 'pie',
+        //   data: {
+        //     labels: ["男", "女", "其他"],
+        //     datasets: [{
+        //       data:  t.gender,
+        //       backgroundColor: [
+        //         'rgba(54, 162, 235)',
+        //         'rgba(255, 99, 132)',
+        //         'rgba(255, 206, 86)',
+        //       ],
+        //       borderWidth: 1
+        //     }]
+        //   },
+        //   options: {}
+        // });
+        // t.renderChart()
+        // var info_source = document.getElementById('info_source')
 // eslint-disable-next-line no-unused-vars
-        var info_sourceChart = new Chart(info_source, {
-          type: 'pie',
-          data: {
-            labels: ["公益趴趴GO App 首頁活動列表",
-              "公益趴趴GO App 官方粉絲團 (FB, IG)",
-              "合作公益單位官網", "合作公益單位廣告文宣",
-              "搜尋引擎 (Google, Yahoo, Bing, ...)",
-              "學校推廣", "親朋好友告知", "其他"],
+        // var info_sourceChart = new Chart(info_source, {
+        //   type: 'pie',
+        //   data: {
+        //     labels: ["公益趴趴GO App 首頁活動列表",
+        //       "公益趴趴GO App 官方粉絲團 (FB, IG)",
+        //       "合作公益單位官網", "合作公益單位廣告文宣",
+        //       "搜尋引擎 (Google, Yahoo, Bing, ...)",
+        //       "學校推廣", "親朋好友告知", "其他"],
 
-            datasets: [{
-              data: t.source,
-              backgroundColor: [
-                'rgba(255, 99, 132)',
-                'rgba(54, 162, 235)',
-                'rgba(255, 206, 86)',
-                'rgba(75, 192, 192)',
-                'rgba(54, 162, 235)',
-                'rgba(255, 206, 86)',
-                'rgba(75, 192, 192)',
-                'rgba(255, 159, 64)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          labels: {
-            boxWidth: 20,
-          },
-          options: {
-            legend: {
-              display: true,
-              // position: 'bottom',
-            },
+        //     datasets: [{
+        //       data: t.source,
+        //       backgroundColor: [
+        //         'rgba(255, 99, 132)',
+        //         'rgba(54, 162, 235)',
+        //         'rgba(255, 206, 86)',
+        //         'rgba(75, 192, 192)',
+        //         'rgba(54, 162, 235)',
+        //         'rgba(255, 206, 86)',
+        //         'rgba(75, 192, 192)',
+        //         'rgba(255, 159, 64)'
+        //       ],
+        //       borderWidth: 1
+        //     }]
+        //   },
+        //   labels: {
+        //     boxWidth: 20,
+        //   },
+        //   options: {
+        //     legend: {
+        //       display: true,
+        //       // position: 'bottom',
+        //     },
 
-          }
-        });
+        //   }
+        // });
         
 
       }

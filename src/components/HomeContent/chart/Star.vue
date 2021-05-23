@@ -1,49 +1,151 @@
 <template>
-    <div id="star_container"></div>
+    <div>
+        <div  v-if="s=='s_0_5'">
+            <span class="star fa fa-star-half-o fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_1'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_1_5'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star-half-o fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_2'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_2_5'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star-half-o fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_3'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_3_5'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star-half-o fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_4'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_4_5'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star-half-o fa-4x check_star"  style="color: orange;"></span>
+        </div>
+        <div v-if="s=='s_5'" >
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+            <span class="star fa fa-star fa-4x check_star"  style="color: orange;"></span>
+        </div>
+    </div>
+    
 </template>
 
 <script>
 export default {
     props:['star'],
+    data () {
+    return {
+      s:"s_0_5"
+    }
+  },
     mounted : function () {
        
             
             var t = this;
             var n_star = Math.floor(t.star);
             console.log("pppppppppppppppppppp",t.star);
-            for (var star_n = 1; star_n <= n_star; star_n++) {
-            // $("#star" + star_n).addClass("checked");
-            // console.log('start');
-            // console.log("ssss",$("#star_container"));
-            $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
+            switch (t.star) {
+            case 0.5:
+                t.s="s_0_5"
+                break;
+            case 1:
+                t.s="s_1"
+                break;
+            case 1.5:
+                t.s="s_1_5"
+                break;
+            case 2:
+                t.s="s_2"
+                break;
+            case 2.5:
+                t.s="s_2_5"
+                break;
+            case 3:
+                console.log("gggg", t.star)
+                t.s="s_3"
+                break; 
+            case 3.5:
+                t.s="s_3_5"
+                break;
+            case 4:
+                t.s="s_4"
+                break;
+            case 4.5:
+                t.s="s_4_5"
+                break;
+            case 5:
+                t.s="s_5"
+                break;                   
+            default:
+                t.s = ""
             }
-            if (n_star != t.avg_score) {
-            $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
-            }
-            for (var j = 0; j <= (t.avg_score - n_star); j++) {
-            // $("#star" + star_n).addClass("checked");
-            $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
-            }
+            
     },
     watch: { 
-        star_score: function(newVal, oldVal) { // watch it
+        star: function(newVal, oldVal) { // watch it
             console.log('Prop changed: ', newVal, ' | was: ', oldVal)
             
             var t = this;
             console.log("pppppppppppppppppppp",t.star);
             var n_star = Math.floor(t.star);
-            for (var star_n = 1; star_n <= n_star; star_n++) {
-            // $("#star" + star_n).addClass("checked");
-            console.log('start');
-            console.log("ssss",$("#star_container"));
-            $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
-            }
-            if (n_star != t.avg_score) {
-            $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
-            }
-            for (var j = 0; j <= (t.avg_score - n_star); j++) {
-            // $("#star" + star_n).addClass("checked");
-            $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
+            switch (t.star) {
+            case 0.5:
+                t.s="s_0_5"
+                break;
+            case 1:
+                t.s="s_1"
+                break;
+            case 1.5:
+                t.s="s_1_5"
+                break;
+            case 2:
+                t.s="s_2"
+                break;
+            case 2.5:
+                t.s="s_2_5"
+                break;
+            case 3:
+                console.log("gggg", t.star)
+                t.s="s_3"
+                break; 
+            case 3.5:
+                t.s="s_3_5"
+                break;
+            case 4:
+                t.s="s_4"
+                break;
+            case 4.5:
+                t.s="s_4_5"
+                break;
+            case 5:
+                t.s="s_5"
+                break;                   
+            default:
+                t.s = ""
             }
         }
 
@@ -52,3 +154,9 @@ export default {
 }
 </script>
 
+<style>
+.checked {
+  color: orange;
+}
+
+</style>
