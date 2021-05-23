@@ -31,8 +31,8 @@
             <div class="card-body">
             <h5 class="card-title" id="t1" data-placement="top"  data-toggle="tooltip"
                  title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">性別比</h5>
-              <!-- <GenderRate :Gender="gender"></GenderRate> -->
-              <canvas id="gender_rate" width="400" height="200"></canvas>
+              <GenderRate :gender_r="gender"></GenderRate>
+              <!-- <canvas id="gender_rate" width="400" height="200"></canvas> -->
             </div>
         </div>
         </div>
@@ -150,8 +150,10 @@
 import GenderRate from './chart/GenderRate'
 import Source from './chart/Source'
 import Star from './chart/Star'
+import { Bar, Pie } from 'vue-chartjs'
 
 export default {
+  extends: Pie,
   props:['charity_id','event_id','event_type','subid','end_timestamp'],
   components: {
     GenderRate,
@@ -233,6 +235,8 @@ export default {
           }
         });
         
+        
+        
         var gender_rate = document.getElementById('gender_rate')
         var gender_rateChart = new Chart(gender_rate, {
           type: 'pie',
@@ -250,7 +254,7 @@ export default {
           },
           options: {}
         });
-
+        t.renderChart()
         var info_source = document.getElementById('info_source')
 // eslint-disable-next-line no-unused-vars
         var info_sourceChart = new Chart(info_source, {
@@ -298,8 +302,8 @@ export default {
     subid: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
       
-      this._data._chart.destroy();
-      this.renderChart(this.chartData, this.options);
+      // this._data._chart.destroy();
+      // this.renderChart(this.chartData, this.options);
       var t = this;
       console.log('ddddddddddddd',t.end_timestamp);
       var d = new Date(t.end_timestamp);
@@ -327,6 +331,7 @@ export default {
           t.location = getEventDetail_data.location;
           t.note = getEventDetail_data.note;
           t.status = getEventDetail_data.status;
+          t.$forceUpdate()
         }
       );
       $.post(
@@ -431,7 +436,7 @@ export default {
             }
           });
           
-
+          t.$forceUpdate()
         }
       );
 
@@ -449,9 +454,10 @@ export default {
           t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
           t.applicants = getStatisticAndApplicantsTime_data.applicants;
           t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
+          t.$forceUpdate()
         }
       );
-    
+      t.$forceUpdate()
       // t.setTime();
      
     },

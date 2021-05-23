@@ -1,50 +1,28 @@
-<template>
-  <div>
-    <canvas id="gender_rate"></canvas>
-  </div>
-</template>
 
 <script>
-import Chart from 'chart.js'
-
+// import Chart from 'chart.js'
+import VueCharts from 'vue-chartjs'
+import { Bar, Line, Pie } from 'vue-chartjs'
 
 export default {
-  name: 'GenderRate',
-  props:['grate'],
-  data() {
-    return {
-      planetChartData: {
-        type: 'pie',
-        data:{
-          labels: ["男", "女", "其他"],
-          datasets: [{
-            data: this.grate,
-            backgroundColor: [
-              'rgba(54, 162, 235)',
-              'rgba(255, 99, 132)',
-              'rgba(255, 206, 86)',
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {},
-      },
-      canv:Object
-
-    }
-  },
-  mounted() {
-    const ctx = document.getElementById('gender_rate');
-    this.canv = new Chart(ctx, this.planetChartData);
-    console.log("dsf",this.grate);
-    this.canv.update();
-  },
-  watch: { 
-    Gender: function(newVal, oldVal) { // watch it
-      console.log('gender Prop changed: ', newVal, ' | was: ', oldVal);
-
-      this.canv.update();
-    }
-  },
+  extends: Pie,
+  props:['gender_r'],
+  mounted () {
+    // Overwriting base render method with actual data.
+    console.log("ddddddddddddddddddddddddddddd",this.gender_r);
+    this.renderChart({
+      labels: ["男", "女", "其他"],
+      datasets: [{
+              data:  this.gender_r,
+              backgroundColor: [
+                'rgba(54, 162, 235)',
+                'rgba(255, 99, 132)',
+                'rgba(255, 206, 86)',
+              ],
+              borderWidth: 1
+            }]
+      
+    })
+  }
 }
 </script>
