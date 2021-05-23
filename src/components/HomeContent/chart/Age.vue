@@ -37,11 +37,9 @@ export default {
   data () {
     return {
       options: {
-         /* my specific data */
-         legend: {
-              display: false,
-              // position: 'bottom',
-            },
+         
+         responsive: true,
+         maintainAspectRatio: false
       }
     }
   },

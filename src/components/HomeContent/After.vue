@@ -21,7 +21,7 @@
             <div class="card-body">
             <h5 class="card-title">年齡分佈</h5>
             <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-            <Age :age_d="age"></Age>
+            <Age :age_d="age" :width="300" :height="100"></Age>
             </div>
         </div>
         </div>
@@ -32,7 +32,10 @@
             <div class="card-body">
             <h5 class="card-title" id="t1" data-placement="top"  data-toggle="tooltip"
                  title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">性別比</h5>
-              <GenderRate :gender_r="gender"></GenderRate>
+                
+                   <GenderRate :gender_r="gender" :width="200" :height="100" ></GenderRate>
+                 
+              
               <!-- <canvas id="gender_rate" width="400" height="200"></canvas> -->
             </div>
         </div>
@@ -42,7 +45,7 @@
             <div class="card-body">
             <h5 class="card-title " id="t2" data-placement="top"  data-toggle="tooltip" 
                   title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者得知活動的管道</h5>
-              <Source :source_s="source"></Source>
+              <Source :source_s="source" :width="400" :height="200"></Source>
               <!-- <canvas id="info_source" width="400" height="200"></canvas> -->
             </div>
           </div>

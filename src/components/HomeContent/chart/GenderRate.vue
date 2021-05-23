@@ -32,7 +32,9 @@ export default {
   data () {
     return {
       options: {
-         /* my specific data */
+         
+         responsive: true,
+         maintainAspectRatio: false
       }
     }
   },
