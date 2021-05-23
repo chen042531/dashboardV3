@@ -3,8 +3,8 @@
       <div id="event_info" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h2>{{eventName}}  </h2>
         <h2 v-if="stop_signing_flag == 1" style="color:red;">截止報名</h2>
-        <span style="color: #888888;
-          font-size: large;">{{startTime}} {{endTime}}</span>
+        <!-- <span style="color: #888888;
+          font-size: large;">{{startTime}} {{endTime}}</span> -->
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <button v-if="event_canceled_state==0" type="button" class="btn btn-sm btn-outline-secondary" 
@@ -18,11 +18,34 @@
           </div>
         </div>
       </div>
-      <div>{{charityName}}</div>
-      <div>{{contactNumber}}</div>
-      <div>{{contactPerson}}</div>
-      <div>{{location}}</div>
-      <div>{{details}}</div>
+      <div class="row ">
+        <div class="col-sm-12">
+          {{charityName}}
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-6">
+          {{location}}
+        </div>
+         <div class="col-sm-6">
+          <span style="color: #888888;
+            font-size: large;">{{startTime}} {{endTime}}</span>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-6">
+          {{contactPerson}}
+        </div>
+         <div class="col-sm-6">
+          {{contactNumber}}
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-12">
+          {{details}}
+        </div>
+      </div>
+      
       <div v-for="fre in eventFreq" :key="fre.weekday">{{fre.weekday}}</div>
       <div v-if="eventType=='1'">一次性</div>
       <div v-if="eventType=='3'">週期性</div>
