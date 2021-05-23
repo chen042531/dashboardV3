@@ -17,7 +17,7 @@
 
       <div class="row ">
         <div class="col-sm-12">
-        <div class="card top-buffer">
+        <div class="card mt-2">
             <div class="card-body">
             <h5 class="card-title">年齡分佈</h5>
             <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
@@ -28,7 +28,7 @@
       </div>
       <div class="row ">
         <div class="col-sm-6">
-        <div class="card top-buffer">
+        <div class="card mt-2">
             <div class="card-body">
             <h5 class="card-title" id="t1" data-placement="top"  data-toggle="tooltip"
                  title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">性別比</h5>
@@ -41,7 +41,7 @@
         </div>
         </div>
         <div class="col-sm-6">
-          <div class="card top-buffer">
+          <div class="card mt-2">
             <div class="card-body">
             <h5 class="card-title " id="t2" data-placement="top"  data-toggle="tooltip" 
                   title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者得知活動的管道</h5>
@@ -54,7 +54,7 @@
       <div class="row ">
           <div class="col-sm-12">
       
-            <div class="card top-buffer" >
+            <div class="card mt-2" >
               <div class="card-body">
               <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者平均評分</h5>
            
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="col-sm-6">
-            <div class="card top-buffer">
+            <div class="card mt-2">
                 <div class="card-body">
                 <h5 class="card-title" id="t4" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">實際報名人數</h5>
                 <h1 style="font-weight:bold; font-size: xx-large;
@@ -74,7 +74,7 @@
             </div>
           </div>
           <div class="col-sm-6">
-            <div class="card top-buffer">
+            <div class="card mt-2">
               <div class="card-body">
               <h5 class="card-title" id="t5" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">實際報到率</h5>
               <h1 style="font-weight:bold; font-size: xx-large;
@@ -85,7 +85,7 @@
       </div> 
        <div class="row ">
         <div class="col-sm-12">
-        <div class="card top-buffer " id="applicants_info_time">
+        <div class="card mt-2 " id="applicants_info_time">
             <div class="card-body text-center" >
               
             <h5 class="card-title">參加者資訊及其各別服務時數</h5>

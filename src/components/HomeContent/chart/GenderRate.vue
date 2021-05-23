@@ -23,7 +23,7 @@ export default {
                     borderWidth: 1
                   }]
             
-          })
+          },this.options)
         },
         deep: true
 
