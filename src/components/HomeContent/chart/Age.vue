@@ -43,6 +43,17 @@ export default {
          legend: {
           display: false
         },
+        scales: {
+            yAxes: [{
+            ticks: {
+              min: 0,
+              max: parseInt(this.age_d)+2,
+              stepSize: 1,
+              reverse: false,
+              beginAtZero: true
+            }
+          }]
+        }
       }
     }
   },
