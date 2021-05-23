@@ -1,7 +1,13 @@
 <template>
   <div>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <button class="navbar-toggler position-absolute d-md-none " type="button" data-bs-toggle="collapse" 
+          data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" 
+          aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <button class="navbar-toggler position-absolute d-md-none " type="button" data-toggle="collapse"
+          data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
         </button>
         <p class="navbar-brand ">公益趴趴 Go</p>
@@ -15,7 +21,7 @@
     <div class="container-fluid">
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky ">
+            <div class="position-sticky">
                 <button type="button" class="btn btn-warning btn-lg btn-block" style="position:relative;margin-top:20px;" v-on:click="goBoard()">
                   新增公告
                 </button>
@@ -284,7 +290,44 @@ export default {
 /*
  * Sidebar
  */
-/* #sidebar{
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 0rem;
+  }
+
   
-} */
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #727272;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
 </style>
