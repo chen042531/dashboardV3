@@ -194,6 +194,7 @@ export default {
   methods: {
     activeGoTO: function (subevent){
       let t = this;
+      t.$forceUpdate();
       console.log(subevent);
       console.log("ssss",subevent.sid);
       t.event_Id = subevent.eventID;
@@ -211,6 +212,7 @@ export default {
     },
     expiredGoTO: function (ex_subevent){
       let t = this;
+      t.$forceUpdate();
       console.log("ssss",ex_subevent);
       console.log("ssss",ex_subevent.eventID);
       console.log("ex_subevent",ex_subevent.sid);

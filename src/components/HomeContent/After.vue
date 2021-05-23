@@ -54,8 +54,8 @@
               <div class="card-body">
               <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者平均評分</h5>
            
-                <!-- <div id="star_container"></div> -->
-                <Star :star="avg_score"></Star>
+                <div id="star_container"></div>
+                <!-- <Star :star="avg_score"></Star> -->
                 
               </div>
             </div>
@@ -204,6 +204,21 @@ export default {
         t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
 
 
+         console.log("pppppppppppppppppppp",t.avg_score);
+          var n_star = Math.floor(t.avg_score);
+          for (var star_n = 1; star_n <= n_star; star_n++) {
+          // $("#star" + star_n).addClass("checked");
+          console.log('start');
+          // console.log("ssss",$("#star_container"));
+            $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
+          }
+          if (n_star != t.avg_score) {
+            $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
+          }
+          for (var j = 0; j <= (t.avg_score - n_star); j++) {
+          // $("#star" + star_n).addClass("checked");
+           $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
+          }
 
 
         var ctx = document.getElementById('myChart');
@@ -283,6 +298,8 @@ export default {
     subid: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
       
+      this._data._chart.destroy();
+      this.renderChart(this.chartData, this.options);
       var t = this;
       console.log('ddddddddddddd',t.end_timestamp);
       var d = new Date(t.end_timestamp);
@@ -317,7 +334,7 @@ export default {
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
         function (getStatisticAndApplicantsTime_data) {
-          console.log("zzz",getStatisticAndApplicantsTime_data);
+          console.log("zzzwatch",getStatisticAndApplicantsTime_data);
           console.log(t.subid)
           t.age = getStatisticAndApplicantsTime_data.age;
           t.gender = getStatisticAndApplicantsTime_data.gender;
@@ -329,7 +346,22 @@ export default {
           t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
 
 
-
+        
+          console.log("pppppppppppppppppppp",t.avg_score);
+          var n_star = Math.floor(t.avg_score);
+          for (var star_n = 1; star_n <= n_star; star_n++) {
+          // $("#star" + star_n).addClass("checked");
+          console.log('start');
+          // console.log("ssss",$("#star_container"));
+            $("#star_container").append('<span class="star fa fa-star  fa-4x checked"  ></span>');
+          }
+          if (n_star != t.avg_score) {
+            $("#star_container").append('<span class="star fa fa-star-half-o  fa-4x checked"  ></span>');
+          }
+          for (var j = 0; j <= (t.avg_score - n_star); j++) {
+          // $("#star" + star_n).addClass("checked");
+           $("#star_container").append('<span class="star fa fa-star-o  fa-4x checked" ></span>');
+          }
 
           var ctx = document.getElementById('myChart');
           var myChart = new Chart(ctx, {
@@ -422,6 +454,10 @@ export default {
     
       // t.setTime();
      
+    },
+    options: function() {
+        this._data._chart.destroy();
+        this.renderChart(this.chartData, this.options);
     }
   },
   methods: {
