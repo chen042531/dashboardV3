@@ -99,7 +99,8 @@
             
                     </div>
                 </div>
-            <!-- <p>編輯截止時間 {{endTime}}</p> -->
+            <br/>                 
+            <p>編輯截止時間 {{edit_end_time}}</p>
             <br/> 
               <div class="table-responsive">
                 <table class="table table-striped table-sm">
@@ -143,7 +144,7 @@
                 </table>
                 
               </div>
-              <p>編輯截止時間 {{endTime}}</p>
+              <p>編輯截止時間 {{edit_end_time}}</p>
               <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==1">送出參加者服務時數</button>
             </div>
         </div>
@@ -232,6 +233,24 @@ export default {
           t.eventName = getEventDetail_data.eventName;
           t.startTime = getEventDetail_data.startTime;
           t.endTime = getEventDetail_data.endTime;
+           var d = new Date(t.end_timestamp);
+            d.setDate(d.getDate() + 7);
+            let month = '' + (d.getMonth() + 1);
+            let day = '' + d.getDate();
+            let year = d.getFullYear();
+            let hour = '' + d.getHours();
+            let minute = '' + d.getMinutes();
+
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+            if (hour.length < 2) 
+                hour = '0' + hour;
+            if (minute.length < 2) 
+                minute = '0' + minute;  
+            t.edit_end_time = [year, month, day].join('-')+" "+ [hour, minute].join(':')   
+
 
           t.charityName = getEventDetail_data.charityName;
           t.contactNumber = getEventDetail_data.contactNumber;
@@ -243,7 +262,6 @@ export default {
           t.note = getEventDetail_data.note;
           t.status = getEventDetail_data.status;
 
-          t.edit_end_time = t.endTime
           t.$forceUpdate()
         }
       );
@@ -298,10 +316,33 @@ export default {
       var t = this;
       // console.log('ddddddddddddd',t.end_timestamp);
       var d = new Date(t.end_timestamp);
+      d.setDate(d.getDate() + 7);
+      let month = '' + (d.getMonth() + 1);
+      let day = '' + d.getDate();
+      let year = d.getFullYear();
+      let hour = '' + d.getHours();
+      let minute = '' + d.getMinutes();
+
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+      if (hour.length < 2) 
+          hour = '0' + hour;
+      if (minute.length < 2) 
+          minute = '0' + minute;  
+      t.edit_end_time = [year, month, day].join('-')+" "+ [hour, minute].join(':')    
     // console.log(d.getUTCHours()); // Hours
     // console.log(d.getUTCMinutes());
     // console.log(d.getUTCSeconds());
-      // console.log(t.event_type, t.event_id,t.subid );
+      
+    // console
+    // console.log(d.getYear()); // Hours
+    // console.log(d.getMonth());
+    // console.log(d.getHours());
+    // console.log(d.getMinutes());
+    console.log("getUTCSeconds getUTCSeconds getUTCSeconds", [year, month, day].join('-')+" "+ [hour, minute].join(':'));
+      console.log( t.event_type, t.event_id,t.subid );
       $.post(
         "http://140.113.216.53:8000/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
