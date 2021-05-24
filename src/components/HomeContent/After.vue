@@ -639,12 +639,13 @@ export default {
         }));
         
         for (var prop in n_row) {
-          // console.log("cc",row[prop]);
+          console.log("cc",prop);
           // row[prop] = 'xxx';
 
           if(prop=="uid"){
             continue
           }
+         
           //要特別處理變成string才寫得進去   這library的text 只吃string
           if(prop=="time"){
             console.log("time time",n_row[prop]);

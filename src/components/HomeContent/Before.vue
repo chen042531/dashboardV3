@@ -133,7 +133,7 @@
         
                         <td>
                             <span :id="'state'+i">
-                           取消報名
+                          已取消報名
                             </span>
                         
                         </td>
@@ -538,7 +538,23 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           alignment: docx.AlignmentType.CENTER,
         })],
       }));
-      for (var prop in this.appliers[0]) {
+      var all_applier = this.appliers.concat(this.canceled_appliers);
+      for (var prop in all_applier[0]) {
+         if(prop=="defaultServiceTime"){
+            continue
+          }
+          if(prop=="status"){
+            continue
+          }
+          if(prop=="uid"){
+            continue
+          }
+          if(prop=="userOther"){
+            continue
+          }
+          if(prop=="userServiceTime"){
+            continue
+          }
         header_row.push(new docx.TableCell({
           children: [new docx.Paragraph({
             text: prop,
@@ -557,9 +573,9 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       }));
       table.push(new docx.TableRow({ children: header_row }));
       // console.log(table);
-      for (var row_n = 0; row_n < this.appliers.length; row_n++) {
+      for (var row_n = 0; row_n < all_applier.length; row_n++) {
         // console.log("ff", applicants_data.applicants[row_n]);
-        var n_row = this.appliers[row_n];
+        var n_row = all_applier[row_n];
         var row = [];
 
 
@@ -572,7 +588,21 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         for (var prop in n_row) {
           // console.log(row[prop]);
           // row[prop] = 'xxx';
-
+          if(prop=="defaultServiceTime"){
+            continue
+          }
+          if(prop=="status"){
+            continue
+          }
+          if(prop=="uid"){
+            continue
+          }
+          if(prop=="userOther"){
+            continue
+          }
+          if(prop=="userServiceTime"){
+            continue
+          }
           row.push(new docx.TableCell({
             children: [new docx.Paragraph({
               text: n_row[prop],
@@ -612,7 +642,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         email: "信箱",
         time: "時數"
       };
-      var itemsNotFormatted = this.appliers;
+      var itemsNotFormatted = this.appliers.concat(this.canceled_appliers);
 
       var itemsFormatted = [];
 
