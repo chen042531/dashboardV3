@@ -290,7 +290,7 @@
                 class="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                placeholder="鮭魚泡飯"
+                placeholder="王小明"
                 v-model="contactPerson"
                 />
             </div>
