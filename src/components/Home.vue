@@ -208,6 +208,10 @@ export default {
         "http://140.113.216.53:8000/getWebCharityActivities/",
         { charityID: t.charityId },
         function (getCharityActivities_data) {
+          t.active_list=[];
+          t.active_list_once=[];
+          t.expired_list=[];
+          t.expired_list_once=[];
           console.log(getCharityActivities_data);
           for(var i in getCharityActivities_data.active_list){
             if(getCharityActivities_data.active_list[i].eventType == 3){
