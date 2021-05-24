@@ -98,7 +98,7 @@
             </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <actnew v-if="home_content_flag==0"  :charity_id="charityId" ></actnew>
+          <actnew v-if="home_content_flag==0"  :charity_id="charityId" v-on:updateSidebar="sidebarUpdate"></actnew>
           <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
             :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
             ></app-before>
@@ -191,16 +191,47 @@ export default {
             t.expired_list_once.push(getCharityActivities_data.expired_list[i])
           }
         };
-         console.log("qqqqqqqqqq",t.active_list);
-          console.log("qqqqqqqqqq",t.active_list_once);
-           console.log("qqqqqqqqqq",t.expired_list);
-           console.log("qqqqqqqqqq",t.expired_list);
+        //  console.log("qqqqqqqqqq",t.active_list);
+        //   console.log("qqqqqqqqqq",t.active_list_once);
+        //    console.log("qqqqqqqqqq",t.expired_list);
+        //    console.log("qqqqqqqqqq",t.expired_list);
            
       }
     );
        
   },
   methods: {
+    sidebarUpdate: function (){
+       var t = this;
+       console.log("child event __________________");
+       $.post(
+        "http://140.113.216.53:8000/getWebCharityActivities/",
+        { charityID: t.charityId },
+        function (getCharityActivities_data) {
+          console.log(getCharityActivities_data);
+          for(var i in getCharityActivities_data.active_list){
+            if(getCharityActivities_data.active_list[i].eventType == 3){
+              t.active_list.push(getCharityActivities_data.active_list[i])
+            }else{
+              t.active_list_once.push(getCharityActivities_data.active_list[i])
+            }
+          }
+          
+          for(var i in getCharityActivities_data.expired_list){
+            if(getCharityActivities_data.expired_list[i].eventType == 3){
+              t.expired_list.push(getCharityActivities_data.expired_list[i])
+            }else{
+              t.expired_list_once.push(getCharityActivities_data.expired_list[i])
+            }
+          };
+          console.log("qqqqqqqqqq",t.active_list);
+            console.log("qqqqqqqqqq",t.active_list_once);
+            console.log("qqqqqqqqqq",t.expired_list);
+            console.log("qqqqqqqqqq",t.expired_list);
+            
+        }
+      );
+    },
     activeGoTO: function (subevent){
       let t = this;
       t.$forceUpdate();

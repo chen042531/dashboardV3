@@ -416,7 +416,7 @@ export default {
                         t.add_success = 1;
                     }
                     $('#confirm_add_event').modal('show');
-             
+                     t.$emit("updateSidebar");
                 
                 }
             );
@@ -449,15 +449,15 @@ export default {
                     contactNumber: String(t.contactNumber), location: String(t.location), details: String(t.details) ,
                      image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
                 function (addEvent_data) {
-                //   console.log(t.eventID,t.eventType);
-                console.log("iiiiiiiiiii",addEvent_data);
-                if (addEvent_data.status==0){
-                    t.add_success = 0;
-                }else{
-                    t.add_success = 1;
-                }
-                $('#confirm_add_event').modal('show');
-             
+                    //   console.log(t.eventID,t.eventType);
+                    console.log("iiiiiiiiiii",addEvent_data);
+                    if (addEvent_data.status==0){
+                        t.add_success = 0;
+                    }else{
+                        t.add_success = 1;
+                    }
+                    $('#confirm_add_event').modal('show');
+                    t.$emit("updateSidebar");
                 }
             );
         }
