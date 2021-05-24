@@ -318,7 +318,12 @@ export default {
       );
   },
   watch: { 
-    subid: function(newVal, oldVal) { // watch it
+    // event_id: this.updateComp,
+    subid: this.updateComp,
+
+  },
+  methods: {
+    updateComp: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       
       var t = this;
@@ -347,7 +352,7 @@ export default {
         }
       );
 
-console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
+      console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       $.post(
         "http://140.113.216.53:8000/getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
@@ -372,16 +377,15 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           t.canceled_appliers = canceled_appliers_list_tmp;
         }
       );
-    }
-  },
-  methods: {
+    },
     stop_signing: function () {
     // $('#stop_sign').text('開放報名');
       $('#confirm_stop_signing').modal('show');
     },
     confirm_stop: function () {
-
+     
       var t = this;
+       console.log("tt________",t.status);
       // 確認伺服器成功或失敗
       if (t.stop_signing_flag == 0) {
         $.post(
