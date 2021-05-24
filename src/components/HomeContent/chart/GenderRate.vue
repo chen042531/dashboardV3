@@ -22,8 +22,8 @@ export default {
                     ],
                     borderWidth: 1
                   }]
-            
           },this.options)
+          // },this.options)
         },
         deep: true
 

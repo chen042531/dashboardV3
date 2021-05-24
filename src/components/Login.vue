@@ -4,7 +4,7 @@
     <form @submit.prevent="login" >
       
       <!-- <label for="phoneNumber" class="visually-hidden">電話號碼</label> -->
-      <input type="text" v-model="phoneNumber" id="inputPhoneNumber" class="form-control" required autofocus>
+      <input type="text" v-model="phoneNumber" id="inputPhoneNumber" class="form-control" placeholder="電話號碼" required autofocus>
        <br>
       <!-- <label for="inputPassword" class="visually-hidden">密碼</label> -->
       <input type="passWord"  v-model="passWord" id="inputPassword" class="form-control" placeholder="密碼" required>
