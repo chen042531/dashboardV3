@@ -479,7 +479,7 @@ export default {
       }
       var tmp_changedTimeList = {};
       this.applicants.forEach(applier=>{
-              tmp_changedTimeList[applier.uid] = applier.time;
+              tmp_changedTimeList[applier.uid] = parseFloat(applier.time);
           }
       );
       var tmp_changedTimeList_string = JSON.stringify(tmp_changedTimeList);

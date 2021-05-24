@@ -330,8 +330,24 @@
            
         </form>
          <button type="submit" class="btn btn-primary" 
-    style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
-    padding-left: 3rem;padding-right: 3rem;" v-on:click="sendform()">提交活動</button>
+            style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
+            padding-left: 3rem;padding-right: 3rem;" v-on:click="sendform()">提交活動</button>
+          <!-- Modal -->
+      <div class="modal fade" id="confirm_add_event" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 v-if="add_success==0" class="modal-title" id="exampleModalLabel">已提交新活動</h5>
+              <h5 v-if="add_success==1" class="modal-title" id="exampleModalLabel">提交新活動失敗</h5>
+            </div>
+          
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button>
+              <button type="button" class="btn btn-primary" v-on:click="confirm()">確認</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 <script>
@@ -364,6 +380,8 @@ export default {
       image:"",
       certification:"True",
       freqency: "0",
+
+      add_success:0,
     }
   },
   
@@ -390,8 +408,16 @@ export default {
                      image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
                 function (addEvent_data) {
                 //   console.log(t.eventID,t.eventType);
-                console.log("iiiiiiiiiii",addEvent_data);
+                     console.log("iiiiiiiiiii",addEvent_data);
+                     console.log("iiiiiiiiiii",addEvent_data);
+                    if (addEvent_data.status==0){
+                        t.add_success = 0;
+                    }else{
+                        t.add_success = 1;
+                    }
+                    $('#confirm_add_event').modal('show');
              
+                
                 }
             );
         }
@@ -425,6 +451,12 @@ export default {
                 function (addEvent_data) {
                 //   console.log(t.eventID,t.eventType);
                 console.log("iiiiiiiiiii",addEvent_data);
+                if (addEvent_data.status==0){
+                    t.add_success = 0;
+                }else{
+                    t.add_success = 1;
+                }
+                $('#confirm_add_event').modal('show');
              
                 }
             );
@@ -432,6 +464,9 @@ export default {
         console.log("send send send send send send");
         
         
+    },
+    confirm: function(){
+      $('#confirm_add_event').modal('hide');
     },
     handleImages(files){
         console.log(files)

@@ -24,7 +24,9 @@
           <span style="color:#888888">   {{startTime}} ~ {{endTime}}</span>
           <span style="color:#888888" v-if="eventType=='1'">(一次性)</span>
           <span style="color:#888888" v-if="eventType=='3'">(週期性)</span>
-          <span style="color:#888888" v-for="fre in eventFreq" :key="fre.weekday">({{fre.weekday}})</span>
+          <span style="color:#888888" v-if="eventType=='3'">(</span>
+          <span style="color:#888888" v-for="fre in eventFreq" :key="fre.weekday">{{fre.weekday}}</span>
+          <span style="color:#888888" v-if="eventType=='3'">)</span>
         </div>
         <div class="col-sm-6" style="font-size: large;">地點 : 
           <span style="color:#888888">   {{location}}</span>
@@ -131,7 +133,7 @@
         
                         <td>
                             <span :id="'state'+i">
-                            <button :id="'button'+i" type="button" class="btn btn-danger" v-on:click="setReject(i)">取消報名</button>
+                           取消報名
                             </span>
                         
                         </td>
@@ -309,8 +311,9 @@ export default {
               canceled_appliers_list_tmp.push(getApplierList_data.appliers[i])
             }
           }
-          this.appliers = applier_list_tmp;
-          this.canceled_appliers = canceled_appliers_list_tmp;
+          t.appliers = applier_list_tmp;
+          t.canceled_appliers = canceled_appliers_list_tmp;
+
         }
       );
   },
@@ -365,8 +368,8 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
               canceled_appliers_list_tmp.push(getApplierList_data.appliers[i])
             }
           }
-          this.appliers = applier_list_tmp;
-          this.canceled_appliers = canceled_appliers_list_tmp;
+          t.appliers = applier_list_tmp;
+          t.canceled_appliers = canceled_appliers_list_tmp;
         }
       );
     }
@@ -465,10 +468,10 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       $.post(
         "http://140.113.216.53:8000/cancelAppliedEvent/",
         { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(t.subid),
-         userID:String(t.tmp_cancel_applier.uid),cid:String(t.charity_id),},
+         userID:String(t.tmp_cancel_applier.uid),charityID:String(t.charity_id),},
         function (cancelAppliedEvent_data) {
           console.log(cancelAppliedEvent_data);
-          if("cancelAppliedEvent_data cancelAppliedEvent_data cancelAppliedEvent_data",cancelAppliedEvent_data==0){
+          if(cancelAppliedEvent_data.status==0){
             $.post(
               "http://140.113.216.53:8000/getApplierList/",
               { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
