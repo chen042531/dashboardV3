@@ -1,18 +1,37 @@
 <template>
   <div>
     <div id="event_info" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{eventName}}  <span style="color: #888888;
-          font-size: large;">{{startTime}} {{endTime}}</span></h1>
+        <h1 class="h2">{{eventName}}  </h1>
         
       </div>
-      <div>{{charityName}}</div>
-      <div>{{contactNumber}}</div>
-      <div>{{contactPerson}}</div>
-      <div>{{location}}</div>
-      <div>{{details}}</div>
-      <div v-for="fre in eventFreq" :key="fre.weekday">{{fre.weekday}}</div>
-      <div v-if="eventType=='1'">一次性</div>
-      <div v-if="eventType=='3'">週期性</div>
+     <div class="row ">
+        
+        <div class="col-sm-6" style="font-size: large;">活動時間 : 
+          <span style="color:#888888">   {{startTime}} ~ {{endTime}}</span>
+          <span style="color:#888888" v-if="eventType=='1'">(一次性)</span>
+          <span style="color:#888888" v-if="eventType=='3'">(週期性)</span>
+          <span style="color:#888888" v-for="fre in eventFreq" :key="fre.weekday">({{fre.weekday}})</span>
+        </div>
+        <div class="col-sm-6" style="font-size: large;">地點 : 
+          <span style="color:#888888">   {{location}}</span>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-2"  style="font-size: large;">機構 : 
+          <span style="color:#888888">  {{charityName}}</span>
+        </div>
+        <div class="col-sm-2"  style="font-size: large;">聯絡人:
+          <span style="color:#888888"> {{contactPerson}}</span>
+        </div>
+        <div class="col-sm-6"  style="font-size: large;">聯絡電話:
+          <span style="color:#888888"> {{contactNumber}}</span>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-6"  style="font-size: large;">活動資訊:
+          <span style="color:#888888"> {{details}}</span>
+        </div>
+      </div>
       <div v-if="note != 'none'">{{note}}</div>
 
       <div class="row ">
@@ -61,7 +80,7 @@
               <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者平均評分</h5>
            
                 <!-- <div id="star_container"></div> -->
-                <Star :star="avg_score"></Star>
+                <Star :star="avg_score" style="text-align:center"></Star>
                 
               </div>
             </div>
@@ -145,9 +164,25 @@
                 
               </div>
               <p>編輯截止時間 {{edit_end_time}}</p>
-              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==1">送出參加者服務時數</button>
+              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==1" v-on:click="sendAppliersTime()">送出參加者服務時數</button>
             </div>
         </div>
+        </div>
+      </div>
+        <!-- Modal -->
+      <div class="modal fade" id="confirm_send_time" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 v-if="send_success==0" class="modal-title" id="exampleModalLabel">已送出時數</h5>
+              <h5 v-if="send_success==1" class="modal-title" id="exampleModalLabel">送出時數失敗</h5>
+            </div>
+          
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button>
+              <button type="button" class="btn btn-primary" v-on:click="confirm()">確認</button>
+            </div>
+          </div>
         </div>
       </div>
   </div> 
@@ -196,6 +231,7 @@ export default {
       time: null,
 
       edit_end_time:"",
+      send_success:0,
       
     }
   },
@@ -434,6 +470,41 @@ export default {
       }
       console.log(this.applicants[i].time);
     },
+    sendAppliersTime: function(){
+      var t =this;
+      for (var i in this.applicants){
+        console.log("ddddd",this.applicants[i]);
+        this.applicants[i].uid;
+        this.applicants[i].time;
+      }
+      var tmp_changedTimeList = {};
+      this.applicants.forEach(applier=>{
+              tmp_changedTimeList[applier.uid] = applier.time;
+          }
+      );
+      var tmp_changedTimeList_string = JSON.stringify(tmp_changedTimeList);
+      console.log(tmp_changedTimeList_string);
+      
+       $.post(
+        "http://140.113.216.53:8000/sendApplicantsTime/",
+        { eventType: String(t.event_type), eventID: String(t.event_id),
+        changedTimeList: tmp_changedTimeList_string, sid:String(t.subid) },
+        function (sendApplicantsTime_data) {
+          console.log(sendApplicantsTime_data);
+          console.log("eventType: ",String(t.event_type), "eventID: ", String(t.event_id)
+          ,"changedTimeList: ", tmp_changedTimeList_string, "sid", String(t.subid))
+          if (sendApplicantsTime_data.status==0){
+            t.send_success = 0;
+          }else{
+            t.send_success = 1;
+          }
+          $('#confirm_send_time').modal('show');
+        }
+      );
+    },
+    confirm: function(){
+      $('#confirm_send_time').modal('hide');
+    },
     timer() {
       let my = this
       this.time = setInterval(() => {
@@ -469,7 +540,7 @@ export default {
 
       var fileTitle = '參加者資訊及其各別服務時數'; // or 'my-unique-title'
       console.log(itemsFormatted)
-      this.exportCSVFile(headers, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
+      this.exportCSVFile(this.eventName, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
     },
     exportCSVFile(headers, items, fileTitle) {
         if (headers) {
@@ -610,7 +681,7 @@ export default {
 
       // tables = t_table;
       console.log(t_table);
-      this.generate("dd", "sdsd", t_table);
+      this.generate(this.eventName, this.details, t_table);
       
     },
     generate: function (title, description, tables) {
@@ -656,7 +727,7 @@ export default {
 
           docx.Packer.toBlob(doc).then((blob) => {
               console.log(blob);
-              saveAs(blob, "example.docx");
+              saveAs(blob, this.eventName+".docx");
               console.log("Document created successfully");
           });
     },

@@ -35,16 +35,16 @@
                 <ul class="list-unstyled">
                   <li id="active_list">
                     
-                    <h6>正在進行的活動</h6>
+                    <h6 class="btn  btn-outline-secondary btn-lg btn-block disabled" aria-disabled="true">正在進行的活動</h6>
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
                         <li class="nav-item" v-for="act_event_once in active_list_once" :key="act_event_once.eventID" 
                          v-on:click="activeGoTO(act_event_once)">  
-                          <a class="btn btn-primary"  role="button" >
+                          <a class="nav-link "  role="button" >
                             {{act_event_once.eventName}}
                           </a>
                         </li>
                         <li class="nav-item" v-for="act_event in active_list" :key="act_event.eventID">  
-                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu'+act_event.eventID" 
+                          <a class="nav-link" data-toggle="collapse" :href="'#submenu'+act_event.eventID" 
                               role="button" aria-expanded="false"  :aria-controls ="'submenu'+act_event.eventID">
                             {{act_event.eventName}}
                           </a>
@@ -64,17 +64,18 @@
                     </ul>
                   </li> 
                   <li  id="expired_list">
-                    <h6>已經結束的活動</h6>
+                    <h6 class="btn  btn-outline-dark btn-lg btn-block disabled" role="button" aria-disabled="true">
+                      已經結束的活動</h6>
                     
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
                         <li class="nav-item" v-for="exp_event_once in expired_list_once" :key="exp_event_once.eventID"
                           v-on:click="expiredGoTO(exp_event_once)">  
-                          <a class="btn btn-primary"  role="button" >
+                          <a class="nav-link a"  role="button" >
                             {{exp_event_once.eventName}}
                           </a>
                         </li>
                         <li class="nav-item" v-for="exp_event in expired_list" :key="exp_event.eventID">  
-                          <a class="btn btn-primary" data-toggle="collapse" :href="'#submenu_exp'+exp_event.eventID" 
+                          <a class="nav-link " data-toggle="collapse" :href="'#submenu_exp'+exp_event.eventID" 
                               role="button" aria-expanded="false"  :aria-controls ="'submenu_exp'+exp_event.eventID">
                             {{exp_event.eventName}}
                           </a>

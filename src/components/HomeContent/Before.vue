@@ -6,7 +6,7 @@
         <!-- <span style="color: #888888;
           font-size: large;">{{startTime}} {{endTime}}</span> -->
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
+          <div class="btn-group me-2" v-if="note == 'none'">
             <button v-if="event_canceled_state==0" type="button" class="btn btn-sm btn-outline-secondary" 
                 v-on:click="delete_event()">刪除活動</button>
             <button v-if="event_canceled_state==0" type="button" class="btn btn-sm btn-outline-secondary" 
@@ -19,39 +19,45 @@
         </div>
       </div>
       <div class="row ">
+        
+        <div class="col-sm-6" style="font-size: large;">活動時間 : 
+          <span style="color:#888888">   {{startTime}} ~ {{endTime}}</span>
+          <span style="color:#888888" v-if="eventType=='1'">(一次性)</span>
+          <span style="color:#888888" v-if="eventType=='3'">(週期性)</span>
+          <span style="color:#888888" v-for="fre in eventFreq" :key="fre.weekday">({{fre.weekday}})</span>
+        </div>
+        <div class="col-sm-6" style="font-size: large;">地點 : 
+          <span style="color:#888888">   {{location}}</span>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-2"  style="font-size: large;">機構 : 
+          <span style="color:#888888">  {{charityName}}</span>
+        </div>
+        <div class="col-sm-2"  style="font-size: large;">聯絡人:
+          <span style="color:#888888"> {{contactPerson}}</span>
+        </div>
+        <div class="col-sm-6"  style="font-size: large;">聯絡電話:
+          <span style="color:#888888"> {{contactNumber}}</span>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-6"  style="font-size: large;">活動資訊:
+          <span style="color:#888888"> {{details}}</span>
+        </div>
+      </div>
+      <br/>
+      <div class="row " v-if="note != 'none'">
+         <div class="col-sm-12">
+          <div  style="font-size: x-large;">取消活動的原因:</div>
+        </div>  
         <div class="col-sm-12">
-          {{charityName}}
-        </div>
+          <div  style="font-size: large;">{{note}}</div>
+        </div> 
       </div>
-      <div class="row ">
-        <div class="col-sm-6">
-          {{location}}
-        </div>
-         <div class="col-sm-6">
-          <span style="color: #888888;
-            font-size: large;">{{startTime}} {{endTime}}</span>
-        </div>
-      </div>
-      <div class="row ">
-        <div class="col-sm-6">
-          {{contactPerson}}
-        </div>
-         <div class="col-sm-6">
-          {{contactNumber}}
-        </div>
-      </div>
-      <div class="row ">
-        <div class="col-sm-12">
-          {{details}}
-        </div>
-      </div>
-      
-      <div v-for="fre in eventFreq" :key="fre.weekday">{{fre.weekday}}</div>
-      <div v-if="eventType=='1'">一次性</div>
-      <div v-if="eventType=='3'">週期性</div>
-      <div v-if="note != 'none'">note</div>
-      <div class="row ">
-        <div class="col-sm-12">
+      <div class="row " v-if="note == 'none'">
+        
+        <div  class="col-sm-12">
             <!-- <div v-if="event_canceled_state == 0" class="card top-buffer"> -->
             <div  class="card top-buffer">
                 <div class="card-body text-center">
@@ -253,7 +259,7 @@ export default {
       bulletinboard:"",
       why:"",
 
-
+      tmp_cancel_applier:{},
 
     }
   },
@@ -453,11 +459,44 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       $('#confirm_stop_signing').modal('hide');
     },
      confirm: function () {
-      this.$delete(this.appliers, appliers_delete_index);
-      // $('#button' + applicants_delete_index).remove();
-      // $('#state' + applicants_delete_index).html('<h6>已取消報名</h6>');
-      canceled_appliers.push(this.appliers[appliers_delete_index])
-      console.log(delete_applicant);
+      var t = this;
+      console.log(String(t.event_type), String(t.event_id), String(t.subid),
+      String(t.tmp_cancel_applier.uid) , String(t.charity_id))
+      $.post(
+        "http://140.113.216.53:8000/cancelAppliedEvent/",
+        { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(t.subid),
+         userID:String(t.tmp_cancel_applier.uid),cid:String(t.charity_id),},
+        function (cancelAppliedEvent_data) {
+          console.log(cancelAppliedEvent_data);
+          if("cancelAppliedEvent_data cancelAppliedEvent_data cancelAppliedEvent_data",cancelAppliedEvent_data==0){
+            $.post(
+              "http://140.113.216.53:8000/getApplierList/",
+              { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
+              // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
+              function (getApplierList_data) {
+              //   console.log(t.eventID,t.eventType);
+                var applier_list_tmp = [];
+                var canceled_appliers_list_tmp = [];
+              
+                console.log("wwwwww",getApplierList_data,t.charity_id,t.event_type,t.event_id, t.subid);
+                t.appliers = getApplierList_data.appliers;
+                for (var i in getApplierList_data.appliers){
+                  console.log("ddddd",getApplierList_data.appliers[i])
+                  if (getApplierList_data.appliers[i].status == 0){
+                    applier_list_tmp.push(getApplierList_data.appliers[i]);
+                  }
+                  else{
+                    canceled_appliers_list_tmp.push(getApplierList_data.appliers[i])
+                  }
+                }
+                this.appliers = applier_list_tmp;
+                this.canceled_appliers = canceled_appliers_list_tmp;
+              }
+            );
+          }
+        }
+      );
+      
       // 確認伺服器成功或失敗
 
       $('#confirm_delete_applicant').modal('hide');
@@ -479,6 +518,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         this.appliers[i].userPhone + " " +
         this.appliers[i].userEmail + " "
         + "嗎？</span>");
+      this.tmp_cancel_applier = this.appliers[i];
       // console.log(this.applicants);
     },
     download_doc: function(){
@@ -555,7 +595,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
 
       // tables = t_table;
       console.log(t_table);
-      this.generate("dd", "sdsd", t_table);
+      this.generate(this.eventName, this.details,t_table);
       
     },
     download_csv: function(){
@@ -587,7 +627,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
 
       var fileTitle = '參加者資訊及其各別服務時數'; // or 'my-unique-title'
       console.log(itemsFormatted)
-      this.exportCSVFile(headers, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
+      this.exportCSVFile(this.eventName, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
     },
     g_test: function(){
        console.log("gt");
@@ -635,7 +675,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
 
           docx.Packer.toBlob(doc).then((blob) => {
               console.log(blob);
-              saveAs(blob, "example.docx");
+              saveAs(blob, this.eventName+".docx");
               console.log("Document created successfully");
           });
     },
