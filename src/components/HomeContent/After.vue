@@ -52,7 +52,7 @@
             <h5 class="card-title" id="t1" data-placement="top"  data-toggle="tooltip"
                  title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">性別比</h5>
                   <div>
-                    <GenderRate :gender_r="gender" :width="400" :height="300" ></GenderRate>
+                    <GenderRate :gender_r="gender" :width="400" :height="200" ></GenderRate>
                   </div>
                    
                  
@@ -344,6 +344,110 @@ export default {
        
   },
   watch: { 
+    event_id: function(newVal, oldVal) { // watch it
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal);
+      
+      // this._data._chart.destroy();
+      // this.renderChart(this.chartData, this.options);
+      var t = this;
+      // console.log('ddddddddddddd',t.end_timestamp);
+      var d = new Date(t.end_timestamp);
+      d.setDate(d.getDate() + 7);
+      let month = '' + (d.getMonth() + 1);
+      let day = '' + d.getDate();
+      let year = d.getFullYear();
+      let hour = '' + d.getHours();
+      let minute = '' + d.getMinutes();
+
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+      if (hour.length < 2) 
+          hour = '0' + hour;
+      if (minute.length < 2) 
+          minute = '0' + minute;  
+      t.edit_end_time = [year, month, day].join('-')+" "+ [hour, minute].join(':')    
+    // console.log(d.getUTCHours()); // Hours
+    // console.log(d.getUTCMinutes());
+    // console.log(d.getUTCSeconds());
+      
+    // console
+    // console.log(d.getYear()); // Hours
+    // console.log(d.getMonth());
+    // console.log(d.getHours());
+    // console.log(d.getMinutes());
+    console.log("getUTCSeconds getUTCSeconds getUTCSeconds", [year, month, day].join('-')+" "+ [hour, minute].join(':'));
+      console.log( t.event_type, t.event_id,t.subid );
+      $.post(
+        "http://140.113.216.53:8000/getEventDetail/",
+        { eventType: String(t.event_type), eventID: String(t.event_id) },
+        function (getEventDetail_data) {
+          console.log(t.eventID,t.eventType);
+          console.log("iiiiiiiiiii",getEventDetail_data);
+          t.bef_event = getEventDetail_data;
+          t.eventName = getEventDetail_data.eventName;
+          t.startTime = getEventDetail_data.startTime;
+          t.endTime = getEventDetail_data.endTime;
+
+          t.charityName = getEventDetail_data.charityName;
+          t.contactNumber = getEventDetail_data.contactNumber;
+          t.contactPerson = getEventDetail_data.contactPerson;
+          t.details = getEventDetail_data.details;
+          t.eventFreq = getEventDetail_data.eventFreq;
+          t.eventType = getEventDetail_data.eventType;
+          t.location = getEventDetail_data.location;
+          t.note = getEventDetail_data.note;
+          t.status = getEventDetail_data.status;
+
+          t.edit_end_time = t.endTime
+          t.$forceUpdate()
+        }
+      );
+      $.post(
+      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      // { eventType: t.event_type, eventId:t.event_id, sid:0 },
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
+        function (getStatisticAndApplicantsTime_data) {
+          console.log("zzzwatch",getStatisticAndApplicantsTime_data);
+          console.log(t.subid)
+          t.age = getStatisticAndApplicantsTime_data.age;
+          t.gender = getStatisticAndApplicantsTime_data.gender;
+          t.source = getStatisticAndApplicantsTime_data.source;
+          t.avg_score = getStatisticAndApplicantsTime_data.avg_score;
+          t.registration_num = getStatisticAndApplicantsTime_data.registration_num;
+          t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
+          t.applicants = getStatisticAndApplicantsTime_data.applicants;
+          t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
+
+
+        
+          
+          t.$forceUpdate()
+        }
+      );
+
+
+      $.post(
+      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
+      function (getStatisticAndApplicantsTime_data) {
+          console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
+          t.age = getStatisticAndApplicantsTime_data.age;
+          t.gender = getStatisticAndApplicantsTime_data.gender;
+          t.source = getStatisticAndApplicantsTime_data.source;
+          t.avg_score = getStatisticAndApplicantsTime_data.avg_score;
+          t.registration_num = getStatisticAndApplicantsTime_data.registration_num;
+          t.registration_rate = getStatisticAndApplicantsTime_data.registration_rate;
+          t.applicants = getStatisticAndApplicantsTime_data.applicants;
+          t.sendTimeStatus = getStatisticAndApplicantsTime_data.sendTimeStatus;
+          t.$forceUpdate()
+        }
+      );
+      t.$forceUpdate()
+      // t.setTime();
+     
+    },
     subid: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal);
       
