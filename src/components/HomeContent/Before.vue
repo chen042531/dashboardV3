@@ -257,7 +257,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
              
-                v-model="eventName"
+                v-model="tmp_eventName"
                 />
             </div>
             <div class="form-group" style="margin-top:1rem;">
@@ -268,7 +268,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               
-                v-model="contactPerson"
+                v-model="tmp_contactPerson"
                 />
             </div>
             <div class="form-group" style="margin-top:1rem;">
@@ -279,7 +279,7 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                
-                v-model="contactNumber"
+                v-model="tmp_contactNumber"
                 />
                 
             </div>
@@ -291,7 +291,7 @@
                 class="form-control"
                 id="exampleFormControlTextarea1"
                 rows="6"
-                v-model="details"
+                v-model="tmp_details"
                 ></textarea>
             </div>
             <div class="form-group" style="margin-top:2rem;">
@@ -344,7 +344,11 @@ export default {
 
       tmp_cancel_applier:{},
 
-      image:"",
+      tmp_eventName:"",
+      tmp_contactPerson:"",
+      tmp_contactNumber:"",
+      tmp_details:"",
+      tmp_image:"",
 
     }
   },
@@ -371,6 +375,13 @@ export default {
           t.location = getEventDetail_data.location;
           t.note = getEventDetail_data.note;
           t.status = getEventDetail_data.status;
+
+
+          t.tmp_eventName=t.eventName ;
+          t.tmp_contactPerson=t.contactPerson ;
+          t.tmp_contactNumber=t.contactNumber;
+          t.tmp_details=t.details;
+          
         }
       );
       console.log("irrrrr",t.contactPerson);
@@ -541,12 +552,17 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         "http://140.113.216.53:8000/editEvent/",
        
         {charityID: String(t.charity_id),eventType: String(t.event_type), eventID: String(t.event_id),
-         eventName: String(), contactPerson: String(t.contactPerson), contactNumber: String(t.contactNumber),
-         details: String(t.details) ,image: String(t.image),},
+         eventName: String(t.tmp_eventName), contactPerson: String(t.tmp_contactPerson), 
+         contactNumber: String(t.tmp_contactNumber),
+         details: String(t.tmp_details) ,image: String(t.image),},
           function (editEvent_data) {
             
             console.log(editEvent_data);
             if (editEvent_data.status == 0){
+              t.eventName = t.tmp_eventName;
+              t.contactPerson = t.tmp_contactPerson;
+              t.contactNumber = t.tmp_contactNumber;
+              t.details = t.tmp_details;
               $('#confirm_edit_event').modal('hide');
             }      
           }
