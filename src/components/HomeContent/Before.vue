@@ -92,7 +92,7 @@
                         <th>生日</th>
                         <th>電話</th>
                         <th>信箱</th>
-                
+                        <th>使用者備註</th>
                         <th>報名</th>
                         </tr>
                     </thead>
@@ -104,7 +104,7 @@
                         <td>{{ applier.userBirthday }}</td> 
                         <td>{{ applier.userPhone }}</td> 
                         <td>{{ applier.userEmail }}</td> 
-                    
+                        <td>{{ applier.userOther }}</td>
                         <td>
                             <span :id="'state'+i">
                             <button :id="'button'+i" type="button" class="btn btn-danger" v-on:click="setReject(i)">取消報名</button>
@@ -126,7 +126,8 @@
                         <th>生日</th>
                         <th>電話</th>
                         <th>信箱</th>
-                
+                        
+                        <th>使用者備註</th>
                         <th>報名</th>
                         </tr>
                     </thead>
@@ -138,7 +139,7 @@
                         <td>{{ applier.userBirthday }}</td> 
                         <td>{{ applier.userPhone }}</td> 
                         <td>{{ applier.userEmail }}</td> 
-        
+                        <td>{{ applier.userOther }}</td>
                         <td>
                             <span :id="'state'+i">
                           已取消報名

@@ -37,47 +37,47 @@
                 </div>
                 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox1" value="1" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox1">婦幼關懷</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2" v-model="eventLabel" >
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox2" value="2" v-model="eventLabel" >
                     <label class="form-check-label" for="inlineCheckbox2">身心障礙</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox3" value="3" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox3">老人服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="4" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox4" value="4" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox4">社會服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="5" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox5" value="5" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox5">動物保護</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="6" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox6" value="6" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox6">國際救援</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="7" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox7" value="7" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox7">環境保護</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="8" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox8" value="8" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox8">文教藝術</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="9" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox9" value="9" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox9">醫療服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="10"  v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox10" value="10"  v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox10">宗教信仰</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="11" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox11" value="11" v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox11">其他</label>
                 </div>
             </div>
@@ -381,7 +381,14 @@ export default {
       add_success:0,
     }
   },
-  
+ mounted : function () {
+      var limit = 3;
+        $('.typeCheck').on('change', function(evt) {
+        if($(this).siblings(':checked').length >= limit) {
+            this.checked = false;
+        }
+        });
+  },
   methods: {
     sendform(){
         var t = this;
@@ -412,7 +419,7 @@ export default {
                      console.log("iiiiiiiiiii",addEvent_data);
                     if (addEvent_data.status==0){
                         t.add_success = 0;
-                        
+                        t.eventType = false;
                         t.eventName = "";
                         sendStartTime = ""; 
                         t.startDate = "";
@@ -473,7 +480,7 @@ export default {
                     console.log("iiiiiiiiiii",addEvent_data);
                     if (addEvent_data.status==0){
                         t.add_success = 0;
-
+                        t.eventType = false;
                         t.eventName = "";
                         sendStartTime = ""; 
                         t.startDate = "";
