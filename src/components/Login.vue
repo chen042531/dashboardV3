@@ -12,6 +12,27 @@
       
       <button class="w-100 btn btn-lg btn-primary" type="submit">登入</button>
     </form>
+    <!-- login fail -->
+    <div class="modal fade" id="confirm_login_error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">電話密碼錯誤</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              <i class="bi bi-x"></i>
+            </button> -->
+          </div>
+          <div class="modal-body" >
+            <!-- {{applicants}} -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button>
+            <button type="button" class="btn btn-primary" v-on:click="confirm_login_error_check()">確認</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -24,6 +45,9 @@
       }
     },
     methods: {
+      confirm_login_error_check(){
+        $('#confirm_login_error').modal('hide');
+      },
       login(){
       
         let phoneNumber = this.phoneNumber;
@@ -48,7 +72,7 @@
               platform: "1",
             },
             function (login_return) {
-              console.log(login_return);
+              console.log("#############",login_return);
                   status = login_return.status
                   userId = login_return.userID
                   console.log(userId);
@@ -57,7 +81,13 @@
                 {userID:  userId },
                 function (getUserInfo_return) {
                   console.log("df",getUserInfo_return.cid);
-                  rou.$router.push({ name: 'Home', params: {charityId: getUserInfo_return.cid, username: getUserInfo_return.name }});
+                  if(login_return.status == 0){
+                      rou.$router.push({ name: 'Home', params: {charityId: getUserInfo_return.cid, username: getUserInfo_return.name }});
+                  } else{
+                      $('#confirm_login_error').modal('show');
+                  }
+            
+                
                   // if( status == 0 )
                   //   rou.$router.push({ name: 'Home', params: {userID: userId }});
                   // else
