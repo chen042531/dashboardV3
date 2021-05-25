@@ -437,6 +437,10 @@ export default {
           t.note = getEventDetail_data.note;
           t.status = getEventDetail_data.status;
 
+          t.tmp_eventName=t.eventName ;
+          t.tmp_contactPerson=t.contactPerson ;
+          t.tmp_contactNumber=t.contactNumber;
+          t.tmp_details=t.details;
           // console.log(t.details,t.charityName);
         }
       );
@@ -492,6 +496,11 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           t.note = getEventDetail_data.note;
           t.status = getEventDetail_data.status;
 
+
+          t.tmp_eventName=t.eventName ;
+          t.tmp_contactPerson=t.contactPerson ;
+          t.tmp_contactNumber=t.contactNumber;
+          t.tmp_details=t.details;
           // console.log(t.details,t.charityName);
         }
       );
@@ -548,6 +557,10 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
     },
     confirm_edit:function () {
        var t = this;
+
+       if(t.image == undefined){
+         t.image = "";
+       }
        $.post(
         "http://140.113.216.53:8000/editEvent/",
        

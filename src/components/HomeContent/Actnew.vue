@@ -234,7 +234,7 @@
                     </div>
                 
                     <div class="form-group" style="margin-top:1rem;">
-                        <label for="exampleInputEmail1">活動頻率(次/每週)</label>
+                        <label for="exampleInputEmail1">活動頻率(重複間隔：___週)</label>
                         <input
                         type="email"
                         class="form-control"
@@ -304,9 +304,6 @@
                 placeholder="0912123123"
                 v-model="contactNumber"
                 />
-                <small id="emailHelp" class="form-text text-muted"
-                >We'll never share your email with anyone else.</small
-                >
             </div>
             
             <div class="form-group" style="margin-top:1rem;">
@@ -399,6 +396,9 @@ export default {
             console.log(t.charity_id,t.eventName,t.eventType,
                     sendStartTime, sendEndTime, t.serviceHours, t.time, sendLabel,
                     t.contactPerson,t.contactNumber, t.location, t.details, t.certification);
+            if(t.image == undefined){
+                t.image = "";
+            }        
             $.post(
                 "http://140.113.216.53:8000/addEvent/",
                 { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
@@ -412,6 +412,23 @@ export default {
                      console.log("iiiiiiiiiii",addEvent_data);
                     if (addEvent_data.status==0){
                         t.add_success = 0;
+                        
+                        t.eventName = "";
+                        sendStartTime = ""; 
+                        t.startDate = "";
+                        t.startTime = "";
+                        t.endTime = "";
+                        t.startTime = "";
+                        t.serviceHours = "";
+                        t.time = "";
+                        t.eventLabel = "";
+                        t.contactPerson = "";
+                        t.contactNumber = "";
+                        t.location = "";
+                        t.details = "";
+                        t.image = "";
+                        t.certification = "";
+                        t.freqency = "";
                     }else{
                         t.add_success = 1;
                     }
@@ -441,6 +458,9 @@ export default {
                     sendStartTime, sendEndTime, t.serviceHours, t.time, sendLabel,
                     t.contactPerson,t.contactNumber, t.location, t.details, t.image, t.certification, t.freqency);
 
+            if(t.image == undefined){
+                t.image = "";
+            }
             $.post(
                 "http://140.113.216.53:8000/addEvent/",
                 { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
@@ -453,6 +473,23 @@ export default {
                     console.log("iiiiiiiiiii",addEvent_data);
                     if (addEvent_data.status==0){
                         t.add_success = 0;
+
+                        t.eventName = "";
+                        sendStartTime = ""; 
+                        t.startDate = "";
+                        t.startTime = "";
+                        t.endTime = "";
+                        t.startTime = "";
+                        t.serviceHours = "";
+                        t.time = "";
+                        t.eventLabel = "";
+                        t.contactPerson = "";
+                        t.contactNumber = "";
+                        t.location = "";
+                        t.details = "";
+                        t.image = "";
+                        t.certification = "";
+                        t.freqency = "";
                     }else{
                         t.add_success = 1;
                     }

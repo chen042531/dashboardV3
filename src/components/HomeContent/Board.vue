@@ -55,18 +55,18 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 v-if="wait_server==0" class="modal-title" id="exampleModalLabel">
+            <h5 v-if="sendNewsSuccess==0" class="modal-title" id="exampleModalLabel">
               已成功發布 {{event_item.eventName}} 的公告
             </h5>
-            <h5 v-if="wait_server==1" class="modal-title" id="exampleModalLabel">
+            <!-- <h5 v-if="wait_server==1" class="modal-title" id="exampleModalLabel">
               發布中...
-            </h5>
-            <h5 v-if="wait_server==2" class="modal-title" id="exampleModalLabel">
+            </h5> -->
+            <h5 v-if="sendNewsSuccess==1" class="modal-title" id="exampleModalLabel">
               發布失敗
             </h5>
-            <h5 v-if="wait_server==3" class="modal-title" id="exampleModalLabel">
+            <!-- <h5 v-if="wait_server==3" class="modal-title" id="exampleModalLabel">
               請選擇一個活動
-            </h5>
+            </h5> -->
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_delete()">取消</button> -->
@@ -87,7 +87,7 @@ export default {
             event_item:{},
             see:"",
             detail:"",
-            wait_serve: 0,
+            sendNewsSuccess: 0,
         }
     },
     methods: {
@@ -96,10 +96,10 @@ export default {
             // console.log(this.mainEvent, this.mainEvent.eventType);
             console.log(t.charity_id, t.event_item.eventType, t.event_item.eventID, 
                     t.subEventId,t.see, t.detail);
-            if(t.event_item.eventType==null){
-               t.wait_server =  3;
-            }
-            t.wait_server = 1; //wait
+            // if(t.event_item.eventType==null){
+            //    t.wait_server =  3;
+            // }
+            // t.wait_server = 1; //wait
              $('#addNews_success').modal('show');
              $.post(
                 "http://140.113.216.53:8000/addNews/",
@@ -108,9 +108,11 @@ export default {
                 function (addNews_data) {
                     console.log(addNews_data);
                     if(addNews_data.status == 0){
-                        t.wait_server = 0; //success
+                        t.sendNewsSuccess = 0; //success
+                        t.see = "";
+                        t.detail = "";
                     }else{
-                        t.wait_server = 2; //fail
+                        t.sendNewsSuccess = 1; //fail
                     }
                     
                     
