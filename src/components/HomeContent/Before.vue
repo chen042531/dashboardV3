@@ -1,7 +1,15 @@
 <template>
   <div>
       <div id="event_info" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2>{{eventName}}  </h2>
+        
+        <h2>{{eventName}}  
+          <button  type="button" class="btn btn-sm btn-outline-secondary" 
+                v-on:click="edit_event()">
+                編輯活動
+          </button>
+
+        </h2>
+        
         <h2 v-if=" status == 1" style="color:red;">截止報名</h2>
         <!-- <span style="color: #888888;
           font-size: large;">{{startTime}} {{endTime}}</span> -->
@@ -231,12 +239,85 @@
         </div>
       </div>
     </div>
+    <!-- 編輯活動 -->
+    <div class="modal fade" id="confirm_edit_event" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header" style="text-align: center;">
+            <h5 class="modal-title" id="confirm_stop_modal" style="text-align: center;">
+              編輯活動
+            </h5>
+          </div>
+          <div  class="modal-body" >
+            <div class="form-group" style="margin-top:2rem;">
+                <label for="exampleInputEmail1">活動名稱</label>
+                <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+             
+                v-model="eventName"
+                />
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
+                <label for="exampleInputEmail1">聯絡人</label>
+                <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              
+                v-model="contactPerson"
+                />
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
+                <label for="exampleInputEmail1">聯絡電話</label>
+                <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+               
+                v-model="contactNumber"
+                />
+                
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
+                <label  for="exampleInputEmail1"
+                >詳細活動資訊</label
+                >
+                <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="6"
+                v-model="details"
+                ></textarea>
+            </div>
+            <div class="form-group" style="margin-top:2rem;">
+                <label for="exampleInputEmail1">上傳圖片</label>
+                <div class="col-md-12">
+                    <UploadImages   @change="handleImages" uploadMsg="請上傳活動圖片" :max="1"/>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel_edit()">取消</button>
+            <button type="button" class="btn btn-primary" v-on:click="confirm_edit()">確認</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div> 
 </template>
 
 <script>
+import UploadImages from "./uploadImage/uploadImage"
 export default {
   props:['charity_id','event_id','event_type','subid', 'Subevent'],
+  components: {
+      UploadImages,
+  },
   data () {
     return {
       charityName:"",
@@ -262,6 +343,8 @@ export default {
       why:"",
 
       tmp_cancel_applier:{},
+
+      image:"",
 
     }
   },
@@ -430,6 +513,45 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
     }
   },
   methods: {
+    edit_event:function () {
+    
+      $('#confirm_edit_event').modal('show');
+    },
+    handleImages(files){
+        console.log(files)
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            // use a regex to remove data url part
+            const base64String = reader.result
+                .replace("data:", "")
+                .replace(/^.+,/, "");
+
+
+            // log to console
+            // logs wL2dvYWwgbW9yZ...
+            this.image = base64String;
+            console.log(base64String);
+        };
+        reader.readAsDataURL(files[0]);
+        
+    },
+    confirm_edit:function () {
+       var t = this;
+       $.post(
+        "http://140.113.216.53:8000/editEvent/",
+       
+        {charityID: String(t.charity_id),eventType: String(t.event_type), eventID: String(t.event_id),
+         eventName: String(), contactPerson: String(t.contactPerson), contactNumber: String(t.contactNumber),
+         details: String(t.details) ,image: String(t.image),},
+          function (editEvent_data) {
+            
+            console.log(editEvent_data);
+            if (editEvent_data.status == 0){
+              $('#confirm_edit_event').modal('hide');
+            }      
+          }
+        );
+    },
     stop_signing: function () {
     // $('#stop_sign').text('開放報名');
       $('#confirm_stop_signing').modal('show');
