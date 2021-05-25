@@ -239,7 +239,7 @@ export default {
   mounted : function () {
     let t = this;
     // $.post(
-    //   "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+    //   "https://charitypapago.org/getStatisticAndApplicantsTime/",
     //   // { eventType: t.event_type, eventId:t.event_id, sid:0 },
     //   { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
     //   function (getStatisticAndApplicantsTime_data) {
@@ -260,7 +260,7 @@ export default {
     //   }
     // );
      $.post(
-        "http://140.113.216.53:8000/getEventDetail/",
+        "https://charitypapago.org/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
@@ -302,7 +302,7 @@ export default {
         }
       );
       $.post(
-      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      "https://charitypapago.org/getStatisticAndApplicantsTime/",
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
         function (getStatisticAndApplicantsTime_data) {
@@ -326,7 +326,7 @@ export default {
 
 
       $.post(
-      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      "https://charitypapago.org/getStatisticAndApplicantsTime/",
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
       function (getStatisticAndApplicantsTime_data) {
           console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
@@ -380,7 +380,7 @@ export default {
     console.log("getUTCSeconds getUTCSeconds getUTCSeconds", [year, month, day].join('-')+" "+ [hour, minute].join(':'));
       console.log( t.event_type, t.event_id,t.subid );
       $.post(
-        "http://140.113.216.53:8000/getEventDetail/",
+        "https://charitypapago.org/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
@@ -405,7 +405,7 @@ export default {
         }
       );
       $.post(
-      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      "https://charitypapago.org/getStatisticAndApplicantsTime/",
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
         function (getStatisticAndApplicantsTime_data) {
@@ -429,7 +429,7 @@ export default {
 
 
       $.post(
-      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      "https://charitypapago.org/getStatisticAndApplicantsTime/",
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
       function (getStatisticAndApplicantsTime_data) {
           console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
@@ -484,7 +484,7 @@ export default {
     console.log("getUTCSeconds getUTCSeconds getUTCSeconds", [year, month, day].join('-')+" "+ [hour, minute].join(':'));
       console.log( t.event_type, t.event_id,t.subid );
       $.post(
-        "http://140.113.216.53:8000/getEventDetail/",
+        "https://charitypapago.org/getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
@@ -509,7 +509,7 @@ export default {
         }
       );
       $.post(
-      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      "https://charitypapago.org/getStatisticAndApplicantsTime/",
       // { eventType: t.event_type, eventId:t.event_id, sid:0 },
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
         function (getStatisticAndApplicantsTime_data) {
@@ -533,7 +533,7 @@ export default {
 
 
       $.post(
-      "http://140.113.216.53:8000/getStatisticAndApplicantsTime/",
+      "https://charitypapago.org/getStatisticAndApplicantsTime/",
       { eventType: String(t.event_type), eventID: String(t.event_id), sid : String(t.subid) },
       function (getStatisticAndApplicantsTime_data) {
           console.log("hhhhhhhhh",getStatisticAndApplicantsTime_data);
@@ -590,7 +590,7 @@ export default {
       console.log(tmp_changedTimeList_string);
       
        $.post(
-        "http://140.113.216.53:8000/sendApplicantsTime/",
+        "https://charitypapago.org/sendApplicantsTime/",
         { eventType: String(t.event_type), eventID: String(t.event_id),
         changedTimeList: tmp_changedTimeList_string, sid:String(t.subid) },
         function (sendApplicantsTime_data) {

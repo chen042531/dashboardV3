@@ -102,7 +102,7 @@ export default {
             t.wait_server = 1; //wait
              $('#addNews_success').modal('show');
              $.post(
-                "http://140.113.216.53:8000/addNews/",
+                "https://charitypapago.org/addNews/",
                 { charityID: t.charity_id, eventType:t.event_item.eventType, 
                   eventID:t.event_item.eventID, sid:t.subEventId,visibility:t.see, content:t.detail},
                 function (addNews_data) {

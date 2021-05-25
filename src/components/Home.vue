@@ -162,7 +162,7 @@ export default {
   mounted : function () {
     let t = this;
     // $.post(
-    //   "http://140.113.216.53:8000/getCharityActivities/",
+    //   "https://charitypapago.org/getCharityActivities/",
     //   { charityID: t.charityId },
     //   function (getCharityActivities_data) {
     //     console.log(getCharityActivities_data);
@@ -172,7 +172,7 @@ export default {
     // );
     // $('.smenu').collapse('hide');
     $.post(
-      "http://140.113.216.53:8000/getWebCharityActivities/",
+      "https://charitypapago.org/getWebCharityActivities/",
       { charityID: t.charityId },
       function (getCharityActivities_data) {
         console.log(getCharityActivities_data);
@@ -205,7 +205,7 @@ export default {
        var t = this;
        console.log("child event __________________");
        $.post(
-        "http://140.113.216.53:8000/getWebCharityActivities/",
+        "https://charitypapago.org/getWebCharityActivities/",
         { charityID: t.charityId },
         function (getCharityActivities_data) {
           t.active_list=[];
