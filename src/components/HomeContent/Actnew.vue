@@ -400,7 +400,7 @@ export default {
                     sendStartTime, sendEndTime, t.serviceHours, t.time, sendLabel,
                     t.contactPerson,t.contactNumber, t.location, t.details, t.certification);
             $.post(
-                "http://140.113.216.53:8000/addEvent/",
+                "https://charitypapago.org/addEvent/",
                 { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
                     startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
                     time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
@@ -442,7 +442,7 @@ export default {
                     t.contactPerson,t.contactNumber, t.location, t.details, t.image, t.certification, t.freqency);
 
             $.post(
-                "http://140.113.216.53:8000/addEvent/",
+                "https://charitypapago.org/addEvent/",
                 { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
                     startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
                     time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),

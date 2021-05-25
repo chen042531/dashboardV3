@@ -39,7 +39,7 @@
         // }
         console.log("data");
          $.post(
-            "http://140.113.216.53:8000/login/",
+            "https://charitypapago.org/login/",
             {
               // phoneNum: this.phoneNumber,
               // password: this.passWord,
@@ -53,7 +53,7 @@
                   userId = login_return.userID
                   console.log(userId);
               $.post(
-              "http://140.113.216.53:8000/getUserInfo/",
+              "https://charitypapago.org/getUserInfo/",
                 {userID:  userId },
                 function (getUserInfo_return) {
                   console.log("df",getUserInfo_return.cid);
