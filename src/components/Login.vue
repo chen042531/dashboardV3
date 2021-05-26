@@ -17,18 +17,17 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">電話密碼錯誤</h5>
+            <h5 class="modal-title" id="exampleModalLabel" style="margin: 0 auto;">電話密碼錯誤</h5>
             <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
               <i class="bi bi-x"></i>
             </button> -->
           </div>
-          <div class="modal-body" >
-            <!-- {{applicants}} -->
-          </div>
+         
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button>
-            <button type="button" class="btn btn-primary" v-on:click="confirm_login_error_check()">確認</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button> -->
+            <button type="button" class="btn btn-primary" v-on:click="confirm_login_error_check()"  style="margin: 0 auto;"
+                >確認</button>
           </div>
         </div>
       </div>

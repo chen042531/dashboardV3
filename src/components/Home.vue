@@ -39,7 +39,7 @@
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
                         <li class="nav-item" v-for="act_event_once in active_list_once" :key="act_event_once.eventID" 
                          v-on:click="activeGoTO(act_event_once)">  
-                          <a class="nav-link "  role="button" >
+                          <a class="nav-link "  role="button"  >
                             {{act_event_once.eventName}}
                           </a>
                         </li>
@@ -69,8 +69,8 @@
                     
                     <ul  class="sidebar-submenu list-unstyled collapsed" aria-expanded="false">
                         <li class="nav-item" v-for="exp_event_once in expired_list_once" :key="exp_event_once.eventID"
-                          v-on:click="expiredGoTO(exp_event_once)">  
-                          <a class="nav-link a"  role="button" >
+                          v-on:click="expiredGoTO(exp_event_once)" >  
+                          <a class="nav-link a"  role="button"  >
                             {{exp_event_once.eventName}}
                           </a>
                         </li>
@@ -80,7 +80,7 @@
                             {{exp_event.eventName}}
                           </a>
           
-                        
+                        <!-- cursor:pointer; -->
                           <ul  class="smenu sidebar-submenu list-unstyled collapse " :id="'submenu_exp'+exp_event.eventID">
                         
                             <li v-for="exp_subevent in exp_event.time" :key="exp_subevent.sid"  v-on:click="expiredGoTO(exp_subevent)">
