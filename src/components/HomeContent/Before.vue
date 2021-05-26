@@ -30,10 +30,12 @@
         
         <div class="col-sm-6" style="font-size: large;">活動時間 : 
           <span style="color:#888888">   {{startTime}} ~ {{endTime}}</span>
+          <span style="color:#888888">   {{substime}} ~ {{subetime}}</span>
           <span style="color:#888888" v-if="eventType=='1'">(一次性)</span>
           <span style="color:#888888" v-if="eventType=='3'">(週期性)</span>
           <span style="color:#888888" v-if="eventType=='3'">(</span>
-          <span style="color:#888888" v-for="fre in eventFreq" :key="fre.weekday">{{fre.weekday}}</span>
+          <span style="color:#888888;margin-right:0.5em;" v-for="fre in eventFreq" :key="fre.weekday" 
+              >{{fre.weekday}}</span>
           <span style="color:#888888" v-if="eventType=='3'">)</span>
         </div>
         <div class="col-sm-6" style="font-size: large;">地點 : 
@@ -315,7 +317,7 @@
 <script>
 import UploadImages from "./uploadImage/uploadImage"
 export default {
-  props:['charity_id','event_id','event_type','subid', 'Subevent'],
+  props:['charity_id','event_id','event_type','subid', 'Subevent','substime','subetime'],
   components: {
       UploadImages,
   },

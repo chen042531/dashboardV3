@@ -8,6 +8,7 @@
         
         <div class="col-sm-6" style="font-size: large;">活動時間 : 
           <span style="color:#888888">   {{startTime}} ~ {{endTime}}</span>
+          <span style="color:#888888">   {{substime}} ~ {{subetime}}</span>
           <span style="color:#888888" v-if="eventType=='1'">(一次性)</span>
           <span style="color:#888888" v-if="eventType=='3'">(週期性)</span>
           <span style="color:#888888" v-for="fre in eventFreq" :key="fre.weekday">({{fre.weekday}})</span>
@@ -198,7 +199,7 @@ import { Bar, Pie } from 'vue-chartjs'
 
 export default {
   extends: Pie,
-  props:['charity_id','event_id','event_type','subid','end_timestamp'],
+  props:['charity_id','event_id','event_type','subid','end_timestamp', 'substime','subetime'],
   components: {
     Age,
     GenderRate,
