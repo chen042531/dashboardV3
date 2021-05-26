@@ -339,7 +339,7 @@
             </div>
           
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button>
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button> -->
               <button type="button" class="btn btn-primary" v-on:click="confirm()">確認</button>
             </div>
           </div>

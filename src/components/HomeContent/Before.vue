@@ -85,7 +85,14 @@
                 </div>
                 <br/>
                <div class="table-responsive" id="applicants_info">
+                 
                     <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                          <th colspan="8" style="font-size: x-large; background-color:rgba(54, 162, 235, 0.8); color:white;">
+                            已報名</th>
+                        </tr>
+                    </thead>
                     <thead>
                         <tr>
                         <th>#</th>
@@ -118,8 +125,15 @@
                     </tbody>
                     </table>
                 </div>
+                <br/>
                 <div class="table-responsive" id="applicants_info">
                     <table class="table table-striped table-sm">
+                      <thead>
+                        <tr>
+                          <th colspan="8" style="font-size: x-large; background-color:rgba(255, 80, 90, 0.8); color:white;">
+                            已取消報名</th>
+                        </tr>
+                    </thead>
                     <thead>
                         <tr>
                         <th>#</th>
