@@ -67,7 +67,7 @@
             <div class="card-body">
             <h5 class="card-title " id="t2" data-placement="top"  data-toggle="tooltip" 
                   title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者得知活動的管道</h5>
-              <Source :source_s="source" :width="400" :height="200"></Source>
+              <Source :source_s="source" :width="400" :height="200"/>
               <!-- <canvas id="info_source" width="400" height="200"></canvas> -->
             </div>
           </div>
