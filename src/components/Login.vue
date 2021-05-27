@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-  
+  import G_ from "./Global";
   export default {
     data () {
       return {
@@ -62,7 +62,7 @@
         // }
         console.log("data");
          $.post(
-            "http://140.113.216.53:8000/login/",
+            G_.webURL+"login/",
             {
               // phoneNum: this.phoneNumber,
               // password: this.passWord,
@@ -76,7 +76,7 @@
                   userId = login_return.userID
                   console.log(userId);
               $.post(
-              "http://140.113.216.53:8000/getUserInfo/",
+              G_.webURL+"getUserInfo/",
                 {userID:  userId },
                 function (getUserInfo_return) {
                   console.log("df",getUserInfo_return.cid);

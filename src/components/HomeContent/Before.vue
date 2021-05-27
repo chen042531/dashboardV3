@@ -337,6 +337,8 @@
 
 <script>
 import UploadImages from "./uploadImage/uploadImage"
+import G_ from "../Global"
+
 export default {
   props:['charity_id','event_id','event_type','subid', 'Subevent','substime','subetime'],
   components: {
@@ -380,7 +382,7 @@ export default {
     var t = this;
     
      $.post(
-        "http://140.113.216.53:8000/getEventDetail/",
+        G_.webURL+"getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
@@ -410,7 +412,7 @@ export default {
       );
       console.log("irrrrr",t.contactPerson);
       $.post(
-        "http://140.113.216.53:8000/getApplierList/",
+        G_.webURL+"getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid) },
         // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
         function (getApplierList_data) {
@@ -442,7 +444,7 @@ export default {
       var t = this;
       console.log("ffffff", t.Subevent);
        $.post(
-        "http://140.113.216.53:8000/getEventDetail/",
+        G_.webURL+"getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
@@ -471,7 +473,7 @@ export default {
 
 console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       $.post(
-        "http://140.113.216.53:8000/getApplierList/",
+        G_.webURL+"getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
         // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
         function (getApplierList_data) {
@@ -501,7 +503,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       var t = this;
       console.log("ffffff", t.Subevent);
        $.post(
-        "http://140.113.216.53:8000/getEventDetail/",
+        G_.webURL+"getEventDetail/",
         { eventType: String(t.event_type), eventID: String(t.event_id) },
         function (getEventDetail_data) {
           console.log(t.eventID,t.eventType);
@@ -531,7 +533,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
 
       console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       $.post(
-        "http://140.113.216.53:8000/getApplierList/",
+        G_.webURL+"getApplierList/",
         { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
         // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
         function (getApplierList_data) {
@@ -586,7 +588,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
          t.image = "";
        }
        $.post(
-        "http://140.113.216.53:8000/editEvent/",
+        G_.webURL+"editEvent/",
        
         {charityID: String(t.charity_id),eventType: String(t.event_type), eventID: String(t.event_id),
          eventName: String(t.tmp_eventName), contactPerson: String(t.tmp_contactPerson), 
@@ -616,7 +618,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       // 確認伺服器成功或失敗
       if (t.status == 0) {
         $.post(
-        "http://140.113.216.53:8000/closeRegistration/",
+        G_.webURL+"closeRegistration/",
         { eventType: String(t.event_type), eventID: String(t.event_id), charityID: String(t.charity_id)},
           function (closeRegistration_data) {
             
@@ -635,7 +637,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       }
       else if (t.status == 1) {
         $.post(
-        "http://140.113.216.53:8000/openRegistration/",
+        G_.webURL+"openRegistration/",
         { eventType: String(t.event_type), eventID: String(t.event_id), charityID: String(t.charity_id)},
           function (openRegistration_data) {
             
@@ -669,7 +671,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       // t.event_canceled_state = 11;
       if(t.status!=2){
           $.post(
-        "http://140.113.216.53:8000/deleteEvent/",
+        G_.webURL+"deleteEvent/",
         { charityID: String(t.charity_id),eventType: String(t.event_type), eventID: String(t.event_id), 
           content: t.bulletinboard, eventNote: t.why},
           function (deleteEvent_data) {
@@ -699,14 +701,14 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       console.log(String(t.event_type), String(t.event_id), String(t.subid),
       String(t.tmp_cancel_applier.uid) , String(t.charity_id))
       $.post(
-        "http://140.113.216.53:8000/cancelAppliedEvent/",
+        G_.webURL+"cancelAppliedEvent/",
         { eventType: String(t.event_type), eventID: String(t.event_id), sid: String(t.subid),
          userID:String(t.tmp_cancel_applier.uid),charityID:String(t.charity_id),},
         function (cancelAppliedEvent_data) {
           console.log(cancelAppliedEvent_data);
           if(cancelAppliedEvent_data.status==0){
             $.post(
-              "http://140.113.216.53:8000/getApplierList/",
+              G_.webURL+"getApplierList/",
               { charityID:t.charity_id, eventType: String(t.event_type), eventID: String(t.event_id), subID: String(t.subid)},
               // { charityID:String(5), eventType: String(1), eventID: String(32), subID: "0" },
               function (getApplierList_data) {

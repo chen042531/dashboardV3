@@ -378,7 +378,7 @@
 </template>
 <script>
 import UploadImages from "./uploadImage/uploadImage"
-
+import G_ from "../Global"
 export default {
   components: {
       UploadImages,
@@ -496,7 +496,7 @@ export default {
                  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
             }else{
                  $.post(
-                "http://140.113.216.53:8000/addEvent/",
+                G_.webURL+"addEvent/",
                 { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
                     startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
                     time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
@@ -566,7 +566,7 @@ export default {
                 document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
             }else{
                 $.post(
-                    "http://140.113.216.53:8000/addEvent/",
+                    G_.webURL+"addEvent/",
                     { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
                         startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
                         time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),

@@ -257,6 +257,8 @@
     </div>
 </template>
 <script>
+import G_ from "../Global"
+
 export default {
 
   data () {

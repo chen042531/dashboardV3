@@ -125,7 +125,8 @@
 import Before from './HomeContent/Before';
 import After from './HomeContent/After';
 import Actnew from './HomeContent/Actnew';
-import Board from './HomeContent/Board'
+import Board from './HomeContent/Board';
+import G_ from "./Global";
 export default {
   components:{
     'app-before':Before,
@@ -166,7 +167,7 @@ export default {
   mounted : function () {
     let t = this;
     // $.post(
-    //   "http://140.113.216.53:8000/getCharityActivities/",
+    //   G_.webURL+"getCharityActivities/",
     //   { charityID: t.charityId },
     //   function (getCharityActivities_data) {
     //     console.log(getCharityActivities_data);
@@ -176,7 +177,7 @@ export default {
     // );
     // $('.smenu').collapse('hide');
     $.post(
-      "http://140.113.216.53:8000/getWebCharityActivities/",
+      G_.webURL+"getWebCharityActivities/",
       { charityID: t.charityId },
       function (getCharityActivities_data) {
         console.log(getCharityActivities_data);
@@ -209,7 +210,7 @@ export default {
        var t = this;
        console.log("child event __________________");
        $.post(
-        "http://140.113.216.53:8000/getWebCharityActivities/",
+        G_.webURL+"getWebCharityActivities/",
         { charityID: t.charityId },
         function (getCharityActivities_data) {
           t.active_list=[];
