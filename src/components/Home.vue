@@ -56,7 +56,8 @@
                             <li v-for="act_subevent in act_event.time" :key="act_subevent.sid" 
                              v-on:click="activeGoTO(act_subevent)">
                               <a href="#" class="" >
-                                <p class="" style="margin: 0; padding-left: 2em;" > {{act_subevent.startTime}}</p>
+                                <p :class="{ active: act_subevent.startTime == changeIndex }" style="margin: 0; padding-left: 2em; "
+                                   > {{act_subevent.startTime}}</p>
                               </a>
                             </li>
                           </ul>
@@ -87,7 +88,8 @@
                         
                             <li v-for="exp_subevent in exp_event.time" :key="exp_subevent.sid"  v-on:click="expiredGoTO(exp_subevent)">
                               <a href="#" class="" >
-                                <p class="" style="margin: 0; padding-left: 2em;" > {{exp_subevent.startTime}}</p>
+                                <p :class="{ active: exp_subevent.startTime == changeIndex }" 
+                                 style="margin: 0; padding-left: 2em;" > {{exp_subevent.startTime}}</p>
                               </a>
                             </li>
                           </ul>
@@ -157,7 +159,7 @@ export default {
       exp_subevent_etime:"",
       exp_endTimestamp:"",
 
-      
+      changeIndex: 0
   
     }
   },
@@ -240,6 +242,8 @@ export default {
     },
     activeGoTO: function (subevent){
       let t = this;
+      console.log("!!!!!!!!!!!!!!!!!!!!",subevent.sid+parseInt(this.event_Id))
+      this.changeIndex = subevent.startTime;
       t.$forceUpdate();
       console.log(subevent);
       console.log("ssss",subevent.sid);
@@ -258,6 +262,7 @@ export default {
     },
     expiredGoTO: function (ex_subevent){
       let t = this;
+      this.changeIndex = ex_subevent.startTime;
       t.$forceUpdate();
       console.log("ssss",ex_subevent);
       console.log("ssss",ex_subevent.eventID);
@@ -379,4 +384,8 @@ export default {
   font-size: 0.75rem;
   text-transform: uppercase;
 }
+
+.active{
+		color: red;
+	}
 </style>

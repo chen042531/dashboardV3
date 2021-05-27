@@ -30,7 +30,8 @@
         
         <div class="col-sm-6" style="font-size: large;">活動時間 : 
           <span style="color:#888888">   {{startTime}} ~ {{endTime}}</span>
-          <span style="color:#888888">   {{substime}} ~ {{subetime}}</span>
+          
+          <!-- <span style="color:#888888" v-if="eventType=='3'">   {{substime}} ~ {{subetime}}</span> -->
           <span style="color:#888888" v-if="eventType=='1'">(一次性)</span>
           <span style="color:#888888" v-if="eventType=='3'">(週期性)</span>
           <span style="color:#888888" v-if="eventType=='3'">(</span>
@@ -41,6 +42,12 @@
         <div class="col-sm-6" style="font-size: large;">地點 : 
           <span style="color:#888888">   {{location}}</span>
         </div>
+      </div>
+      <div class="row" v-if="eventType=='3'">
+        <div class="col-sm-6" style="font-size: large;" >子活動時間 :
+          <span style="color:#888888">   {{substime}} ~ {{subetime}}</span>
+        </div>
+           
       </div>
       <div class="row ">
         <div class="col-sm-2"  style="font-size: large;">機構 : 
