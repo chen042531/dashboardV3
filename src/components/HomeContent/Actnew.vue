@@ -1,14 +1,14 @@
 <template>
     <div >
        
-        <form action="">
+        <form action="" @submit="checkForm">
             <div class="form-group" style="margin-top:2rem;">
                 <label for="eventName">活動名稱</label>
                 <input
                 type="text"
                 class="form-control"
                 id="eventName"
-            
+
                 placeholder="淨灘活動"
                 v-model="eventName"
                 required
@@ -33,9 +33,11 @@
                 required
                 />
             </div>
-            <div class="form-group" style="margin-top:1rem;">
+            <div class="form-group " style="margin-top:1rem;" aria-required="true">
+                <!-- <div v-if="event_label_flag == 1" style="color: red; font-size:x-large">請選擇活動類型</div> -->
                 <div>
                     <label >活動類型 </label>
+                    <span v-if="event_label_flag == 1" style="color: red; ">請選擇活動類型</span>
                 </div>
                 
                 <div class="form-check form-check-inline">
@@ -94,9 +96,9 @@
                     <label class="form-check-label" for="inlineCheckbox11">其他</label>
                 </div>
             </div>
-
+            
             <div class="form-group" style="margin-top:1rem; ">
-                <label for="exampleInputEmail1">活動型態</label>
+                <label for="eventType">活動型態</label>
                 <div class="form-check form-check-inline">
                     <input
                         class="form-check-input"
@@ -105,6 +107,7 @@
                         id="inlineRadio1"
                         value="1"
                         v-model="eventType"
+                        required
                     />
                     <label class="form-check-label" for="inlineRadio1">單次活動</label>
                 </div>
@@ -183,7 +186,7 @@
                         
                             placeholder="20"
                             v-model="serviceHours"
-                          
+                            required
                             />
                     </div>
                 </div>
@@ -215,7 +218,7 @@
                         </div>
                     </div>
                     <div class="form-group ">
-                        <label for="exampleInputEmail1">星期</label>
+                        <label>星期</label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="Mon" value="Mon" 
                                 v-model="weekday">
@@ -297,6 +300,7 @@
                         
                             placeholder="20"
                             v-model="serviceHours"
+                            required
                             />
                     </div>
                  
@@ -344,11 +348,13 @@
                 v-model="details"
                 ></textarea>
             </div>
-           
-        </form>
-         <button type="submit" class="btn btn-primary" 
+            <div v-if="event_label_flag == 1" style="color: red; font-size:x-large;text-align:center;">
+                請選擇活動類型</div>
+           <button type="submit" class="btn btn-primary" 
             style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
             padding-left: 3rem;padding-right: 3rem;" v-on:click="sendform()">提交活動</button>
+        </form>
+         
           <!-- Modal -->
       <div class="modal fade" id="confirm_add_event" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -356,9 +362,12 @@
             <div class="modal-header">
               <h5 v-if="add_success==0" class="modal-title" id="exampleModalLabel">已提交新活動</h5>
               <h5 v-if="add_success==1" class="modal-title" id="exampleModalLabel">提交新活動失敗</h5>
+              <h5 v-if="add_success==3" class="modal-title" id="exampleModalLabel">開始時間 或 結束時間 小於 現在時間</h5>
+              <h5 v-if="add_success==4" class="modal-title" id="exampleModalLabel">開始時間 大於 結束時間</h5>
             </div>
           
             <div class="modal-footer">
+                <!-- <div v-if="event_label_flag == 1" style="color: red; font-size:x-large">請選擇活動類型</div> -->
               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="cancel()">取消</button> -->
               <button type="button" class="btn btn-primary" v-on:click="confirm()">確認</button>
             </div>
@@ -399,20 +408,73 @@ export default {
       freqency: "0",
 
       add_success:0,
+
+      event_label_flag:0,
     }
   },
  mounted : function () {
       var limit = 3;
-        $('.typeCheck').on('change', function(evt) {
-        if($(this).siblings(':checked').length >= limit) {
-            this.checked = false;
-            console.log("up up  up ");
-        }
-        });
+    $('.typeCheck').on('change', function(evt) {
+    if($(this).siblings(':checked').length >= limit) {
+        this.checked = false;
+        console.log("up up  up ");
+    }
+    });
+    // var inputs = document.querySelectorAll('input');
+    // inputs.forEach(input=>{
+    //     input.addEventListener('input',function(){
+    //         if (input.checkValidity()){
+    //             input.classList.add('valid')
+    //             input.classList.remove('invalid')
+    //         }else{
+    //             input.classList.remove('valid')
+    //             input.classList.add('invalid')
+    //             if(input.validity.valueMissing){
+    //                 input.setCustomValidity("此欄位為必填");
+    //                 return
+    //             }
+    //             if(input.validity.typeMismatch){
+    //                 input.setCustomValidity("格式錯誤");
+    //                 return
+    //             }
+    //         }
+    //     })
+    // })
+  },
+  watch: { 
+      eventLabel:function(newVal, oldVal) {
+          if (this.eventLabel.length > 0){
+              this.event_label_flag = 0;
+              console.log('((((((((((((((((');
+          }
+      }
   },
   methods: {
+      checkForm: function (e) {
+          console.log('fff');
+         
+ 
+    //   if (this.eventName && this.location) {
+    //     return true;
+    //   }
+
+    //   this.errors = [];
+      
+    //   if (!this.eventName) {
+    //       this.errors.push('必填');
+    //       console.log('必填');
+    //   }
+    //   if (!this.age) {
+    //     this.errors.push('Age required.');
+    //   }
+
+      e.preventDefault();
+    },
     sendform(){
         var t = this;
+         var inputs = document.querySelectorAll('input');
+         console.log("@@@@@@@@@@@@@");
+    
         console.log("send send send send send send", t.endTime, t.endDate);
         if(t.eventType==="1"){
             var sendStartTime = t.startDate+" "+t.startTime;
@@ -427,44 +489,53 @@ export default {
             if(t.image == undefined){
                 t.image = "";
             }        
-            $.post(
+            console.log("#####",t.eventLabel.length);
+            if (t.eventLabel.length==0){
+                this.event_label_flag = 1;
+                document.body.scrollTop = 0; // For Safari
+                 document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }else{
+                 $.post(
                 "http://140.113.216.53:8000/addEvent/",
                 { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
                     startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
                     time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
                     contactNumber: String(t.contactNumber), location: String(t.location), details: String(t.details) ,
                      image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
-                function (addEvent_data) {
-                //   console.log(t.eventID,t.eventType);
-                     console.log("iiiiiiiiiii",addEvent_data);
-                     console.log("iiiiiiiiiii",addEvent_data);
-                    if (addEvent_data.status==0){
-                        t.add_success = 0;
-                        t.eventType = false;
-                        t.eventName = "";
-                        sendStartTime = ""; 
-                        t.startDate = "";
-                        t.startTime = "";
-                        t.endTime = "";
-                        t.startTime = "";
-                        t.serviceHours = "";
-                        t.time = "";
-                        t.eventLabel = "";
-                        t.contactPerson = "";
-                        t.contactNumber = "";
-                        t.location = "";
-                        t.details = "";
-                        t.image = "";
-                        t.certification = "";
-                        t.freqency = "";
-                    }else{
-                        t.add_success = 1;
+                    function (addEvent_data) {
+                    //   console.log(t.eventID,t.eventType);
+                        console.log("iiiiiiiiiii",addEvent_data);
+                        console.log("iiiiiiiiiii",addEvent_data);
+                        if (addEvent_data.status==0){
+                            t.add_success = 0;
+                            t.eventType = false;
+                            t.eventName = "";
+                            sendStartTime = ""; 
+                            t.startDate = "";
+                            t.startTime = "";
+                            t.endTime = "";
+                            t.startTime = "";
+                            t.serviceHours = "";
+                            t.time = "";
+                            t.eventLabel = "";
+                            t.contactPerson = "";
+                            t.contactNumber = "";
+                            t.location = "";
+                            t.details = "";
+                            t.image = "";
+                            t.certification = "";
+                            t.freqency = "";
+                        }else{
+                            t.add_success = 1;
+                        }
+                        $('#confirm_add_event').modal('show');
+                        t.$emit("updateSidebar");
+                    
                     }
-                    $('#confirm_add_event').modal('show');
-                     t.$emit("updateSidebar");
-                
-                }
-            );
+                );
+            }
+            
+           
         }
         if(t.eventType==="3"){
             var sendStartTime = t.startDate+" "+t.startTime;
@@ -489,42 +560,48 @@ export default {
             if(t.image == undefined){
                 t.image = "";
             }
-            $.post(
-                "http://140.113.216.53:8000/addEvent/",
-                { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
-                    startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
-                    time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
-                    contactNumber: String(t.contactNumber), location: String(t.location), details: String(t.details) ,
-                     image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
-                function (addEvent_data) {
-                    //   console.log(t.eventID,t.eventType);
-                    console.log("iiiiiiiiiii",addEvent_data);
-                    if (addEvent_data.status==0){
-                        t.add_success = 0;
-                        t.eventType = false;
-                        t.eventName = "";
-                        sendStartTime = ""; 
-                        t.startDate = "";
-                        t.startTime = "";
-                        t.endTime = "";
-                        t.startTime = "";
-                        t.serviceHours = "";
-                        t.time = "";
-                        t.eventLabel = "";
-                        t.contactPerson = "";
-                        t.contactNumber = "";
-                        t.location = "";
-                        t.details = "";
-                        t.image = "";
-                        t.certification = "";
-                        t.freqency = "";
-                    }else{
-                        t.add_success = 1;
+            if (t.eventLabel.length==0){
+                this.event_label_flag = 1;
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }else{
+                $.post(
+                    "http://140.113.216.53:8000/addEvent/",
+                    { charityID: String(t.charity_id), eventName: String(t.eventName) , eventType: String(t.eventType),
+                        startTime: String(sendStartTime), endTime: String(sendEndTime) , serviceHours: String(t.serviceHours),
+                        time: String(t.time), eventLabel: String(sendLabel) , contactPerson: String(t.contactPerson),
+                        contactNumber: String(t.contactNumber), location: String(t.location), details: String(t.details) ,
+                        image: String(t.image),  certification: String(t.certification), freqency: String(t.freqency) },
+                    function (addEvent_data) {
+                        //   console.log(t.eventID,t.eventType);
+                        console.log("iiiiiiiiiii",addEvent_data);
+                        if (addEvent_data.status==0){
+                            t.add_success = 0;
+                            t.eventType = false;
+                            t.eventName = "";
+                            sendStartTime = ""; 
+                            t.startDate = "";
+                            t.startTime = "";
+                            t.endTime = "";
+                            t.startTime = "";
+                            t.serviceHours = "";
+                            t.time = "";
+                            t.eventLabel = "";
+                            t.contactPerson = "";
+                            t.contactNumber = "";
+                            t.location = "";
+                            t.details = "";
+                            t.image = "";
+                            t.certification = "";
+                            t.freqency = "";
+                        }else{
+                            t.add_success = 1;
+                        }
+                        $('#confirm_add_event').modal('show');
+                        t.$emit("updateSidebar");
                     }
-                    $('#confirm_add_event').modal('show');
-                    t.$emit("updateSidebar");
-                }
-            );
+                );
+            }
         }
         // console.log("send send send send send send");
         
@@ -569,4 +646,10 @@ export default {
             color: #aaaaaa;
             opacity: 0.9; /* Firefox */
  }
+ input.valid{
+  border:2px solid green;
+}
+input.invalid{
+  border:2px solid red;
+}
 </style>
