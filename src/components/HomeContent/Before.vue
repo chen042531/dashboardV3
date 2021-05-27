@@ -866,12 +866,13 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         birth: "生日",
         phones: "電話",
         email: "信箱",
-        time: "時數"
+        userOther: "使用者備註"
       };
-      var itemsNotFormatted = this.appliers.concat(this.canceled_appliers);
-
+      // var itemsNotFormatted = this.appliers.concat(this.canceled_appliers);
+       var itemsNotFormatted = this.appliers;
+       var itemsNotFormatted2 = this.canceled_appliers;
       var itemsFormatted = [];
-
+      var itemsFormatted2 = [];
       // format the data
       itemsNotFormatted.forEach((applier) => {
         itemsFormatted.push({
@@ -880,16 +881,87 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           birth: applier.userBirthday,
           phone: applier.userPhone,
           email: applier.userEmail,
-          time: applier.userServicetime,
+          userOther: applier.userOther,
         });
       });
 
+      itemsNotFormatted2.forEach((applier) => {
+        itemsFormatted2.push({
+          name: applier.userName.replace(/,/g, ''), // remove commas to avoid errors,
+          gender: applier.userGender,
+          birth: applier.userBirthday,
+          phone: applier.userPhone,
+          email: applier.userEmail,
+          userOther: applier.userOther,
+        });
+      });
       var fileTitle = '參加者資訊及其各別服務時數'; // or 'my-unique-title'
-      console.log(itemsFormatted)
-      this.exportCSVFile(this.eventName, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
+      console.log(itemsFormatted);
+      console.log("$$$$$",itemsFormatted2);
+
+      this.exportCSVFile(fileTitle,headers, itemsFormatted,itemsFormatted2); // call the exportCSVFile() function to process the JSON and trigger the download
     },
-    g_test: function(){
-       console.log("gt");
+    exportCSVFile(fileTitle, headers, items, items2) {
+        if (headers) {
+          items.unshift(headers);
+          items2.unshift(headers);
+        }
+
+        // Convert Object to JSON
+        var jsonObject = JSON.stringify(items);
+        var jsonObject2 = JSON.stringify(items2);
+
+        var csv = this.convertToCSV(jsonObject,jsonObject2);
+
+        var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
+
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        if (navigator.msSaveBlob) { // IE 10+
+          navigator.msSaveBlob(blob, exportedFilenmae);
+        } else {
+          var link = document.createElement("a");
+          if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", exportedFilenmae);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        }
+    },
+    convertToCSV: function(objArray, objArray2) {
+      var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+      var array2 = typeof objArray2 != 'object' ? JSON.parse(objArray2) : objArray2;
+
+      var str = "活動: "+this.eventName+''+ '\r\n';
+
+      str = str+"已報名名單"+'\r\n';
+      for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+          if (line != '') line += ','
+
+          line += array[i][index];
+        }
+
+        str += line + '\r\n';
+      }
+      str += '\r\n'
+      str = str+"已取消報名名單"+'\r\n';
+      for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+          if (line != '') line += ','
+
+          line += array[i][index];
+        }
+
+        str += line + '\r\n';
+      }
+      return str;
     },
     generate: function (title, description, tables) {
           const doc = new docx.Document({
@@ -938,52 +1010,8 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
               console.log("Document created successfully");
           });
     },
-    exportCSVFile(headers, items, fileTitle) {
-        if (headers) {
-          items.unshift(headers);
-        }
-
-        // Convert Object to JSON
-        var jsonObject = JSON.stringify(items);
-
-        var csv = this.convertToCSV(jsonObject);
-
-        var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
-
-        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        if (navigator.msSaveBlob) { // IE 10+
-          navigator.msSaveBlob(blob, exportedFilenmae);
-        } else {
-          var link = document.createElement("a");
-          if (link.download !== undefined) { // feature detection
-            // Browsers that support HTML5 download attribute
-            var url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", exportedFilenmae);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }
-        }
-    },
-    convertToCSV: function(objArray) {
-      var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-      var str = '';
-
-      for (var i = 0; i < array.length; i++) {
-        var line = '';
-        for (var index in array[i]) {
-          if (line != '') line += ','
-
-          line += array[i][index];
-        }
-
-        str += line + '\r\n';
-      }
-
-      return str;
-    }
+   
+    
     
   }
 }

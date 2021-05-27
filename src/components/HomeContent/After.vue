@@ -646,7 +646,7 @@ export default {
 
       var fileTitle = '參加者資訊及其各別服務時數'; // or 'my-unique-title'
       console.log(itemsFormatted)
-      this.exportCSVFile(this.eventName, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
+      this.exportCSVFile(headers, itemsFormatted, fileTitle); // call the exportCSVFile() function to process the JSON and trigger the download
     },
     exportCSVFile(headers, items, fileTitle) {
         if (headers) {
@@ -681,6 +681,8 @@ export default {
       var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
       var str = '';
 
+      var str = "活動: "+this.eventName+''+ '\r\n';
+      
       for (var i = 0; i < array.length; i++) {
         var line = '';
         for (var index in array[i]) {
