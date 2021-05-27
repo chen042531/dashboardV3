@@ -165,7 +165,8 @@
                 
               </div>
               <p>編輯截止時間 {{edit_end_time}}</p>
-              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==1" v-on:click="sendAppliersTime()">送出參加者服務時數</button>
+              <p style="color:red">在編輯截止時間前您都可以再次編輯參加者服務時數</p>
+              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==1" v-on:click="sendAppliersTime()">編輯參加者服務時數</button>
             </div>
         </div>
         </div>

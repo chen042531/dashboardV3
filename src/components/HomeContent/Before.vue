@@ -429,14 +429,6 @@ export default {
       );
   },
   watch: { 
-<<<<<<< HEAD
-    // event_id: this.updateComp,
-    subid: this.updateComp,
-
-  },
-  methods: {
-    updateComp: function(newVal, oldVal) { // watch it
-=======
     event_id: function(newVal, oldVal) { // watch it
       console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       
@@ -497,7 +489,6 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       );
     },
     subid: function(newVal, oldVal) { // watch it
->>>>>>> addUserOther
       console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       
       var t = this;
@@ -556,8 +547,6 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           t.canceled_appliers = canceled_appliers_list_tmp;
         }
       );
-<<<<<<< HEAD
-=======
     }
   },
   methods: {
@@ -608,7 +597,6 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
             }      
           }
         );
->>>>>>> addUserOther
     },
     stop_signing: function () {
     // $('#stop_sign').text('開放報名');
@@ -617,11 +605,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
     confirm_stop: function () {
      
       var t = this;
-<<<<<<< HEAD
-       console.log("tt________",t.status);
-=======
       console.log("_____________+++++++++++++++",t.status);
->>>>>>> addUserOther
       // 確認伺服器成功或失敗
       if (t.status == 0) {
         $.post(

@@ -3,81 +3,94 @@
        
         <form action="">
             <div class="form-group" style="margin-top:2rem;">
-                <label for="exampleInputEmail1">活動名稱</label>
+                <label for="eventName">活動名稱</label>
                 <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="eventName"
+            
                 placeholder="淨灘活動"
                 v-model="eventName"
+                required
                 />
             </div>
             <div class="form-group" style="margin-top:2rem;">
-                <label for="exampleInputEmail1">上傳圖片</label>
+                <label >上傳圖片</label>
                 <div class="col-md-12">
                     <UploadImages   @change="handleImages" uploadMsg="請上傳活動圖片" :max="1"/>
                 </div>
             </div>
             
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">活動地點</label>
+                <label for="location">活動地點</label>
                 <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="location"
+                
                 placeholder="台北"
                 v-model="location"
+                required
                 />
             </div>
             <div class="form-group" style="margin-top:1rem;">
                 <div>
-                    <label for="exampleInputEmail1">活動類型 </label>
+                    <label >活動類型 </label>
                 </div>
                 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox1" value="1" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox1" :value="1" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(1) === -1" number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox1">婦幼關懷</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox2" value="2" v-model="eventLabel" >
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox2" :value="2"
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(2) === -1" number v-model="eventLabel" >
                     <label class="form-check-label" for="inlineCheckbox2">身心障礙</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox3" value="3" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox3" :value="3" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(3) === -1"  number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox3">老人服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox4" value="4" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox4" :value="4" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(4) === -1"  number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox4">社會服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox5" value="5" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox5" :value="5" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(5) === -1" number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox5">動物保護</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox6" value="6" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox6" :value="6" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(6) === -1" number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox6">國際救援</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox7" value="7" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox7" :value="7" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(7) === -1"   number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox7">環境保護</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox8" value="8" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox8" :value="8" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(8) === -1" number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox8">文教藝術</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox9" value="9" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox9" :value="9" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(9) === -1"  number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox9">醫療服務</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox10" value="10"  v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox10" :value="10"  
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(10) === -1" number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox10">宗教信仰</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox11" value="11" v-model="eventLabel">
+                    <input class="form-check-input typeCheck" type="checkbox" id="inlineCheckbox11" :value="11" 
+                    :disabled="eventLabel.length > 2 && eventLabel.indexOf(11) === -1" number v-model="eventLabel">
                     <label class="form-check-label" for="inlineCheckbox11">其他</label>
                 </div>
             </div>
@@ -111,86 +124,93 @@
                 
                     <div class="form-inline ">
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" >開始日期</label>
+                            <label for="startDate" >開始日期</label>
                             <input 
-                                type="email"
+                                type="date"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="startDate"
+                               
                                 placeholder="2021-12-21"
                                 v-model="startDate"
+                                required
                             />
                         </div>
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" class="ml-xl-2" >結束日期</label>
+                            <label for="endDate" class="ml-xl-2" >結束日期</label>
                             <input 
-                                type="email"
+                                type="date"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="endDate"
+                        
                                 placeholder="2021-12-21"
                                 v-model="endDate"
+                                required
                             />
                         </div>
                     </div>
                       <div class="form-inline ">
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" >開始時間</label>
+                            <label for="startTime" >開始時間</label>
                             <input 
-                                type="email"
+                                type="time"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="startTime"
+                                
                                 placeholder="8:00"
                                 v-model="startTime"
+                                required
                             />
                         </div>
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" class="ml-xl-2" >結束時間</label>
+                            <label for="endTime" class="ml-xl-2" >結束時間</label>
                             <input 
-                                type="email"
+                                type="time"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="endTime"
+                             
                                 placeholder="13:00"
                                 v-model="endTime"
+                                required
                             />
                         </div>
                     </div>
                     <div class="form-group ">
-                            <label for="exampleInputEmail1">服務時數(小時)</label>
+                            <label for="serviceHours">服務時數(小時)</label>
                             <input
-                            type="email"
+                            type="number"
                             class="form-control "
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
+                            id="serviceHours"
+                        
                             placeholder="20"
                             v-model="serviceHours"
+                          
                             />
                     </div>
                 </div>
                 <div v-if="eventType=='3'"  >
                     <div class="form-inline ">
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" >開始日期</label>
+                            <label for="startDate" >開始日期</label>
                             <input 
-                                type="email"
+                                type="date"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="startDate"
+                         
                                 placeholder="2021-12-21"
                                 v-model="startDate"
+                                required
                             />
                         </div>
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" class="ml-xl-2" >結束日期</label>
+                            <label for="endDate" class="ml-xl-2" >結束日期</label>
                             <input 
-                                type="email"
+                                type="date"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="endDate"
+                          
                                 placeholder="2021-12-21"
                                 v-model="endDate"
+                                required
                             />
                         </div>
                     </div>
@@ -234,47 +254,47 @@
                     </div>
                 
                     <div class="form-group" style="margin-top:1rem;">
-                        <label for="exampleInputEmail1">活動頻率(重複間隔：___週)</label>
+                        <label for="freqency">活動頻率(重複間隔：___週)</label>
                         <input
-                        type="email"
+                        type="number"
                         class="form-control"
-                        id="exampleInputEmail1"
-                        aria-describedby="emailHelp"
+                        id="freqency"
+                      
                         placeholder="1"
                         v-model="freqency"
                         />
                     </div>
                     <div class="form-inline ">
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" >開始時間</label>
+                            <label for="startTime" >開始時間</label>
                             <input 
-                                type="email"
+                                type="time"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="startTime"
+                             
                                 placeholder="9:00"
                                 v-model="startTime"
                             />
                         </div>
                         <div class="form-group mb-2">
-                            <label for="exampleInputEmail1" class="ml-xl-2" >結束時間</label>
+                            <label for="endTime" class="ml-xl-2" >結束時間</label>
                             <input 
-                                type="email"
+                                type="time"
                                 class="form-control ml-xl-2"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
+                                id="endTime"
+                           
                                 placeholder="12:00"
                                 v-model="endTime"
                             />
                         </div>
                     </div>
                     <div class="form-group  ">
-                            <label for="exampleInputEmail1">服務時數(小時)</label>
+                            <label for="serviceHours">服務時數(小時)</label>
                             <input
-                            type="email"
+                            type="number"
                             class="form-control "
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
+                            id="serviceHours"
+                        
                             placeholder="20"
                             v-model="serviceHours"
                             />
@@ -284,42 +304,42 @@
             </div>
     
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">聯絡人</label>
+                <label for="contactPerson">聯絡人</label>
                 <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="contactPerson"
+
                 placeholder="王小明"
                 v-model="contactPerson"
                 />
             </div>
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">聯絡電話</label>
+                <label for="contactNumber">聯絡電話</label>
                 <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="contactNumber"
                 placeholder="0912123123"
                 v-model="contactNumber"
+                
                 />
             </div>
             
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">是否提供服務證明？</label>
+                <label for="certification">是否提供服務證明？</label>
                 <select class="custom-select" v-model="certification">
                     <option selected value="True">是</option>
                     <option value="False">否</option>
                 </select>
             </div>
             <div class="form-group" style="margin-top:1rem;">
-                <label  for="exampleInputEmail1"
+                <label  for="details"
                 >詳細活動資訊</label
                 >
                 <textarea
                 class="form-control"
-                id="exampleFormControlTextarea1"
+                id="details"
                 rows="6"
                 v-model="details"
                 ></textarea>
@@ -386,13 +406,14 @@ export default {
         $('.typeCheck').on('change', function(evt) {
         if($(this).siblings(':checked').length >= limit) {
             this.checked = false;
+            console.log("up up  up ");
         }
         });
   },
   methods: {
     sendform(){
         var t = this;
-        console.log("send send send send send send");
+        console.log("send send send send send send", t.endTime, t.endDate);
         if(t.eventType==="1"){
             var sendStartTime = t.startDate+" "+t.startTime;
             var sendEndTime = t.endDate+" "+t.endTime;
@@ -505,7 +526,7 @@ export default {
                 }
             );
         }
-        console.log("send send send send send send");
+        // console.log("send send send send send send");
         
         
     },
