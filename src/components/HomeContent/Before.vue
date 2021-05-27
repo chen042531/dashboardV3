@@ -267,46 +267,46 @@
           </div>
           <div  class="modal-body" >
             <div class="form-group" style="margin-top:2rem;">
-                <label for="exampleInputEmail1">活動名稱</label>
+                <label for="tmp_eventName">活動名稱</label>
                 <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="tmp_eventName"
+               
              
                 v-model="tmp_eventName"
                 />
             </div>
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">聯絡人</label>
+                <label for="tmp_contactPerson">聯絡人</label>
                 <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="tmp_contactPerson"
+             
               
                 v-model="tmp_contactPerson"
                 />
             </div>
             <div class="form-group" style="margin-top:1rem;">
-                <label for="exampleInputEmail1">聯絡電話</label>
+                <label for="tmp_contactNumber">聯絡電話</label>
                 <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="tmp_contactNumber"
+               
                
                 v-model="tmp_contactNumber"
                 />
                 
             </div>
             <div class="form-group" style="margin-top:1rem;">
-                <label  for="exampleInputEmail1"
+                <label  for="tmp_details"
                 >詳細活動資訊</label
                 >
                 <textarea
                 class="form-control"
-                id="exampleFormControlTextarea1"
+                id="tmp_details"
                 rows="6"
                 v-model="tmp_details"
                 ></textarea>
