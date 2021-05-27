@@ -14,7 +14,7 @@
         <!-- <span style="color: #888888;
           font-size: large;">{{startTime}} {{endTime}}</span> -->
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2" v-if="note == 'none'">
+          <div class="btn-group me-2" >
             <button v-if="status!=2" type="button" class="btn btn-sm btn-outline-secondary" 
                 v-on:click="delete_event()">刪除活動</button>
             <button v-if="status!=2" type="button" class="btn btn-sm btn-outline-secondary" 
