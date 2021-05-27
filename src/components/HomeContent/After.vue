@@ -704,6 +704,7 @@ export default {
       //add title of each column
       var header_row = [];
       header_row.push(new docx.TableCell({
+        width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
         children: [new docx.Paragraph({
           text: "編號",
           heading: docx.HeadingLevel.HEADING_6,
@@ -715,7 +716,31 @@ export default {
         if(prop=="uid"){
           continue
         }
+
+        
+          if(prop=="name"){
+            prop="姓名";
+          }
+          if(prop=="gender"){
+            prop="性別";
+          }
+       
+          if(prop=="birth"){
+            prop="生日";
+          }
+      
+          if(prop=="phone"){
+            prop="電話";
+          }
+        
+          if(prop=="email"){
+            prop="信箱";
+          }
+          if(prop=="time"){
+            prop="服務時數";
+          }
         header_row.push(new docx.TableCell({
+          width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: prop,
             heading: docx.HeadingLevel.HEADING_6,
@@ -740,6 +765,7 @@ export default {
 
         //編號
         row.push(new docx.TableCell({
+          width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: (row_n + 1) + "",
             alignment: docx.AlignmentType.CENTER,
@@ -753,11 +779,12 @@ export default {
           if(prop=="uid"){
             continue
           }
-         
+
           //要特別處理變成string才寫得進去   這library的text 只吃string
           if(prop=="time"){
             console.log("time time",n_row[prop]);
             row.push(new docx.TableCell({
+              width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
               children: [new docx.Paragraph({
                 text: (n_row[prop]+""),
                 alignment: docx.AlignmentType.CENTER,
@@ -766,6 +793,7 @@ export default {
             continue
           }
           row.push(new docx.TableCell({
+            width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
             children: [new docx.Paragraph({
               text: n_row[prop],
               alignment: docx.AlignmentType.CENTER,
@@ -811,6 +839,12 @@ export default {
                               text: description,
                               alignment: docx.AlignmentType.CENTER,
                           }),
+
+                          new docx.Paragraph({
+                              text: " ",
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+
                           tables,
                       ],
                       footers: {

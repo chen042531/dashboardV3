@@ -767,6 +767,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       var header_row = [];
       var header_row2 = [];
       header_row.push(new docx.TableCell({
+         width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
         children: [new docx.Paragraph({
           text: "編號",
           heading: docx.HeadingLevel.HEADING_6,
@@ -774,6 +775,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         })],
       }));
       header_row2.push(new docx.TableCell({
+         width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
         children: [new docx.Paragraph({
           text: "編號",
           heading: docx.HeadingLevel.HEADING_6,
@@ -799,7 +801,26 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           if(prop=="userServiceTime"){
             continue
           }
+          if(prop=="userName"){
+            prop="姓名";
+          }
+          if(prop=="userGender"){
+            prop="性別";
+          }
+       
+          if(prop=="userBirthday"){
+            prop="生日";
+          }
+      
+          if(prop=="userPhone"){
+            prop="電話";
+          }
+        
+          if(prop=="userEmail"){
+            prop="信箱";
+          }
         header_row.push(new docx.TableCell({
+           width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: prop,
             heading: docx.HeadingLevel.HEADING_6,
@@ -823,7 +844,28 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           if(prop=="userServiceTime"){
             continue
           }
+
+          if(prop=="userName"){
+            prop="姓名";
+          }
+          if(prop=="userGender"){
+            prop="性別";
+          }
+       
+          if(prop=="userBirthday"){
+            prop="生日";
+          }
+      
+          if(prop=="userPhone"){
+            prop="電話";
+          }
+        
+          if(prop=="userEmail"){
+            prop="信箱";
+          }
+   
         header_row2.push(new docx.TableCell({
+          width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: prop,
             heading: docx.HeadingLevel.HEADING_6,
@@ -833,6 +875,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       }
 
       header_row.push(new docx.TableCell({
+         width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
         children: [new docx.Paragraph({
           text: "點名",
           heading: docx.HeadingLevel.HEADING_6,
@@ -840,6 +883,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         })],
       }));
       header_row2.push(new docx.TableCell({
+         width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
         children: [new docx.Paragraph({
           text: "點名",
           heading: docx.HeadingLevel.HEADING_6,
@@ -858,6 +902,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
 
 
         row.push(new docx.TableCell({
+           width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: (row_n + 1) + "",
             alignment: docx.AlignmentType.CENTER,
@@ -882,6 +927,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
             continue
           }
           row.push(new docx.TableCell({
+             width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
             children: [new docx.Paragraph({
               text: n_row[prop],
               alignment: docx.AlignmentType.CENTER,
@@ -890,6 +936,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           console.log(n_row[prop]);
         }
         row.push(new docx.TableCell({
+           width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: "        ",
           })],
@@ -904,6 +951,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
 
 
         row.push(new docx.TableCell({
+           width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: (row_n + 1) + "",
             alignment: docx.AlignmentType.CENTER,
@@ -928,6 +976,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
             continue
           }
           row.push(new docx.TableCell({
+             width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
             children: [new docx.Paragraph({
               text: n_row[prop],
               alignment: docx.AlignmentType.CENTER,
@@ -936,6 +985,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           console.log(n_row[prop]);
         }
         row.push(new docx.TableCell({
+           width: { size: 100 / 7, type: docx.WidthType.PERCENTAGE },
           children: [new docx.Paragraph({
             text: "        ",
           })],
@@ -977,7 +1027,31 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
                               text: description,
                               alignment: docx.AlignmentType.CENTER,
                           }),
+                          
+                          new docx.Paragraph({
+                              text: " ",
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+
+                          new docx.Paragraph({
+                              text: "已報名表單",
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
                           table1,
+
+                          new docx.Paragraph({
+                              text: " ",
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+                          new docx.Paragraph({
+                              text: " ",
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+
+                          new docx.Paragraph({
+                              text: "已取消報名表單",
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
                           table2,
                       ],
                       footers: {
@@ -997,8 +1071,9 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
                               ],
                           }),
                       },
-                  }
+                  },
               ]
+              
           });
 
           docx.Packer.toBlob(doc).then((blob) => {
