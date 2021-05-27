@@ -755,8 +755,10 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       console.log( this.appliers);
       // this.g_test();
       var table = [];
+      var table2 = [];
       //add title of each column
       var header_row = [];
+      var header_row2 = [];
       header_row.push(new docx.TableCell({
         children: [new docx.Paragraph({
           text: "編號",
@@ -764,7 +766,16 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           alignment: docx.AlignmentType.CENTER,
         })],
       }));
-      var all_applier = this.appliers.concat(this.canceled_appliers);
+      header_row2.push(new docx.TableCell({
+        children: [new docx.Paragraph({
+          text: "編號",
+          heading: docx.HeadingLevel.HEADING_6,
+          alignment: docx.AlignmentType.CENTER,
+        })],
+      }));
+      // var all_applier = this.appliers.concat(this.canceled_appliers);
+      var all_applier = this.appliers;
+      var all_canceled_appliers = this.canceled_appliers;
       for (var prop in all_applier[0]) {
          if(prop=="defaultServiceTime"){
             continue
@@ -789,6 +800,30 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           })],
         }));
       }
+      for (var prop in all_canceled_appliers[0]) {
+         if(prop=="defaultServiceTime"){
+            continue
+          }
+          if(prop=="status"){
+            continue
+          }
+          if(prop=="uid"){
+            continue
+          }
+          if(prop=="userOther"){
+            continue
+          }
+          if(prop=="userServiceTime"){
+            continue
+          }
+        header_row2.push(new docx.TableCell({
+          children: [new docx.Paragraph({
+            text: prop,
+            heading: docx.HeadingLevel.HEADING_6,
+            alignment: docx.AlignmentType.CENTER,
+          })],
+        }));
+      }
 
       header_row.push(new docx.TableCell({
         children: [new docx.Paragraph({
@@ -797,11 +832,20 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
           alignment: docx.AlignmentType.CENTER,
         })],
       }));
+      header_row2.push(new docx.TableCell({
+        children: [new docx.Paragraph({
+          text: "點名",
+          heading: docx.HeadingLevel.HEADING_6,
+          alignment: docx.AlignmentType.CENTER,
+        })],
+      }));
       table.push(new docx.TableRow({ children: header_row }));
+      table2.push(new docx.TableRow({ children: header_row2 }));
       // console.log(table);
-      for (var row_n = 0; row_n < all_applier.length; row_n++) {
+     
+      for (var row_n = 0; row_n < all_canceled_appliers.length; row_n++) {
         // console.log("ff", applicants_data.applicants[row_n]);
-        var n_row = all_applier[row_n];
+        var n_row = all_canceled_appliers[row_n];
         var row = [];
 
 
@@ -842,7 +886,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
             text: "        ",
           })],
         }));
-        table.push(new docx.TableRow({ children: row }));
+        table2.push(new docx.TableRow({ children: row }));
         // console.log(table);
       }
 
@@ -852,10 +896,62 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
         alignment: docx.AlignmentType.CENTER,
       });
 
+      var t_table2 = new docx.Table({
+        rows: table2,
+        alignment: docx.AlignmentType.CENTER,
+      });
       // tables = t_table;
       console.log(t_table);
-      this.generate(this.eventName, this.details,t_table);
+      this.generate(this.eventName, this.details,t_table, t_table2);
       
+    },
+    generate: function (title, description, table1, table2) {
+          const doc = new docx.Document({
+
+              sections: [
+                  {
+
+                      children: [
+
+                          new docx.Paragraph({
+                              text: title,
+                              heading: docx.HeadingLevel.HEADING_1,
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+
+                          new docx.Paragraph({
+                              text: description,
+                              alignment: docx.AlignmentType.CENTER,
+                          }),
+                          table1,
+                          table2,
+                      ],
+                      footers: {
+                          default: new docx.Footer({
+                              children: [
+                                  new docx.Paragraph({
+                                      alignment: docx.AlignmentType.CENTER,
+                                      children: [
+                                          new docx.TextRun({
+                                              children: ["Page ", docx.PageNumber.CURRENT],
+                                          }),
+                                          new docx.TextRun({
+                                              children: [" to ", docx.PageNumber.TOTAL_PAGES],
+                                          }),
+                                      ],
+                                  }),
+                              ],
+                          }),
+                      },
+                  }
+              ]
+          });
+
+          docx.Packer.toBlob(doc).then((blob) => {
+              console.log(blob);
+              saveAs(blob, this.eventName+".docx");
+              console.log("Document created successfully");
+          });
     },
     download_csv: function(){
       console.log("download_csv");
@@ -963,53 +1059,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       }
       return str;
     },
-    generate: function (title, description, tables) {
-          const doc = new docx.Document({
-
-              sections: [
-                  {
-
-                      children: [
-
-                          new docx.Paragraph({
-                              text: title,
-                              heading: docx.HeadingLevel.HEADING_1,
-                              alignment: docx.AlignmentType.CENTER,
-                          }),
-
-                          new docx.Paragraph({
-                              text: description,
-                              alignment: docx.AlignmentType.CENTER,
-                          }),
-                          tables,
-                      ],
-                      footers: {
-                          default: new docx.Footer({
-                              children: [
-                                  new docx.Paragraph({
-                                      alignment: docx.AlignmentType.CENTER,
-                                      children: [
-                                          new docx.TextRun({
-                                              children: ["Page ", docx.PageNumber.CURRENT],
-                                          }),
-                                          new docx.TextRun({
-                                              children: [" to ", docx.PageNumber.TOTAL_PAGES],
-                                          }),
-                                      ],
-                                  }),
-                              ],
-                          }),
-                      },
-                  }
-              ]
-          });
-
-          docx.Packer.toBlob(doc).then((blob) => {
-              console.log(blob);
-              saveAs(blob, this.eventName+".docx");
-              console.log("Document created successfully");
-          });
-    },
+    
    
     
     
