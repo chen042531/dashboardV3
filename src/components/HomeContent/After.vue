@@ -120,7 +120,7 @@
                     </div>
                 </div>
             <br/>                 
-            <p>編輯截止時間 {{edit_end_time}}</p>
+            <p v-if="sendTimeStatus!=1">編輯截止時間 {{edit_end_time}}</p>
             <br/> 
               <div class="table-responsive">
                 <table class="table table-striped table-sm">
@@ -145,7 +145,7 @@
                       <td>{{ applicant.email }}</td> 
             
                       <td>
-                        <div class="input-group" v-if="sendTimeStatus==1">
+                        <div class="input-group" v-if="sendTimeStatus!=1">
                           <span class="input-group-btn">
                               <button type="button" class="btn btn-danger btn-number"  v-on:click="setMinus(i)" data-type="minus" data-field="quant[2]">
                                 <span class="glyphicon glyphicon-minus">-</span>
@@ -164,9 +164,9 @@
                 </table>
                 
               </div>
-              <p>編輯截止時間 {{edit_end_time}}</p>
-              <p style="color:red">在編輯截止時間前您都可以再次編輯參加者服務時數</p>
-              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==1" v-on:click="sendAppliersTime()">編輯參加者服務時數</button>
+              <p v-if="sendTimeStatus!=1">編輯截止時間 {{edit_end_time}}</p>
+              <p v-if="sendTimeStatus!=1" style="color:red">在編輯截止時間前您都可以再次編輯參加者服務時數</p>
+              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus!=1" v-on:click="sendAppliersTime()">編輯參加者服務時數</button>
             </div>
         </div>
         </div>
