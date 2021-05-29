@@ -196,7 +196,7 @@
               <i class="bi bi-x"></i>
             </button> -->
           </div>
-          <div class="modal-body" >
+          <div class="modal-body"  id="del_applier">
             <!-- {{applicants}} -->
           </div>
           <div class="modal-footer">
@@ -681,6 +681,8 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
               $('#confirm_delete_event').modal('hide');
               t.status = 2;
               t.note = t.why;
+              t.bulletinboard = "";
+              t.why = "";
               t.$emit("updateSidebar");
             }
             // else{
@@ -750,7 +752,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       var appliers_delete_index = i;
       console.log("this.appliers[i]   ", this.appliers[i]);
       $('#confirm_delete_applicant').modal('show');
-      $('.modal-body').html("<span>確定要刪除" +
+      $('#del_applier').html("<span>確定要刪除 " +
         this.appliers[i].userName + " " +
         this.appliers[i].userGender + " " +
         this.appliers[i].userBirthday + "\n " +
