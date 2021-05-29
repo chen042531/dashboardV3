@@ -45,11 +45,11 @@
                 
                 ></textarea>
             </div>
-           <button class="btn btn-primary" 
+           
+        </form>
+    <button class="btn btn-primary" 
     style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
     padding-left: 3rem;padding-right: 3rem;" v-on:click="sendNews()">送出公告</button>
-        </form>
-        
 
 
     <!-- 已成功發布公告 -->
@@ -125,8 +125,8 @@ export default {
                     { charityID: t.charity_id, eventType:t.event_item.eventType, 
                     eventID:t.event_item.eventID, sid:t.subEventId,visibility:t.see, content:t.detail},
                     function (addNews_data) {
-                        console.log(addNews_data);
-                        if(t.addNews_data.status == 0){
+                        console.log("dddd",addNews_data);
+                        if(addNews_data.status == 0){
                             t.sendNewsSuccess = 0; //success
                             t.see = "";
                             t.detail = "";
