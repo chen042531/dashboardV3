@@ -127,7 +127,7 @@
                     </div>
                 </div>
             <br/>                 
-            <p v-if="sendTimeStatus==0">編輯截止時間 {{edit_end_time}}</p>
+            <p v-if="sendTimeStatus!=1">編輯截止時間 {{edit_end_time}}</p>
             <br/> 
               <div class="table-responsive">
                 <table class="table table-striped table-sm">
@@ -155,7 +155,7 @@
                         <div  v-if="sendTimeStatus==1">
                           {{applicant.time}}
                         </div>
-                        <div class="input-group" v-if="sendTimeStatus==0">
+                        <div class="input-group" v-if="sendTimeStatus!=1">
                           <span class="input-group-btn">
                               <button type="button" class="btn btn-danger btn-number"  v-on:click="setMinus(i)" data-type="minus" data-field="quant[2]">
                                 <span class="glyphicon glyphicon-minus">-</span>
@@ -174,9 +174,9 @@
                 </table>
                 
               </div>
-              <p v-if="sendTimeStatus==0">編輯截止時間 {{edit_end_time}}</p>
-              <p v-if="sendTimeStatus==0" style="color:red">在編輯截止時間前您都可以再次編輯參加者服務時數</p>
-              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus==0" v-on:click="sendAppliersTime()">編輯參加者服務時數</button>
+              <p v-if="sendTimeStatus!=1">編輯截止時間 {{edit_end_time}}</p>
+              <p v-if="sendTimeStatus!=1" style="color:red">在編輯截止時間前您都可以再次編輯參加者服務時數</p>
+              <button type="button" class="btn btn-primary "  v-if="sendTimeStatus!=1" v-on:click="sendAppliersTime()">編輯參加者服務時數</button>
             </div>
         </div>
         </div>
@@ -298,8 +298,8 @@ export default {
                 hour = '0' + hour;
             if (minute.length < 2) 
                 minute = '0' + minute;  
-            t.edit_end_time = [year, month, day].join('-')+" "+ [hour, minute].join(':')   
-
+            // t.edit_end_time = [year, month, day].join('-')+" "+ [hour, minute].join(':')   
+            t.edit_end_time = [year, month, day].join('-')+" 00:00"
 
           t.charityName = getEventDetail_data.charityName;
           t.contactNumber = getEventDetail_data.contactNumber;
@@ -380,7 +380,7 @@ export default {
           hour = '0' + hour;
       if (minute.length < 2) 
           minute = '0' + minute;  
-      t.edit_end_time = [year, month, day].join('-')+" "+ [hour, minute].join(':')    
+      t.edit_end_time = [year, month, day].join('-')+" 00:00"   
     // console.log(d.getUTCHours()); // Hours
     // console.log(d.getUTCMinutes());
     // console.log(d.getUTCSeconds());
@@ -413,7 +413,7 @@ export default {
           t.note = getEventDetail_data.note;
           t.status = getEventDetail_data.status;
 
-          t.edit_end_time = t.endTime
+          // t.edit_end_time = t.endTime
           t.$forceUpdate()
         }
       );
@@ -484,7 +484,7 @@ export default {
           hour = '0' + hour;
       if (minute.length < 2) 
           minute = '0' + minute;  
-      t.edit_end_time = [year, month, day].join('-')+" "+ [hour, minute].join(':')    
+      t.edit_end_time = [year, month, day].join('-')+" 00:00"    
     // console.log(d.getUTCHours()); // Hours
     // console.log(d.getUTCMinutes());
     // console.log(d.getUTCSeconds());

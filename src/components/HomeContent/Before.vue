@@ -659,6 +659,9 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
       $('#confirm_stop_signing').modal('hide');
     },
     delete_event: function (i) {
+      var t = this;
+      t.bulletinboard = "";
+      t.why = "";
       $('#confirm_delete_event').modal('show');
     },
     confirm_delete: function () {
@@ -693,11 +696,17 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
 
       }else{
         $('#confirm_delete_event').modal('hide');
+        var t = this;
+        t.bulletinboard = "";
+        t.why = "";
       }
     
     },
     cancel_delete: function (i) {
+      var t = this;
       $('#confirm_stop_signing').modal('hide');
+      t.bulletinboard = "";
+        t.why = "";
     },
      confirm: function () {
       var t = this;
