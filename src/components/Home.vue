@@ -102,9 +102,10 @@
             </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <actnew v-if="home_content_flag==0"  :charity_id="charityId" v-on:updateSidebar="sidebarUpdate"></actnew>
+          <actnew v-if="home_content_flag==0"  :charity_id="charityId" v-on:updateSidebar="sidebarUpdate" ></actnew>
           <app-before v-if="home_content_flag==1" :charity_id="charityId" :event_id="event_Id" 
             :event_type="event_Type" :subid="subevent_Id" :substime="subevent_stime" :subetime="subevent_etime"
+            v-on:updateSidebar="sidebarUpdate"
             ></app-before>
 
           <app-after v-if="home_content_flag==2" :charity_id="charityId" :event_id="exp_event_Id" 

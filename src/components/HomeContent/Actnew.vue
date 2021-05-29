@@ -180,7 +180,7 @@
                     <div class="form-group ">
                             <label for="serviceHours">服務時數(小時)</label>
                             <input
-                            type="number"
+                            type="text"
                             class="form-control "
                             id="serviceHours"
                         

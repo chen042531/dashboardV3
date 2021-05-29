@@ -33,9 +33,15 @@
           <span style="color:#888888"> {{details}}</span>
         </div>
       </div>
-      <div v-if="note != 'none'">{{note}}</div>
-
-      <div class="row ">
+      <div class="row " v-if=" status==2">
+         <div class="col-sm-12">
+          <div  style="font-size: x-large;">取消活動的原因:</div>
+        </div>  
+        <div class="col-sm-12">
+          <div  style="font-size: large;">{{note}}</div>
+        </div> 
+      </div>
+      <div class="row " v-if=" status!=2">
         <div class="col-sm-12">
         <div class="card mt-2">
             <div class="card-body">
@@ -46,12 +52,12 @@
         </div>
         </div>
       </div>
-      <div class="row ">
+      <div class="row " v-if=" status!=2">
         <div class="col-sm-6">
         <div class="card mt-2">
             <div class="card-body">
             <h5 class="card-title" id="t1" data-placement="top"  data-toggle="tooltip"
-                 title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">性別比</h5>
+                 title="">性別比</h5>
                   <div>
                     <GenderRate :gender_r="gender" :width="400" :height="200" ></GenderRate>
                   </div>
@@ -66,19 +72,19 @@
           <div class="card mt-2">
             <div class="card-body">
             <h5 class="card-title " id="t2" data-placement="top"  data-toggle="tooltip" 
-                  title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者得知活動的管道</h5>
+                  title="">參加者得知活動的管道</h5>
               <Source :source_s="source" :width="400" :height="200"/>
               <!-- <canvas id="info_source" width="400" height="200"></canvas> -->
             </div>
           </div>
         </div>
       </div>
-      <div class="row ">
+      <div class="row " v-if=" status!=2">
           <div class="col-sm-12">
       
             <div class="card mt-2" >
               <div class="card-body">
-              <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">參加者平均評分</h5>
+              <h5 class="card-title" id="t3" data-placement="top"  data-toggle="tooltip" title="">參加者平均評分</h5>
            
                 <!-- <div id="star_container"></div> -->
                 <Star :star="avg_score" style="text-align:center"></Star>
@@ -89,7 +95,7 @@
           <div class="col-sm-6">
             <div class="card mt-2">
                 <div class="card-body">
-                <h5 class="card-title" id="t4" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">實際報名人數</h5>
+                <h5 class="card-title" id="t4" data-placement="top"  data-toggle="tooltip" title="">實際報名人數</h5>
                 <h1 style="font-weight:bold; font-size: xx-large;
                 text-align: center;" id="count">{{registration_num}}</h1>
                 </div>
@@ -98,14 +104,15 @@
           <div class="col-sm-6">
             <div class="card mt-2">
               <div class="card-body">
-              <h5 class="card-title" id="t5" data-placement="top"  data-toggle="tooltip" title="akfnljnflnjandnaklfasdfasfasdfsjalnfjkasnlnfjanflnflaajnlfnal">實際報到率</h5>
+              <h5 class="card-title" id="t5" data-placement="top"  data-toggle="tooltip" title="">實際報到率</h5>
               <h1 style="font-weight:bold; font-size: xx-large;
               text-align: center;" id="participate">{{registration_rate}}%</h1>
               </div>
             </div>
           </div>
       </div> 
-       <div class="row ">
+
+       <div class="row " v-if=" status!=2">
         <div class="col-sm-12">
         <div class="card mt-2 " id="applicants_info_time">
             <div class="card-body text-center" >

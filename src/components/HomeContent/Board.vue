@@ -1,10 +1,10 @@
 <template>
      <div >
        
-        <form action="" id="form2">
-            <div class="form-group" style="margin-top:2rem;">
+        <form action="">
+            <!-- <div class="form-group" style="margin-top:2rem;">
                 
-            </div>
+            </div> -->
             <div class="form-group" style="margin-top:1rem;">
                 <label for="selectevent">請選擇活動名稱</label>
                 <select class="custom-select" v-model="event_item"  @change="onChange($event)">
@@ -37,17 +37,19 @@
                 >公告內文</label
                 >
                 <textarea
+                required
                 class="form-control"
                 id="txtcontext"
                 rows="6"
                 v-model="detail"
+                
                 ></textarea>
             </div>
-           
-        </form>
-        <button class="btn btn-primary" 
+           <button class="btn btn-primary" 
     style="margin-top:1rem;margin-left: 50%;transform: translateX(-50%);
     padding-left: 3rem;padding-right: 3rem;" v-on:click="sendNews()">送出公告</button>
+        </form>
+        
 
 
     <!-- 已成功發布公告 -->
@@ -58,9 +60,9 @@
             <h5 v-if="sendNewsSuccess==0" class="modal-title" id="exampleModalLabel">
               已成功發布 {{event_item.eventName}} 的公告
             </h5>
-            <!-- <h5 v-if="wait_server==1" class="modal-title" id="exampleModalLabel">
-              發布中...
-            </h5> -->
+            <h5 v-if="detail_empty_flag==1 " class="modal-title" id="exampleModalLabel">
+              請填寫公告內文
+            </h5>
             <h5 v-if="sendNewsSuccess==1" class="modal-title" id="exampleModalLabel">
               發布失敗
             </h5>
@@ -85,11 +87,14 @@ export default {
     data () {
         return{
             eventId:"",
-            subEventId:"",
+            subEventId:"0",
             event_item:{},
             see:"",
             detail:"",
             sendNewsSuccess: 0,
+
+            detail_empty_flag:0,
+            detail_before_sent:"",
         }
     },
     methods: {
@@ -102,24 +107,40 @@ export default {
             //    t.wait_server =  3;
             // }
             // t.wait_server = 1; //wait
+            console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",t.subEventId);
+            // if(t.subEventId = ""){
+            //     t.subEventId = 0;
+            //     console.log(t.subEventId);
+            // }
+            t.detail_before_sent = t.detail;
              $('#addNews_success').modal('show');
-             $.post(
-                G_.webURL+"addNews/",
-                { charityID: t.charity_id, eventType:t.event_item.eventType, 
-                  eventID:t.event_item.eventID, sid:t.subEventId,visibility:t.see, content:t.detail},
-                function (addNews_data) {
-                    console.log(addNews_data);
-                    if(addNews_data.status == 0){
-                        t.sendNewsSuccess = 0; //success
-                        t.see = "";
-                        t.detail = "";
-                    }else{
-                        t.sendNewsSuccess = 1; //fail
+             if(t.detail_before_sent==""){
+                 console.log("@@@@@@@@@@@@@gggg");
+                 t.detail_empty_flag = 1;
+                 t.sendNewsSuccess = 9;
+             }else{
+                 t.detail_empty_flag = 0;
+                 $.post(
+                    G_.webURL+"addNews/",
+                    { charityID: t.charity_id, eventType:t.event_item.eventType, 
+                    eventID:t.event_item.eventID, sid:t.subEventId,visibility:t.see, content:t.detail},
+                    function (addNews_data) {
+                        console.log(addNews_data);
+                        if(t.addNews_data.status == 0){
+                            t.sendNewsSuccess = 0; //success
+                            t.see = "";
+                            t.detail = "";
+                            
+                        }else{
+                            t.sendNewsSuccess = 1; //fail
+                        }
+                        
+                        
                     }
-                    
-                    
-                }
-            );
+                );
+             }
+             
+             
         },
         onChange(event) {
             console.log(event.target.value);

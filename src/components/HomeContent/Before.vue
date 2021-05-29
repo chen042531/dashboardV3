@@ -681,6 +681,7 @@ console.log("dddgsdsg",t.charity_id,t.event_type,t.event_id, t.subid,t.details);
               $('#confirm_delete_event').modal('hide');
               t.status = 2;
               t.note = t.why;
+              t.$emit("updateSidebar");
             }
             // else{
             //   t.event_canceled_state = 11;
