@@ -508,26 +508,35 @@ export default {
                         console.log("iiiiiiiiiii",addEvent_data);
                         if (addEvent_data.status==0){
                             t.add_success = 0;
-                            t.eventType = false;
-                            t.eventName = "";
-                            sendStartTime = ""; 
-                            t.startDate = "";
-                            t.startTime = "";
-                            t.endTime = "";
-                            t.startTime = "";
-                            t.serviceHours = "";
-                            t.time = "";
-                            t.eventLabel = "";
-                            t.contactPerson = "";
-                            t.contactNumber = "";
-                            t.location = "";
-                            t.details = "";
-                            t.image = "";
-                            t.certification = "";
-                            t.freqency = "";
-                        }else{
+                            
+                            
+                        }else if (addEvent_data.status==1){
                             t.add_success = 1;
+                        }else if (addEvent_data.status==3){
+                            t.add_success = 3;
+                        }else if (addEvent_data.status==4){
+                            t.add_success = 4;
                         }
+                        t.eventType = false;
+                        t.eventName = "";
+                        sendStartTime = ""; 
+                        t.startDate = "";
+                        t.endDate = "";
+                        t.startTime = "";
+                        t.endTime = "";
+                        t.startTime = "";
+                        t.serviceHours = "";
+                        t.time = "";
+                        t.eventLabel = "";
+                        t.contactPerson = "";
+                        t.contactNumber = "";
+                        t.location = "";
+                        t.details = "";
+                        t.image = "";
+                        t.certification = "";
+                        t.freqency = "";
+                        t.eventLabel =[];
+                        t.event_label_flag=0;
                         $('#confirm_add_event').modal('show');
                         t.$emit("updateSidebar");
                     
@@ -577,26 +586,36 @@ export default {
                         console.log("iiiiiiiiiii",addEvent_data);
                         if (addEvent_data.status==0){
                             t.add_success = 0;
-                            t.eventType = false;
-                            t.eventName = "";
-                            sendStartTime = ""; 
-                            t.startDate = "";
-                            t.startTime = "";
-                            t.endTime = "";
-                            t.startTime = "";
-                            t.serviceHours = "";
-                            t.time = "";
-                            t.eventLabel = "";
-                            t.contactPerson = "";
-                            t.contactNumber = "";
-                            t.location = "";
-                            t.details = "";
-                            t.image = "";
-                            t.certification = "";
-                            t.freqency = "";
-                        }else{
+                            
+                        }else if (addEvent_data.status==1){
                             t.add_success = 1;
+                        }else if (addEvent_data.status==3){
+                            t.add_success = 3;
+                        }else if (addEvent_data.status==4){
+                            t.add_success = 4;
                         }
+                        t.eventType = false;
+                        t.eventName = "";
+                        sendStartTime = ""; 
+                        t.startDate = "";
+                        t.endDate = "";
+                        t.startTime = "";
+                        t.endTime = "";
+                        t.startTime = "";
+                        t.serviceHours = "";
+                        t.time = "";
+                        t.eventLabel = "";
+                        t.contactPerson = "";
+                        t.contactNumber = "";
+                        t.location = "";
+                        t.details = "";
+                        t.image = "";
+                        t.certification = "";
+                        t.freqency = "";
+                        
+                        t.eventLabel =[];
+                        t.event_label_flag=0;
+
                         $('#confirm_add_event').modal('show');
                         t.$emit("updateSidebar");
                     }
