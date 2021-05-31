@@ -283,7 +283,7 @@ export default {
           t.startTime = getEventDetail_data.startTime;
           t.endTime = getEventDetail_data.endTime;
            var d = new Date(t.end_timestamp);
-            d.setDate(d.getDate() + 3);
+            d.setDate(d.getDate() + 7);
             let month = '' + (d.getMonth() + 1);
             let day = '' + d.getDate();
             let year = d.getFullYear();
@@ -365,7 +365,7 @@ export default {
       var t = this;
       // console.log('ddddddddddddd',t.end_timestamp);
       var d = new Date(t.end_timestamp);
-      d.setDate(d.getDate() + 3);
+      d.setDate(d.getDate() + 7);
       let month = '' + (d.getMonth() + 1);
       let day = '' + d.getDate();
       let year = d.getFullYear();
@@ -469,7 +469,7 @@ export default {
       var t = this;
       // console.log('ddddddddddddd',t.end_timestamp);
       var d = new Date(t.end_timestamp);
-      d.setDate(d.getDate() + 3);
+      d.setDate(d.getDate() + 7);
       let month = '' + (d.getMonth() + 1);
       let day = '' + d.getDate();
       let year = d.getFullYear();
